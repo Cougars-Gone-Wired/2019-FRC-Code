@@ -26,7 +26,7 @@ public class CargoManip {
         INTAKING, OUTTAKING, NOT_MOVING
     }
 
-    /*public enum LimitSwitchStates {
+    /*public enum LimitSwitchStates { 
         TOP_LIMIT, BOTTOM_LIMIT, CARGO_SHIP, AT_ROCKET, NO_SWITCH
     }*/
 
