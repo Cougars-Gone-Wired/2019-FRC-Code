@@ -541,6 +541,6 @@ public class CargoManip {
                     armState = ArmStates.AT_ROCKET;
                 }
             }
-        }
+        } 
     }*/ 
 }
