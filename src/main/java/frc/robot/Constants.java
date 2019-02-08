@@ -2,7 +2,7 @@ package frc.robot;
 
 public class Constants {
 
-	//manipulator
+//Manipulator
 	static final int MANIPULATOR_CONTROLLER_PORT = 1;
     static final int HATCH_ARM_AXIS = 1;
     static final int HATCH_ARM_SCHEME_BUTTON = 6;
@@ -16,9 +16,13 @@ public class Constants {
     static final double HATCH_ARM_GRAB_SPEED = 0.2;
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.8;
+
+	//Lift Moto Ports
+	static final int LIFT_MOTO_FRONT_ID = 0;
+	static final int LIFT_MOTO_BACK_ID = 1;
 	
 
-	//mobility
+//Mobility
 	static final int MOBILITY_CONTROLLER_PORT = 0;
 
 	static final int DRIVE_SPEED_AXIS = 1;
@@ -41,5 +45,11 @@ public class Constants {
 
 	static final int HATCH_ULTRASONIC_SENSOR_PORT = 1;
 	static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
+
+//Lift
+    //Other
+    static final double LIFT_SPEED_AND_REVERSE_FACTOR = 1; //Make -1 to reverse
+    //Buttons
+    static final int LIFT_TOGGLER_BUTTON = 3;
 	
 }

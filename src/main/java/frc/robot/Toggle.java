@@ -45,5 +45,9 @@ public class Toggle {
         else {
             state = false;
         }
-    }
+	}
+	
+	public void setOutput(boolean state){
+		this.state = state;
+	}
 }

@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,6 +27,10 @@ public class Robot extends TimedRobot {
   private HatchArm hatchArm;
   private Logging logging;
   private Ultrasonic hatchUltrasonic;
+  
+  //Lift code
+  private Lift lift;
+  private Joystick manipulatorStick;
 
 
   
@@ -42,6 +47,7 @@ public class Robot extends TimedRobot {
     logging = new Logging(this);  
     cameras = new Cameras();
     hatchUltrasonic = new Ultrasonic(Constants.HATCH_ULTRASONIC_SENSOR_PORT);
+    lift = new Lift(manipulatorStick, Constants.LIFT_TOGGLER_BUTTON);
     logging.activeInitialize();
   }
 
@@ -105,6 +111,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     drive.initalize();
     controllers.initialize();
+    lift.initialize();
     logging.activeInitialize();
     // Thread thread = new Thread(logging);
     // thread.start();
@@ -129,6 +136,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Imperial Ultrasonic", hatchUltrasonic.getImperialUltrasonicValue());
     hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
     hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
+    lift.lift();
   }
 
   /**
