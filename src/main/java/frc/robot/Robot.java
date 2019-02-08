@@ -30,7 +30,6 @@ public class Robot extends TimedRobot {
   
   //Lift code
   private Lift lift;
-  private Joystick manipulatorStick;
 
 
   
@@ -136,7 +135,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Imperial Ultrasonic", hatchUltrasonic.getImperialUltrasonicValue());
     hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
     hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
-    lift.lift(controllers.get);
+    lift.lift(controllers.getLiftToggleDeployer());
   }
 
   /**

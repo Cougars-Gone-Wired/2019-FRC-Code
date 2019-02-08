@@ -34,7 +34,7 @@ public class Controllers {
 
 	//Lift
 	private boolean liftIsDeployed;
-	private Toggle liftIsDeployed;
+	private Toggle liftToggleDeployer;
 	
 	public Controllers() {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
@@ -44,7 +44,9 @@ public class Controllers {
         hatchArmSchemeToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_SCHEME_BUTTON);
 		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
-		liftIsDeployed = new Toggle(mobilityStick, Constants.LIFT_TOGGLER_BUTTON);
+
+		//Lift
+		liftToggleDeployer = new Toggle(mobilityStick, Constants.LIFT_TOGGLER_BUTTON);
 	}
 
 	public void setControllerValues() {
@@ -66,7 +68,7 @@ public class Controllers {
 		driveTurnAxis = mobilityStick.getRawAxis(Constants.DRIVE_TURN_AXIS);
 
 		//Lift
-		liftIsDeployed = 
+		liftIsDeployed = liftToggleDeployer.toggle();
 	}
 
 	public void initialize() {
@@ -141,5 +143,8 @@ public class Controllers {
 	public boolean isLiftIsDeployed() {
 		return liftIsDeployed;
 	}
+
+	public Toggle getLiftToggleDeployer() {
+		return liftToggleDeployer;
+	}
 }
-//
