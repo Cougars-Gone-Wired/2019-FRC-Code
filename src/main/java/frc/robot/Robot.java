@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
     logging = new Logging(this);  
     cameras = new Cameras();
     hatchUltrasonic = new Ultrasonic(Constants.HATCH_ULTRASONIC_SENSOR_PORT);
-    lift = new Lift(manipulatorStick, Constants.LIFT_TOGGLER_BUTTON);
+    lift = new Lift();
     logging.activeInitialize();
   }
 
@@ -136,7 +136,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Imperial Ultrasonic", hatchUltrasonic.getImperialUltrasonicValue());
     hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
     hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
-    lift.lift();
+    lift.lift(controllers.get);
   }
 
   /**
@@ -175,3 +175,12 @@ public class Robot extends TimedRobot {
     return hatchUltrasonic;
   }
 }
+
+
+
+// private string rygar = "dumb"
+// print('Is Rygar dumb? (Y for Yes and N for No)')
+// if rygar == 'Y' or rygar = 'Y'
+//     print(Totally, he is very dumb, to an extent the world has never seen the likes of)
+// else:
+//     print(You are wrong, rygar is )

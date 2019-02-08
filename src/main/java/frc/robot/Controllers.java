@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Controllers {
 
-	//manipulator
+	//Manipulator
 	private Joystick manipulatorStick;
     private Toggle hatchArmGrabToggle;
 	private Toggle hatchArmSchemeToggle;
@@ -23,7 +23,7 @@ public class Controllers {
     private boolean hatchArmVertButton;
     private boolean hatchArmInsideButton;
 	
-	//mobility
+	//Mobility
 	private Joystick mobilityStick;
 
 	private double driveSpeedAxis;
@@ -31,6 +31,10 @@ public class Controllers {
 
 	private Toggle driveToggle;
 	private Toggle ultrasonicToggle;
+
+	//Lift
+	private boolean liftIsDeployed;
+	private Toggle liftIsDeployed;
 	
 	public Controllers() {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
@@ -40,10 +44,11 @@ public class Controllers {
         hatchArmSchemeToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_SCHEME_BUTTON);
 		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
+		liftIsDeployed = new Toggle(mobilityStick, Constants.LIFT_TOGGLER_BUTTON);
 	}
 
 	public void setControllerValues() {
-		//manipulator
+		//Manipulator
 		hatchArmGrabButton = hatchArmGrabToggle.toggle();
         dPad = manipulatorStick.getPOV();
         
@@ -56,9 +61,12 @@ public class Controllers {
         hatchArmVertButton = manipulatorStick.getPOV() == 0;
 		hatchArmInsideButton = manipulatorStick.getPOV() == 90;
 		
-		//mobility
+		//Mobility
 		driveSpeedAxis = mobilityStick.getRawAxis(Constants.DRIVE_SPEED_AXIS);
 		driveTurnAxis = mobilityStick.getRawAxis(Constants.DRIVE_TURN_AXIS);
+
+		//Lift
+		liftIsDeployed = 
 	}
 
 	public void initialize() {
@@ -68,7 +76,7 @@ public class Controllers {
 		ultrasonicToggle.initialize();
 	}
 
-	//manipulator
+	//Manipulator
 	public int getDPad() {
         return dPad;
     }
@@ -101,7 +109,7 @@ public class Controllers {
         return hatchArmInsideButton;
     }
 
-	//mobility
+	//Mobility
 	public double getDriveSpeedAxis() {
 		return driveSpeedAxis;
 	}
@@ -124,9 +132,14 @@ public class Controllers {
 
 	public Toggle getUltrasonicToggle() {
 		return ultrasonicToggle;
-	};
+	}
 
 	public void setDriveToggle() {
 		driveToggle.setDriveToggleValue(SmartDashboard.getBoolean("StartCargoSide", true));
-	};
+	}
+
+	public boolean isLiftIsDeployed() {
+		return liftIsDeployed;
+	}
 }
+//
