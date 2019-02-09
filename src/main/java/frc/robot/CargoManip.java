@@ -370,11 +370,11 @@ public class CargoManip {
             break;
             case NOT_MOVING:
             if (intakeAxis > 0.15 && outtakeAxis < 0.15) {
-                intakeMotor.set(1);
+                intakeMotor.set(Constants.CARGO_ARM_INTAKE_SPEED);
                 intakeState = IntakeStates.INTAKING;
             }
             if (outtakeAxis > 0.15 && intakeAxis < 0.15) {
-                intakeMotor.set(-1);
+                intakeMotor.set(-Constants.CARGO_ARM_INTAKE_SPEED);
                 intakeState = IntakeStates.OUTTAKING;
             }
             break;
