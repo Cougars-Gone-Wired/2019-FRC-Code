@@ -354,26 +354,26 @@ public class CargoManip {
         }*/
     }
     
-    public void intakeMove(boolean intakeButton, boolean outtakeButton) {
+    public void intakeMove(double intakeAxis, double outtakeAxis) {
         switch (intakeState) {
             case INTAKING:
-            if (!intakeButton || outtakeButton) {
+            if (intakeAxis < 0.15 || outtakeAxis > 0.15) {
                 intakeMotor.set(0);
                 intakeState = IntakeStates.NOT_MOVING;
             }
             break;
             case OUTTAKING:
-            if (!outtakeButton || intakeButton) {
+            if (outtakeAxis < 0.15 || intakeAxis > 0.15) {
                 intakeMotor.set(0);
                 intakeState = IntakeStates.NOT_MOVING;
             }
             break;
             case NOT_MOVING:
-            if (intakeButton && !outtakeButton) {
+            if (intakeAxis > 0.15 && outtakeAxis < 0.15) {
                 intakeMotor.set(1);
                 intakeState = IntakeStates.INTAKING;
             }
-            if (outtakeButton && !intakeButton) {
+            if (outtakeAxis > 0.15 && intakeAxis < 0.15) {
                 intakeMotor.set(-1);
                 intakeState = IntakeStates.OUTTAKING;
             }

@@ -130,7 +130,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     controller.setControllerValues();
     cargoManip.armMove(controller.getCargoArmTopButton(), controller.getCargoArmBottomButton(), controller.getCargoArmCargoShipButton(), controller.getCargoArmRocketButton());
-    cargoManip.intakeMove(controller.getCargoArmIntakeButton(), controller.getCargoArmOuttakeButton());
+    cargoManip.intakeMove(controller.getCargoArmIntakeAxis(), controller.getCargoArmOuttakeAxis());
     cargoManip.sensorLight();
     
     controllers.setControllerValues();

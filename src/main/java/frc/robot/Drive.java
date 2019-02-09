@@ -78,10 +78,10 @@ public class Drive {
                 break;
             case DRIVE_DETECT:
                 if(hatchUltrasonicImperialValue <= 12.0) {
-                    robotDrive.arcadeDrive(0, 0);
+                    //robotDrive.arcadeDrive(0, 0);
                     driveMode = DriveModes.DRIVE_STANDARD; 
                 } else {
-                    robotDrive.arcadeDrive(.5, 0);
+                    //robotDrive.arcadeDrive(.5, 0);
                 }
                 break;
         }

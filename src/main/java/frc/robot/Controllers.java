@@ -28,8 +28,8 @@ public class Controllers {
 	//Cargo
 	private double cargoArmAxis;
 
-	private boolean cargoArmIntakeButton;
-	private boolean cargoArmOuttakeButton;
+	private double cargoArmIntakeAxis;
+	private double cargoArmOuttakeAxis;
 	
 	private boolean cargoArmTopButton;
 	private boolean cargoArmBottomButton;
@@ -77,9 +77,9 @@ public class Controllers {
 		hatchArmInsideButton = manipulatorStick.getPOV() == 90;
 
 		//Cargo
-		cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
-		cargoArmIntakeButton = manipulatorStick.getRawButton(Constants.CARGO_INTAKE_BUTTON);
-		cargoArmOuttakeButton = manipulatorStick.getRawButton(Constants.CARGO_OUTTAKE_BUTTON);
+		//cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
+		cargoArmIntakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_INTAKE_AXIS);
+		cargoArmOuttakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_OUTTAKE_AXIS);
 		cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
 		cargoArmBottomButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_BOTTOM_BUTTON);
 		cargoArmCargoShipButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_CARGO_SHIP_BUTTON);
@@ -138,12 +138,12 @@ public class Controllers {
         return cargoArmAxis;
     }
 
-    public boolean getCargoArmIntakeButton() {
-        return cargoArmIntakeButton;
+    public double getCargoArmIntakeAxis() {
+        return cargoArmIntakeAxis;
     }
 
-    public boolean getCargoArmOuttakeButton() {
-        return cargoArmOuttakeButton;
+    public double getCargoArmOuttakeAxis() {
+        return cargoArmOuttakeAxis;
     }
 
     public boolean getCargoArmTopButton() {
