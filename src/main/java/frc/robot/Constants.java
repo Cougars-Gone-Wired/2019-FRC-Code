@@ -52,4 +52,24 @@ public class Constants {
     //Buttons
     static final int LIFT_TOGGLER_BUTTON = 3;
 	
+
+	//Gavin's
+	static final int ARM_AXIS = 1;
+    static final int INTAKE_BUTTON = 5;
+    static final int OUTTAKE_BUTTON = 6;
+    static final int TOP_BUTTON = 4;
+    static final int BOTTOM_BUTTON = 1;
+    static final int CARGO_SHIP_BUTTON = 3;
+    static final int ROCKET_BUTTON = 2;
+    static final int MANIPULATOR_STICK_PORT = 0;
+    static final int ARM_MOTOR_ID = 4;
+    static final int INTAKE_MOTOR_ID = 1;
+    //static final int CARGO_SHIP_LIMIT_SWITCH_ID = 0;
+    //static final int ROCKET_LIMIT_SWITCH_ID = 1;
+    static final int ARM_ENCODER_PORT_ONE = 0;
+    static final int ARM_ENCODER_PORT_TWO = 1;
+    static final boolean INVERT_ENCODER_DIRECTION = false;
+    static final int ENCODER_CARGO_SHIP_GOAL = 40;
+    static final int ENCODER_ROCKET_GOAL = 50;
+    static final int ARM_MOTOR_SPEED = 1;
 }
