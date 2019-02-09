@@ -15,11 +15,17 @@ public class Lift {
     private WPI_TalonSRX backLiftMotor;
     private SensorCollection limits;
 
+    private Ultrasonic ultraLeft;
+    private Ultrasonic ultraRight;
+
 
     public Lift(){
         frontLiftMotor = new WPI_TalonSRX(Constants.FRONT_LIFT_MOTOR_ID);
         backLiftMotor = new WPI_TalonSRX(Constants.BACK_LIFT_MOTOR_ID);
         limits = new SensorCollection(frontLiftMotor);
+
+        ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
+        ultraRight = new Ultrasonic(Constants.ULTRASONIC_HATCH_RIGHT_PORT);
     }
 
     public void initialize() {
@@ -41,12 +47,13 @@ public class Lift {
         // Right: 35inches      ^ Returned value              ratio > 1 means a greater LEFT distance
 
         ratio = (left.getImperialUltrasonicValue() / right.getImperialUltrasonicValue());
-
         return ratio;
     }
 
     public void distanceAlign(){
-        
+        double ratio = distanceRatio(ultraLeft, ultraRight);
+
+
     }
 
     public void lift(Toggle liftIsDeployed){
@@ -60,6 +67,8 @@ public class Lift {
                         backLiftMotor.set(-Constants.LIFT_SPEED);
                         liftStates = LiftStates.EN;
                     } else {
+                        frontLiftMotor.set(0);
+                        backLiftMotor.set(0);
                         liftStates = LiftStates.STOP;
                     }
                     
@@ -69,6 +78,7 @@ public class Lift {
             case EN:
                 //State: EN -> STOP
                 if(liftIsDeployed.toggle() == true || limits.isFwdLimitSwitchClosed()){
+                    backLiftMotor.set(0);
                     frontLiftMotor.set(0);
                     liftStates = LiftStates.STOP;
                 }
@@ -95,6 +105,7 @@ public class Lift {
                 //State: EC -> STOP
                 if(liftIsDeployed.toggle() == true || limits.isRevLimitSwitchClosed()){
                     frontLiftMotor.set(0);
+                    backLiftMotor.set(0);
                     liftStates = LiftStates.STOP;
                 }
                 break;

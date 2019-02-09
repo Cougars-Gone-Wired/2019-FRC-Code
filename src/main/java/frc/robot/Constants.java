@@ -57,6 +57,9 @@ public class Constants {
 	static final int BACK_RIGHT_MOTOR_ID = 7;
 
 	static final double LIFT_SPEED = 1; //Make -1 to reverse direction
+	static final int ULTRASONIC_HATCH_LEFT_PORT = 0; //SET PORTS!!!
+	static final int ULTRASONIC_HATCH_RIGHT_PORT = 1; //SET PORTS!!!
+
 	static final double DRIVE_SPEED = 0.95;
 	static final double DRIVE_TURN_SPEED = 0.75;
 	static final double DRIVE_DEADZONE = 0.15;
