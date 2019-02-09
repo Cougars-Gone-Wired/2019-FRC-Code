@@ -27,6 +27,16 @@ public class Lift {
         liftStates = LiftStates.LOCK;
     }
 
+    // __    ___    ___   _____
+    // | \    |    /        |  
+    // |  |   |     ---     |  
+    // | /    |       /     |  
+    // ```   ```   ```      `  
+
+    public void distanceAlign(){
+        
+    }
+
     public void lift(Toggle liftIsDeployed){
         switch(liftStates){
             case LOCK:
