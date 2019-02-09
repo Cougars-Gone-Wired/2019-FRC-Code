@@ -6,44 +6,42 @@ public class Controllers {
 
     Joystick manipulatorStick;
 
-    private double arm;
+    private double cargoArmAxis;
 
-    private boolean intake;
-    private boolean outtake;
+    private boolean cargoArmIntakeButton;
+    private boolean cargoArmOuttakeButton;
 
-    private boolean top;
-    private boolean bottom;
-    private boolean cargoShip;
-    private boolean rocket;
+    private boolean cargoArmTopButton;
+    private boolean cargoArmBottomButton;
+    private boolean cargoArmCargoShipButton;
+    private boolean cargoArmRocketButton;
 
     public Controllers() {
         manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
     }
 
-
-
     public void setControllerValues() {
-        arm = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
-        intake = manipulatorStick.getRawButton(Constants.CARGO_ARM_INTAKE_BUTTON);
-        outtake = manipulatorStick.getRawButton(Constants.CARGO_ARM_OUTTAKE_BUTTON);
-        top = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
-        bottom = manipulatorStick.getRawButton(Constants.CARGO_ARM_BOTTOM_BUTTON);
-        cargoShip = manipulatorStick.getRawButton(Constants.CARGO_ARM_CARGO_SHIP_BUTTON);
-        rocket = manipulatorStick.getRawButton(Constants.CARGO_ARM_ROCKET_BUTTON);
+        cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
+        cargoArmIntakeButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_INTAKE_BUTTON);
+        cargoArmOuttakeButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_OUTTAKE_BUTTON);
+        cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
+        cargoArmBottomButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_BOTTOM_BUTTON);
+        cargoArmCargoShipButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_CARGO_SHIP_BUTTON);
+        cargoArmRocketButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_ROCKET_BUTTON);
     }
 
     /**
      * @return the arm
      */
-    public double getArm() {
+    public double getCargoArmAxis() {
         return arm;
     }
 
-    public boolean getIntake() {
+    public boolean getCargoArmIntakeButton() {
         return intake;
     }
 
-    public boolean getOuttake() {
+    public boolean getCargoArmOuttakeButton() {
         return outtake;
     }
 
