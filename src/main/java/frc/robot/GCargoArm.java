@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CargoManip {
+public class CargoArm {
 
     /*public enum ArmStates {
         MOVING_UP, MOVING_DOWN, NOT_MOVING
@@ -43,7 +43,7 @@ public class CargoManip {
 
     private int encoderValue;
 
-    public CargoManip() {
+    public CargoArm() {
         armMotor = new WPI_TalonSRX(Constants.CARGO_ARM_MOTOR_ID);
         intakeMotor = new WPI_TalonSRX(Constants.CARGO_ARM_INTAKE_MOTOR_ID);
         armSensors = new SensorCollection(armMotor);

@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
-    private Controllers controller;
-    private CargoManip cargoManip;
+    private Controllers controllers;
+    private CargoArm cargoArm;
 
 
   /**
@@ -27,8 +27,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-   controller = new Controllers();
-   cargoManip = new CargoManip();
+   controllers = new Controllers();
+   cargoArm = new CargoArm();
   }
 
   /**
@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    cargoManip.initialize();
+    cargoArm.initialize();
   }
 
   /**
@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
   }
 
   public void teleopInit() {
-      cargoManip.initialize();
+      cargoArm.initialize();
   }
 
   /**
@@ -76,10 +76,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-      controller.setControllerValues();
-      cargoManip.armMove(controller.getTop(), controller.getBottom(), controller.getCargoShip(), controller.getRocket());
-      cargoManip.intakeMove(controller.getIntake(), controller.getOuttake());
-      cargoManip.sensorLight();
+      controllers.setControllerValues();
+      cargoArm.armMove(controllers.getHatchArmTopButton(), controllers.getHatchArmBottomButton(), controllers.getHatchArmCargoShipButton(), controllers.getHatchArmRocketButton());
+      cargoArm.intakeMove(controllers.getHatchArmIntakeButton(), controllers.getHatchArmOuttakeButton());
+      cargoArm.sensorLight();
   }
 
   /**

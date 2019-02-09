@@ -34,42 +34,30 @@ public class Controllers {
      * @return the arm
      */
     public double getCargoArmAxis() {
-        return arm;
+        return cargoArmAxis;
     }
 
     public boolean getCargoArmIntakeButton() {
-        return intake;
+        return cargoArmIntakeButton;
     }
 
     public boolean getCargoArmOuttakeButton() {
-        return outtake;
+        return cargoArmOuttakeButton;
     }
 
-        /**
-     * @return the top
-     */
-    public boolean getTop() {
-        return top;
+    public boolean getCargoArmTopButton() {
+        return cargoArmTopButton;
     }
 
-    /**
-     * @return the bottom
-     */
-    public boolean getBottom() {
-        return bottom;
+    public boolean getCargoArmBottomButton() {
+        return cargoArmBottomButton;
     }
 
-    /**
-     * @return the cargoShip
-     */
-    public boolean getCargoShip() {
-        return cargoShip;
+    public boolean getCargoArmCargoShipButton() {
+        return cargoArmCargoShipButton;
     }
 
-    /**
-     * @return the rocket
-     */
-    public boolean getRocket() {
-        return rocket;
+    public boolean getCargoArmRocketButton() {
+        return cargoArmRocketButton;
     }
 }
