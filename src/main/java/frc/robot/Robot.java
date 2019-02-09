@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -18,21 +17,39 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private Controllers controller;
+  private CargoManip cargoManip;
+  
+  private Cameras cameras;
+	private Controllers controllers;
+  private Drive drive;
+  private HatchArm hatchArm;
+  private Logging logging;
+  private Ultrasonic hatchUltrasonic;
+  
+  //Lift code
+  private Lift lift;
 
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
+
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    controller = new Controllers();
+    cargoManip = new CargoManip();
+
+	  controllers = new Controllers();
+    drive = new Drive();
+    hatchArm = new HatchArm();
+    logging = new Logging(this);  
+    cameras = new Cameras();
+    hatchUltrasonic = new Ultrasonic(Constants.HATCH_ULTRASONIC_SENSOR_PORT);
+    lift = new Lift();
+    logging.activeInitialize();
   }
 
   /**
@@ -43,8 +60,10 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before
    * LiveWindow and SmartDashboard integrated updating.
    */
+
   @Override
   public void robotPeriodic() {
+
   }
 
   /**
@@ -58,40 +77,121 @@ public class Robot extends TimedRobot {
    * the switch structure below with additional strings. If using the
    * SendableChooser make sure to add them to the chooser code above as well.
    */
+
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    // new Thread(logging.toString()).start();
+    cargoManip.initialize();
+    logging.activeInitialize();
+
+    drive.initalize();
+
+    controllers.initialize();
+    controllers.setDriveToggle();
+
+    hatchArm.initialize();
   }
 
   /**
    * This function is called periodically during autonomous.
    */
+
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+  //drive.setSide(controllers.getDriveToggleValue());
+  
+  // Thread thread = new Thread(logging);
+  // thread.run();
+  // thread.start();
+  }
+
+  /**
+   * This function is called when teleop is initialzied.
+   */
+
+  @Override
+  public void teleopInit() {
+    cargoManip.initialize();
+
+    drive.initalize();
+    controllers.initialize();
+    lift.initialize();
+    logging.activeInitialize();
+    // Thread thread = new Thread(logging);
+    // thread.start();
+    // thread.run();
   }
 
   /**
    * This function is called periodically during operator control.
    */
+
   @Override
   public void teleopPeriodic() {
+    controller.setControllerValues();
+    cargoManip.armMove(controller.getCargoArmTopButton(), controller.getCargoArmBottomButton(), controller.getCargoArmCargoShipButton(), controller.getCargoArmRocketButton());
+    cargoManip.intakeMove(controller.getCargoArmIntakeAxis(), controller.getCargoArmOuttakeAxis());
+    cargoManip.sensorLight();
+    
+    controllers.setControllerValues();
+    hatchUltrasonic.setUltrasonicValue();
+    setSide(controllers.getDriveToggleValue());
+    drive.setMode(controllers.getUltrasonicToggleValue());
+    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), hatchUltrasonic.getImperialUltrasonicValue());
+    drive.showDashboard();
+    cameras.cameraVideo();
+    logging.collectData();
+    SmartDashboard.putNumber("Raw Ultrasonic", hatchUltrasonic.getRawUltrasonicValue());
+    SmartDashboard.putNumber("Imperial Ultrasonic", hatchUltrasonic.getImperialUltrasonicValue());
+    hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
+    hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
+    lift.lift(controllers.getLiftToggleDeployer());
   }
 
   /**
    * This function is called periodically during test mode.
    */
+
   @Override
   public void testPeriodic() {
+    drive.initialSide();
+  }
+
+  @Override
+  public void disabledInit() {
+    drive.initalize();
+    logging.disabledInitialize();
+  }
+
+  @Override
+  public void disabledPeriodic() {
+    setSide(SmartDashboard.getBoolean("StartCargoSide", true));
+    controllers.setDriveToggle();
+    drive.showDashboard();
+  }
+
+  public void setSide(boolean sideToggle) {
+    drive.setSide(sideToggle);
+    cameras.setSide(sideToggle);
+    Sides.setSide(sideToggle);
+  }
+
+  public Drive getDrive() {
+    return drive;
+  }
+
+  public Ultrasonic getHatchUltrasonic() {
+    return hatchUltrasonic;
   }
 }
+
+
+
+// private string rygar = "dumb"
+// print('Is Rygar dumb? (Y for Yes and N for No)')
+// if rygar == 'Y' or rygar = 'Y'
+//     print(Totally, he is very dumb, to an extent the world has never seen the likes of)
+// else:
+//     print(You are wrong, rygar is )
+
+//Josh L: What in the life of Pete is this?!? Why are we insulting each other? Or is there an inside joke I'm not in on?
