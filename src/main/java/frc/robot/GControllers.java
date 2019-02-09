@@ -17,19 +17,19 @@ public class Controllers {
     private boolean rocket;
 
     public Controllers() {
-        manipulatorStick = new Joystick(Constants.MANIPULATOR_STICK_PORT);
+        manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
     }
 
 
 
     public void setControllerValues() {
-        arm = manipulatorStick.getRawAxis(Constants.ARM_AXIS);
-        intake = manipulatorStick.getRawButton(Constants.INTAKE_BUTTON);
-        outtake = manipulatorStick.getRawButton(Constants.OUTTAKE_BUTTON);
-        top = manipulatorStick.getRawButton(Constants.TOP_BUTTON);
-        bottom = manipulatorStick.getRawButton(Constants.BOTTOM_BUTTON);
-        cargoShip = manipulatorStick.getRawButton(Constants.CARGO_SHIP_BUTTON);
-        rocket = manipulatorStick.getRawButton(Constants.ROCKET_BUTTON);
+        arm = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
+        intake = manipulatorStick.getRawButton(Constants.CARGO_ARM_INTAKE_BUTTON);
+        outtake = manipulatorStick.getRawButton(Constants.CARGO_ARM_OUTTAKE_BUTTON);
+        top = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
+        bottom = manipulatorStick.getRawButton(Constants.CARGO_ARM_BOTTOM_BUTTON);
+        cargoShip = manipulatorStick.getRawButton(Constants.CARGO_ARM_CARGO_SHIP_BUTTON);
+        rocket = manipulatorStick.getRawButton(Constants.CARGO_ARM_ROCKET_BUTTON);
     }
 
     /**

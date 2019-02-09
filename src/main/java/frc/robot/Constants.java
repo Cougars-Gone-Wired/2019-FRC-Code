@@ -7,7 +7,7 @@ public class Constants {
     static final int HATCH_ARM_AXIS = 1;
     static final int HATCH_ARM_SCHEME_BUTTON = 6;
     static final int HATCH_ARM_GRAB_BUTTON = 3;
-    static final int MID_SWITCH_ID = 0;
+    static final int MID_SWITCH_PORT = 0;
 
     static final int HATCH_ARM_MOVE_MOTOR_ID = 8;
     static final int HATCH_ARM_GRAB_MOTOR_ID = 9;
@@ -17,6 +17,23 @@ public class Constants {
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.8;
 
+	static final int CARGO_ARM_AXIS = 1;
+    static final int CARGO_ARM_INTAKE_BUTTON = 5;
+    static final int CARGO_ARM_OUTTAKE_BUTTON = 6;
+    static final int CARGO_ARM_TOP_BUTTON = 4;
+    static final int CARGO_ARM_BOTTOM_BUTTON = 1;
+    static final int CARGO_ARM_CARGO_SHIP_BUTTON = 3;
+    static final int CARGO_ARM_ROCKET_BUTTON = 2;
+    static final int CARGO_ARM_MOTOR_ID = 10;
+    static final int CARGO_ARM_INTAKE_MOTOR_ID = 11;
+    //static final int CARGO_SHIP_LIMIT_SWITCH_ID = 0;
+    //static final int ROCKET_LIMIT_SWITCH_ID = 1;
+    static final int CARGO_ARM_ENCODER_PORT_ONE = 0;
+    static final int CARGO_ARM_ENCODER_PORT_TWO = 1;
+    static final int CARGO_SHIP_GOAL_ENCODER_VALUE = 40;
+    static final int ROCKET_GOAL_ENCODER_VALUE = 50;
+    static final int CARGO_ARM_MOTOR_SPEED = 1;
+
 
 	//Mobility
 	static final int MOBILITY_CONTROLLER_PORT = 0;
@@ -24,6 +41,7 @@ public class Constants {
 	static final int DRIVE_SPEED_AXIS = 1;
 	static final int DRIVE_TURN_AXIS = 4;
 
+	static final int LIFT_TOGGLE_BUTTON = 3;
 	static final int DRIVE_TOGGLE_BUTTON = 1;
 	static final int ULTRASONIC_TOGGLE_BUTTON = 4;
 
@@ -46,30 +64,4 @@ public class Constants {
 	static final int HATCH_ULTRASONIC_SENSOR_PORT = 1;
 	static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
 
-//Lift
-    //Other
-    
-    //Buttons
-    static final int LIFT_TOGGLER_BUTTON = 3;
-	
-
-	//Gavin's
-	static final int ARM_AXIS = 1;
-    static final int INTAKE_BUTTON = 5;
-    static final int OUTTAKE_BUTTON = 6;
-    static final int TOP_BUTTON = 4;
-    static final int BOTTOM_BUTTON = 1;
-    static final int CARGO_SHIP_BUTTON = 3;
-    static final int ROCKET_BUTTON = 2;
-    static final int MANIPULATOR_STICK_PORT = 0;
-    static final int ARM_MOTOR_ID = 4;
-    static final int INTAKE_MOTOR_ID = 1;
-    //static final int CARGO_SHIP_LIMIT_SWITCH_ID = 0;
-    //static final int ROCKET_LIMIT_SWITCH_ID = 1;
-    static final int ARM_ENCODER_PORT_ONE = 0;
-    static final int ARM_ENCODER_PORT_TWO = 1;
-    static final boolean INVERT_ENCODER_DIRECTION = false;
-    static final int ENCODER_CARGO_SHIP_GOAL = 40;
-    static final int ENCODER_ROCKET_GOAL = 50;
-    static final int ARM_MOTOR_SPEED = 1;
 }
