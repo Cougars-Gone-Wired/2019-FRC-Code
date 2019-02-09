@@ -24,6 +24,7 @@ public class Constants {
 	static final int DRIVE_SPEED_AXIS = 1;
 	static final int DRIVE_TURN_AXIS = 4;
 
+	static final int LIFT_TOGGLE_BUTTON = 3;
 	static final int DRIVE_TOGGLE_BUTTON = 1;
 	static final int ULTRASONIC_TOGGLE_BUTTON = 4;
 
@@ -46,12 +47,6 @@ public class Constants {
 	static final int HATCH_ULTRASONIC_SENSOR_PORT = 1;
 	static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
 
-//Lift
-    //Other
-    
-    //Buttons
-    static final int LIFT_TOGGLER_BUTTON = 3;
-	
 
 	//Gavin's
 	static final int ARM_AXIS = 1;

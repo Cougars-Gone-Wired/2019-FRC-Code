@@ -46,7 +46,7 @@ public class Controllers {
 		ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
 
 		//Lift
-		liftToggleDeployer = new Toggle(mobilityStick, Constants.LIFT_TOGGLER_BUTTON);
+		liftToggleDeployer = new Toggle(mobilityStick, Constants.LIFT_TOGGLE_BUTTON);
 	}
 
 	public void setControllerValues() {
