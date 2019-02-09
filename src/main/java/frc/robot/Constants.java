@@ -10,7 +10,7 @@ public class Constants {
 
 	static final int CARGO_ARM_AXIS = 1; //
     static final int HATCH_ARM_AXIS = 1;
-    static final int HATCH_ARM_SCHEME_BUTTON = 6;
+    static final int HATCH_ARM_SCHEME_BUTTON = 8;
 	static final int HATCH_ARM_GRAB_BUTTON = 3;
 	static final int CARGO_INTAKE_BUTTON = 5; //
     static final int CARGO_OUTTAKE_BUTTON = 6; //

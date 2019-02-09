@@ -78,8 +78,8 @@ public class Controllers {
 
 		//Cargo
 		cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
-		cargoArmIntakeButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_INTAKE_BUTTON);
-		cargoArmOuttakeButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_OUTTAKE_BUTTON);
+		cargoArmIntakeButton = manipulatorStick.getRawButton(Constants.CARGO_INTAKE_BUTTON);
+		cargoArmOuttakeButton = manipulatorStick.getRawButton(Constants.CARGO_OUTTAKE_BUTTON);
 		cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
 		cargoArmBottomButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_BOTTOM_BUTTON);
 		cargoArmCargoShipButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_CARGO_SHIP_BUTTON);

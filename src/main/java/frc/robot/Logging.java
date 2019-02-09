@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Logging extends Object{
@@ -47,8 +46,6 @@ public class Logging extends Object{
         logLength = 1000;
         logArray = new String[logLength];
         fileTimeStamp = new SimpleDateFormat("MMM dd YYYY_HH.mm.ss").format(Calendar.getInstance().getTime());
-        
-        
     }
 
     public void disabledInitialize() {
