@@ -29,7 +29,7 @@ public class HatchArm {
         hatchArmGrabMotor = new WPI_TalonSRX(Constants.HATCH_ARM_GRAB_MOTOR_ID);
         moveLimitSwitches = new SensorCollection(hatchArmMoveMotor);
         grabLimitSwitches = new SensorCollection(hatchArmGrabMotor);
-        moveMidSwitch = new DigitalInput(Constants.MID_SWITCH_ID);
+        moveMidSwitch = new DigitalInput(Constants.MID_SWITCH_PORT);
         initialize();
     }
 
