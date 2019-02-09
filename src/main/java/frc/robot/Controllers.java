@@ -12,7 +12,7 @@ public class Controllers {
 	//Hatch
     private Toggle hatchArmGrabToggle;
 	private Toggle hatchArmSchemeToggle;
-	
+
 	private int dPad;
 
 	private boolean hatchArmGrabButton;
@@ -26,7 +26,7 @@ public class Controllers {
     private boolean hatchArmVertButton;
     private boolean hatchArmInsideButton;
 
-		//Cargo
+	//Cargo
 	private double cargoArmAxis;
 
 	private boolean cargoArmIntakeButton;
@@ -136,31 +136,31 @@ public class Controllers {
 	
 		//Cargo
 	public double getCargoArmAxis() {
-        return arm;
+        return cargoArmAxis;
     }
 
     public boolean getCargoArmIntakeButton() {
-        return intake;
+        return cargoArmIntakeButton;
     }
 
     public boolean getCargoArmOuttakeButton() {
-        return outtake;
+        return cargoArmOuttakeButton;
     }
 
-    public boolean getTop() {
-        return top;
+    public boolean getCargoArmTopButton() {
+        return cargoArmTopButton;
     }
 
-    public boolean getBottom() {
-        return bottom;
+    public boolean getCargoArmBottomButton() {
+        return cargoArmBottomButton;
     }
 
-    public boolean getCargoShip() {
-        return cargoShip;
+    public boolean getCargoArmCargoShipButton() {
+        return cargoArmCargoShipButton;
     }
 
-    public boolean getRocket() {
-        return rocket;
+    public boolean getCargoArmRocketButton() {
+        return cargoArmRocketButton;
     }
 
 	//Mobility
