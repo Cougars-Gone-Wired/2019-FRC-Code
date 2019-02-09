@@ -12,8 +12,8 @@ public class Constants {
     static final int HATCH_ARM_AXIS = 1;
     static final int HATCH_ARM_SCHEME_BUTTON = 6;
 	static final int HATCH_ARM_GRAB_BUTTON = 3;
-	static final int CARGO_ARM_INTAKE_BUTTON = 5; //
-    static final int CARGO_ARM_OUTTAKE_BUTTON = 6; //
+	static final int CARGO_INTAKE_BUTTON = 5; //
+    static final int CARGO_OUTTAKE_BUTTON = 6; //
     static final int CARGO_ARM_TOP_BUTTON = 4; //
     static final int CARGO_ARM_BOTTOM_BUTTON = 1; //
     static final int CARGO_ARM_CARGO_SHIP_BUTTON = 3; //
@@ -30,8 +30,8 @@ public class Constants {
 	static final double CARGO_ARM_INTAKE_SPEED = 0.2; //
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.8;
-	static final int CARGO_SHIP_GOAL_ENCODER_VALUE = 40; //
-    static final int ROCKET_GOAL_ENCODER_VALUE = 50; //
+	static final int CARGO_SHIP_ENCODER_VALUE_GOAL = 40; //
+    static final int ROCKET_ENCODER_VALUE_GOAL = 50; //
 
 
 	//Mobility
