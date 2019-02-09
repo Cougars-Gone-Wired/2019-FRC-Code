@@ -1,3 +1,4 @@
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -7,8 +8,22 @@ public class Controllers {
 
 	//Manipulator
 	private Joystick manipulatorStick;
+		//Hatch
     private Toggle hatchArmGrabToggle;
 	private Toggle hatchArmSchemeToggle;
+
+		//Cargo
+	private double cargoArmAxis;
+
+	private boolean cargoArmIntakeButton;
+	private boolean cargoArmOuttakeButton;
+	
+	private boolean cargoArmTopButton;
+	private boolean cargoArmBottomButton;
+	private boolean cargoArmCargoShipButton;
+	private boolean cargoArmRocketButton;
+
+		//Other
 	
 	private int dPad;
 
@@ -62,6 +77,15 @@ public class Controllers {
         hatchArmFloorButton = manipulatorStick.getPOV() == 270;
         hatchArmVertButton = manipulatorStick.getPOV() == 0;
 		hatchArmInsideButton = manipulatorStick.getPOV() == 90;
+
+			//Cargo
+		cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
+		cargoArmIntakeButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_INTAKE_BUTTON);
+		cargoArmOuttakeButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_OUTTAKE_BUTTON);
+		cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
+		cargoArmBottomButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_BOTTOM_BUTTON);
+		cargoArmCargoShipButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_CARGO_SHIP_BUTTON);
+		cargoArmRocketButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_ROCKET_BUTTON);
 		
 		//Mobility
 		driveSpeedAxis = mobilityStick.getRawAxis(Constants.DRIVE_SPEED_AXIS);
@@ -109,6 +133,35 @@ public class Controllers {
 
     public boolean getHatchArmInsideButton() {
         return hatchArmInsideButton;
+	}
+	
+		//Cargo
+	public double getCargoArmAxis() {
+        return arm;
+    }
+
+    public boolean getCargoArmIntakeButton() {
+        return intake;
+    }
+
+    public boolean getCargoArmOuttakeButton() {
+        return outtake;
+    }
+
+    public boolean getTop() {
+        return top;
+    }
+
+    public boolean getBottom() {
+        return bottom;
+    }
+
+    public boolean getCargoShip() {
+        return cargoShip;
+    }
+
+    public boolean getRocket() {
+        return rocket;
     }
 
 	//Mobility

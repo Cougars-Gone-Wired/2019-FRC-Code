@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class Controllers {
 
-    Joystick manipulatorStick;
+    private Joystick manipulatorStick;
 
     private double cargoArmAxis;
 
@@ -30,9 +30,6 @@ public class Controllers {
         cargoArmRocketButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_ROCKET_BUTTON);
     }
 
-    /**
-     * @return the arm
-     */
     public double getCargoArmAxis() {
         return arm;
     }
@@ -45,30 +42,18 @@ public class Controllers {
         return outtake;
     }
 
-        /**
-     * @return the top
-     */
     public boolean getTop() {
         return top;
     }
 
-    /**
-     * @return the bottom
-     */
     public boolean getBottom() {
         return bottom;
     }
 
-    /**
-     * @return the cargoShip
-     */
     public boolean getCargoShip() {
         return cargoShip;
     }
 
-    /**
-     * @return the rocket
-     */
     public boolean getRocket() {
         return rocket;
     }
