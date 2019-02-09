@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     controller = new Controllers();
-   cargoManip = new CargoManip();
+    cargoManip = new CargoManip();
 
 	  controllers = new Controllers();
     drive = new Drive();

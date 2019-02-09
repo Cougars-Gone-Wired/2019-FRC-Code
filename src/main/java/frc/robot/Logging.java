@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Logging extends Object{
     
     private boolean loggingStart = false;
-    private boolean loggingActive = false;
+    private boolean loggingSave = false;
 
     private int place;
     private int runs = 0;
@@ -23,9 +23,9 @@ public class Logging extends Object{
     private String d = ", " ;
 
     private File file;
+    private FileHandler fh;
     private Logger logger;
     private Level level;
-    private FileHandler fh;
     private String timeStamp;
     private String fileTimeStamp;
     private String[] logArray;
@@ -41,7 +41,7 @@ public class Logging extends Object{
     }
 
     public void activeInitialize() {
-        SmartDashboard.putBoolean("Save Logger", loggingActive);
+        SmartDashboard.putBoolean("Save Logger", false);
 
         logger = Logger.getLogger(Logging.class.getName());
         logLength = 1000;
@@ -53,7 +53,7 @@ public class Logging extends Object{
 
     public void disabledInitialize() {
         loggingStart = false;
-        if(SmartDashboard.getBoolean("Save Logger", false)) {
+        if(loggingSave) {
             try {
                 makeFile();
                 timeStamp = new SimpleDateFormat("MMM dd, YYYY_HH.mm.ss").format(Calendar.getInstance().getTime());
@@ -84,6 +84,7 @@ public class Logging extends Object{
     }
 
     public void collectData() {
+        loggingSave = SmartDashboard.getBoolean("Save Logger", false);
         if(!loggingStart) {
             loggingStart = true;
             logValues = new StringBuilder();

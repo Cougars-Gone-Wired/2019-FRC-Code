@@ -8,22 +8,10 @@ public class Controllers {
 
 	//Manipulator
 	private Joystick manipulatorStick;
-		//Hatch
+	
+	//Hatch
     private Toggle hatchArmGrabToggle;
 	private Toggle hatchArmSchemeToggle;
-
-		//Cargo
-	private double cargoArmAxis;
-
-	private boolean cargoArmIntakeButton;
-	private boolean cargoArmOuttakeButton;
-	
-	private boolean cargoArmTopButton;
-	private boolean cargoArmBottomButton;
-	private boolean cargoArmCargoShipButton;
-	private boolean cargoArmRocketButton;
-
-		//Other
 	
 	private int dPad;
 
@@ -37,6 +25,17 @@ public class Controllers {
     private boolean hatchArmFloorButton;
     private boolean hatchArmVertButton;
     private boolean hatchArmInsideButton;
+
+		//Cargo
+	private double cargoArmAxis;
+
+	private boolean cargoArmIntakeButton;
+	private boolean cargoArmOuttakeButton;
+	
+	private boolean cargoArmTopButton;
+	private boolean cargoArmBottomButton;
+	private boolean cargoArmCargoShipButton;
+	private boolean cargoArmRocketButton;
 	
 	//Mobility
 	private Joystick mobilityStick;
@@ -65,7 +64,7 @@ public class Controllers {
 	}
 
 	public void setControllerValues() {
-		//Manipulator
+		//Hatch Arm
 		hatchArmGrabButton = hatchArmGrabToggle.toggle();
         dPad = manipulatorStick.getPOV();
         
@@ -78,7 +77,7 @@ public class Controllers {
         hatchArmVertButton = manipulatorStick.getPOV() == 0;
 		hatchArmInsideButton = manipulatorStick.getPOV() == 90;
 
-			//Cargo
+		//Cargo
 		cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
 		cargoArmIntakeButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_INTAKE_BUTTON);
 		cargoArmOuttakeButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_OUTTAKE_BUTTON);
