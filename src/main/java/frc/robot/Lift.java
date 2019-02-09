@@ -33,6 +33,18 @@ public class Lift {
     // | /    |       /     |  
     // ```   ```   ```      `  
 
+    public double distanceRatio(Ultrasonic left, Ultrasonic right){
+        double ratio;
+        //This method converts the distance between the two ultrasonic sensors into a compact ratio.
+        // Left:  33inches
+        // -----  --------  =  0.942857...              Also: ratio < 1 means a greater RIGHT distance
+        // Right: 35inches      ^ Returned value              ratio > 1 means a greater LEFT distance
+
+        ratio = (left.getImperialUltrasonicValue() / right.getImperialUltrasonicValue());
+
+        return ratio;
+    }
+
     public void distanceAlign(){
         
     }
