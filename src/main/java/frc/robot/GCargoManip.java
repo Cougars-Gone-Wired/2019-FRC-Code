@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class CargoManip {
 
 
-    //JACOB, I SENT YOU A SKYPE INVITE TO YOUR SCHOOL ACCOUNT. CHECK IT.
+    //OOPS ONE SECOND.
+    
 
     /*public enum ArmStates {
         MOVING_UP, MOVING_DOWN, NOT_MOVING
