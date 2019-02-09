@@ -1,0 +1,101 @@
+{
+    "extension": "linecount",
+    "version": "0.1.7",
+    "workspace": "c:\\Users\\El Senor\\Documents\\KGR\\2019FRCOLD\\src\\main\\java\\frc\\robot",
+    "linecount": [
+        {
+            "version": "0.1.7",
+            "counttime": "2019-02-09 10:24:08",
+            "filesum": 14,
+            "codesum": 1264,
+            "commentsum": 246,
+            "blanksum": 270,
+            "filelist": [
+                {
+                    "blank": 12,
+                    "code": 51,
+                    "comment": 0,
+                    "filename": "Cameras.java"
+                },
+                {
+                    "blank": 22,
+                    "code": 271,
+                    "comment": 90,
+                    "filename": "CargoManip.java"
+                },
+                {
+                    "blank": 16,
+                    "code": 46,
+                    "comment": 18,
+                    "filename": "Constants.java"
+                },
+                {
+                    "blank": 51,
+                    "code": 136,
+                    "comment": 14,
+                    "filename": "Controllers.java"
+                },
+                {
+                    "blank": 38,
+                    "code": 138,
+                    "comment": 17,
+                    "filename": "Drive.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 238,
+                    "comment": 0,
+                    "filename": "HatchArm.java"
+                },
+                {
+                    "blank": 20,
+                    "code": 74,
+                    "comment": 15,
+                    "filename": "Lift.java"
+                },
+                {
+                    "blank": 36,
+                    "code": 115,
+                    "comment": 6,
+                    "filename": "Logging.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "LoggingFormatter.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 9,
+                    "comment": 16,
+                    "filename": "Main.java"
+                },
+                {
+                    "blank": 37,
+                    "code": 96,
+                    "comment": 64,
+                    "filename": "Robot.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "Sides.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 38,
+                    "comment": 6,
+                    "filename": "Toggle.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "Ultrasonic.java"
+                }
+            ]
+        }
+    ]
+}
