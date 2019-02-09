@@ -43,9 +43,9 @@ public class Logging extends Object{
     public void activeInitialize() {
         SmartDashboard.putBoolean("Save Logger", loggingActive);
 
+        logger = Logger.getLogger(Logging.class.getName());
         logLength = 1000;
         logArray = new String[logLength];
-        logger = Logger.getLogger(Logging.class.getName());
         fileTimeStamp = new SimpleDateFormat("MMM dd YYYY_HH.mm.ss").format(Calendar.getInstance().getTime());
         
         
