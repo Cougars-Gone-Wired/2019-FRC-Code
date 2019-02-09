@@ -1,0 +1,29 @@
+===============================================================================
+EXTENSION NAME : linecount
+EXTENSION VERSION : 0.1.7
+-------------------------------------------------------------------------------
+count time : 2019-02-08 18:02:40
+count workspace : c:\Users\El Senor\Documents\KGR\2019-FRC-Code\src\main\java\frc\robot
+total files : 17
+total code lines : 1295
+total comment lines : 278
+total blank lines : 281
+
+Cameras.java, code is 51, comment is 0, blank is 12.
+Constants.java, code is 49, comment is 9, blank is 18.
+Controllers.java, code is 102, comment is 9, blank is 39.
+DORG.png, it is a binary file.
+Drive.java, code is 140, comment is 15, blank is 38.
+GCargoManip.java, code is 270, comment is 88, blank is 19.
+GControllers.java, code is 45, comment is 15, blank is 17.
+GRobot.java, code is 34, comment is 45, blank is 12.
+HatchArm.java, code is 238, comment is 0, blank is 9.
+Lift.java, code is 67, comment is 6, blank is 14.
+Logging.java, code is 114, comment is 6, blank is 39.
+LoggingFormatter.java, code is 16, comment is 0, blank is 4.
+Main.java, code is 9, comment is 16, blank is 4.
+Robot.java, code is 86, comment is 63, blank is 35.
+Sides.java, code is 18, comment is 0, blank is 5.
+Toggle.java, code is 38, comment is 6, blank is 9.
+Ultrasonic.java, code is 18, comment is 0, blank is 7.
+===============================================================================
