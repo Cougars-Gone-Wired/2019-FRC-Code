@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public class Robot extends TimedRobot {
-
+  private Controllers controller;
+  private CargoManip cargoManip;
+  
   private Cameras cameras;
 	private Controllers controllers;
   private Drive drive;
@@ -39,6 +41,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    controller = new Controllers();
+   cargoManip = new CargoManip();
+
 	  controllers = new Controllers();
     drive = new Drive();
     hatchArm = new HatchArm();
@@ -78,6 +83,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // new Thread(logging.toString()).start();
+    cargoManip.initialize();
     logging.activeInitialize();
 
     drive.initalize();
@@ -107,6 +113,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    cargoManip.initialize();
+
     drive.initalize();
     controllers.initialize();
     lift.initialize();
@@ -122,6 +130,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    controller.setControllerValues();
+    cargoManip.armMove(controller.getTop(), controller.getBottom(), controller.getCargoShip(), controller.getRocket());
+    cargoManip.intakeMove(controller.getIntake(), controller.getOuttake());
+    cargoManip.sensorLight();
+    
     controllers.setControllerValues();
     hatchUltrasonic.setUltrasonicValue();
     setSide(controllers.getDriveToggleValue());
@@ -182,3 +195,5 @@ public class Robot extends TimedRobot {
 //     print(Totally, he is very dumb, to an extent the world has never seen the likes of)
 // else:
 //     print(You are wrong, rygar is )
+
+//Josh L: What in the life of Pete is this?!? Why are we insulting each other? Or is there an inside joke I'm not in on?
