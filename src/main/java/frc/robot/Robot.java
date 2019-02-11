@@ -19,11 +19,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public class Robot extends TimedRobot {
-  private Controllers controller;
-  private CargoManip cargoManip;
-  
   private Cameras cameras;
 	private Controllers controllers;
+  private Controllers controller;
+  
+  private CargoManip cargoManip;
+  
+
   private Drive drive;
   private HatchArm hatchArm;
   private Logging logging;
@@ -82,16 +84,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    // new Thread(logging.toString()).start();
-    cargoManip.initialize();
-    logging.activeInitialize();
-
-    drive.initalize();
-
     controllers.initialize();
     controllers.setDriveToggle();
 
+    cargoManip.initialize();
+
+    drive.initalize();
+
     hatchArm.initialize();
+
+    logging.activeInitialize();
   }
 
   /**
@@ -119,9 +121,6 @@ public class Robot extends TimedRobot {
     controllers.initialize();
     lift.initialize();
     logging.activeInitialize();
-    // Thread thread = new Thread(logging);
-    // thread.start();
-    // thread.run();
   }
 
   /**
@@ -131,26 +130,32 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     controller.setControllerValues();
+
+    cameras.cameraVideo();
+
     cargoManip.armMove(controller.getCargoArmTopButton(), controller.getCargoArmBottomButton(), controller.getCargoArmCargoShipButton(), controller.getCargoArmRocketButton());
     cargoManip.intakeMove(controller.getCargoArmIntakeAxis(), controller.getCargoArmOuttakeAxis());
     cargoManip.sensorLight();
     
     controllers.setControllerValues();
+    setSide(controllers.getDriveToggleValue());
+
     leftHatchUltrasonic.setUltrasonicValue();
     rightHatchUltrasonic.setUltrasonicValue();
-    setSide(controllers.getDriveToggleValue());
-    drive.setMode(controllers.getUltrasonicToggleValue());
-    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());drive.showDashboard();
-    cameras.cameraVideo();
-    logging.collectData();
     SmartDashboard.putNumber("Left Imperial Ultrasonic", leftHatchUltrasonic.getImperialUltrasonicValue());
     SmartDashboard.putNumber("Right Imperial Ultrasonic", rightHatchUltrasonic.getImperialUltrasonicValue());
+
+    drive.setMode(controllers.getUltrasonicToggleValue());
+    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
+    drive.showDashboard();
+
     hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
     hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     
     //Lift
     lift.lift(controllers.getLiftToggleDeployer());
     
+    logging.collectData();
   }
 
   /**

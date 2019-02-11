@@ -98,6 +98,11 @@ public class Logging extends Object{
             
             logValues.append(d).append("BatteryVoltage");
 
+            //Joystick Values
+            logValues.append(d).append("SpeedAxis");
+            logValues.append(d).append("TurnAxis");
+            logValues.append(d).append("DriveToggleValue");
+
             //Left Motors
             logValues.append(d).append("FrontLeftMotorVoltage");
             logValues.append(d).append("FrontLeftMotorCurrent");
