@@ -147,7 +147,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Imperial Ultrasonic", rightHatchUltrasonic.getImperialUltrasonicValue());
     hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
     hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
+    
+    //Lift
     lift.lift(controllers.getLiftToggleDeployer());
+    
   }
 
   /**
