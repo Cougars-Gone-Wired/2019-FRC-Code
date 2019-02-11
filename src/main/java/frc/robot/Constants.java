@@ -48,17 +48,17 @@ public class Constants {
 	static final int FRONT_LIFT_MOTOR_ID = 0;
 	static final int BACK_LIFT_MOTOR_ID = 1;
 
-	static final int FRONT_LEFT_MOTOR_ID = 4;
-	static final int MID_LEFT_MOTOR_ID = 2;
-	static final int BACK_LEFT_MOTOR_ID = 5;
+	static final int FRONT_LEFT_MOTOR_ID = 6; //Based off Hatch Side
+	static final int MID_LEFT_MOTOR_ID = 3;
+	static final int BACK_LEFT_MOTOR_ID = 7;
 
-	static final int FRONT_RIGHT_MOTOR_ID = 6;
-	static final int MID_RIGHT_MOTOR_ID = 3;
-	static final int BACK_RIGHT_MOTOR_ID = 7;
+	static final int FRONT_RIGHT_MOTOR_ID = 4;
+	static final int MID_RIGHT_MOTOR_ID = 2;
+	static final int BACK_RIGHT_MOTOR_ID = 5;
 
 	static final double LIFT_SPEED = 1; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
-	static final int ULTRASONIC_HATCH_LEFT_PORT = 0; //SET PORTS!!!
-	static final int ULTRASONIC_HATCH_RIGHT_PORT = 1; //SET PORTS!!!
+	static final int ULTRASONIC_HATCH_LEFT_PORT = 1; //SET PORTS!!!
+	static final int ULTRASONIC_HATCH_RIGHT_PORT = 0; //SET PORTS!!!
 	static final double DISTANCE_AT_LIFT = 12; //Inches
 	static final double ULTRASONIC_THRESHOLD = 11; //Inches
 
