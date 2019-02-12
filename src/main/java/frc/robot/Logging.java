@@ -102,6 +102,7 @@ public class Logging extends Object{
             logValues.append(d).append("SpeedAxis");
             logValues.append(d).append("TurnAxis");
             logValues.append(d).append("DriveToggleValue");
+            logValues.append(d).append("UltrasonicToggleValue");
 
             //Left Motors
             logValues.append(d).append("FrontLeftMotorVoltage");
@@ -140,7 +141,14 @@ public class Logging extends Object{
             
             //logValues.append(timeStamp);
             
+            //Battery Voltage
             logValues.append(d).append(drive.getBatteryVoltage());
+
+            //Joystick Values
+            logValues.append(d).append("SpeedAxis");
+            logValues.append(d).append("TurnAxis");
+            logValues.append(d).append("DriveToggleValue");
+            logValues.append(d).append("UltrasonicToggleValue");
 
             //Left
             logValues.append(d).append(drive.getFrontLeftMotorVoltage());
