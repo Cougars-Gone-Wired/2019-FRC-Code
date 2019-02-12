@@ -28,8 +28,8 @@ public class Drive {
 
     private DifferentialDrive robotDrive;
 
-    private SensorCollection leftSensor;
-    private SensorCollection rightSensor;
+    private SensorCollection leftSensors;
+    private SensorCollection rightSensors;
 
     /**
      *  hello
@@ -61,8 +61,8 @@ public class Drive {
         driveState = DriveStates.DRIVE_CARGO_SIDE;
         driveMode = DriveModes.DRIVE_STANDARD;
 
-        leftSensor = frontLeftMotor.getSensorCollection();
-        rightSensor = frontRightMotor.getSensorCollection();
+        leftSensors = frontLeftMotor.getSensorCollection();
+        rightSensors = frontRightMotor.getSensorCollection();
 
         initalize();
     }
@@ -240,11 +240,11 @@ public class Drive {
         return backRightMotor.getOutputCurrent();
     }
 
-    public SensorCollection getLeftSensor() {
-        return leftSensor;
+    public SensorCollection getLeftSensors() {
+        return leftSensors;
     }
 
-    public SensorCollection getRightSensor() {
-        return rightSensor;
+    public SensorCollection getRightSensors() {
+        return rightSensors;
     }
 }
