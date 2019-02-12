@@ -12,7 +12,7 @@ public class Drive {
         DRIVE_CARGO_SIDE, DRIVE_HATCH_SIDE
     }
     public enum DriveModes {
-        DRIVE_STANDARD, DRIVE_DETECT
+        DRIVE_STANDARD, DRIVE_DETECT, BACKING_UP
     }
 
     private DriveStates driveState;
@@ -136,6 +136,15 @@ public class Drive {
                 }
             }
             break;
+            case BACKING_UP:
+                if(encoders.getAverageDistanceInches() < Constants.DISTANCE_AT_LIFT) {
+                    robotDrive.curvatureDrive(1, 0, false);
+                } else if (encoders.getAverageDistanceInches() > Constants.DISTANCE_AT_LIFT + 1) {
+                    robotDrive.curvatureDrive(-1, 0, false);
+                } else {
+                    robotDrive.curvatureDrive(0, 0, false);
+                }
+            break;
         }
     }
 
@@ -164,13 +173,7 @@ public class Drive {
     }
 
     public void backUpFromStairs() {
-        if(encoders.getAverageDistanceInches() < Constants.DISTANCE_AT_LIFT) {
-            robotDrive.curvatureDrive(1, 0, false);
-        } else if (encoders.getAverageDistanceInches() > Constants.DISTANCE_AT_LIFT + 1) {
-            robotDrive.curvatureDrive(-1, 0, false);
-        } else {
-            robotDrive.curvatureDrive(0, 0, false);
-        }
+        driveMode = DriveModes.BACKING_UP;
     }
 
     public void showDashboard() {
