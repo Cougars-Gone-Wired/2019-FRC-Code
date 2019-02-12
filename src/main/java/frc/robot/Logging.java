@@ -97,6 +97,7 @@ public class Logging extends Object{
             
             //logValues.append(timeStamp);
             
+            //Battery Voltage
             logValues.append(d).append("BatteryVoltage");
 
             //Joystick Values
