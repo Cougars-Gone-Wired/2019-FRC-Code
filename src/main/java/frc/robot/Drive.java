@@ -31,6 +31,8 @@ public class Drive {
     private SensorCollection leftSensors;
     private SensorCollection rightSensors;
 
+    private Encoders encoders;
+
     /**
      *  hello
      * I have destroyed the universe
@@ -63,6 +65,8 @@ public class Drive {
 
         leftSensors = frontLeftMotor.getSensorCollection();
         rightSensors = frontRightMotor.getSensorCollection();
+
+        encoders = new Encoders(this);
 
         initalize();
     }

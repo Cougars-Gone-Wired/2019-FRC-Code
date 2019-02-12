@@ -50,6 +50,12 @@ public class Logging extends Object{
         logLength = 1000;
         logArray = new String[logLength];
         fileTimeStamp = new SimpleDateFormat("MMM dd YYYY_HH.mm.ss").format(Calendar.getInstance().getTime());
+
+        logger = Logger.getLogger(Logging.class.getName());
+        logger.setUseParentHandlers(false);
+        logger.addHandler(fh);
+        level = Level.FINE;
+        logger.setLevel(level);
     }
 
     public void disabledInitialize() {
@@ -72,11 +78,7 @@ public class Logging extends Object{
         file = new File("/home/lvuser/" + "log-" + fileTimeStamp + ".csv");
         file.createNewFile();
         System.out.println("File Created at" + file.getAbsolutePath());
-        logger = Logger.getLogger(Logging.class.getName());
-        logger.setUseParentHandlers(false);
-        logger.addHandler(fh);
-        level = Level.FINE;
-        logger.setLevel(level);
+        
 
         int i = 0;
         while(i < logLength) {
@@ -160,8 +162,10 @@ public class Logging extends Object{
             logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
             //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
 
-            logArray[place] = logValues.toString();
-            place++;
+            if(place < logLength) {
+                logArray[place] = logValues.toString();
+                place++;
+            }
         } 
     }
 }
