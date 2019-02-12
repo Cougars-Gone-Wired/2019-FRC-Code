@@ -7,11 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CargoManip {
 
-
-    //JACOB, I SENT YOU AN INVITE TO GOOGLE HANGOUTS (PERSONAL). I'll help.
-    //I had to go to bed. You should do the same. We can't sort this out when we're dead. I'll see you tomorrow.
-
-
     /*public enum ArmStates {
         MOVING_UP, MOVING_DOWN, NOT_MOVING
     }*/
