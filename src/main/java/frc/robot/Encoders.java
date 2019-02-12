@@ -8,11 +8,11 @@ public class Encoders {
 	public SensorCollection rightSensors;
 	
 	static double WHEEL_RADIUS = 3;
-	static double CIRCUMFRENCE = 2 * Math.PI * WHEEL_RADIUS;
+	static double CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS;
 	static double PULSES_PER_REVOLUTION = 1000;
-	static double distancePerPulse = CIRCUMFRENCE / PULSES_PER_REVOLUTION;
+	static double distancePerPulse = CIRCUMFERENCE / PULSES_PER_REVOLUTION;
 	
-	public Encoders(Drive drive) {
+	public Encoders(Drive drive) { 
 		leftSensors = drive.getLeftSensors();
 		rightSensors = drive.getRightSensors();
 	}
