@@ -48,6 +48,9 @@ public class Lift {
     // | /    |       /     |  
     // ```   ```   ```      `  
 
+    //prior to calling this class, the drivers must run up against the stair.
+
+    /*
     public double distanceRatio(Ultrasonic left, Ultrasonic right){
         double ratio;
         //This method converts the distance between the two ultrasonic sensors into a compact ratio. Ratio will never be less than ZERO or greater than TWO.
@@ -62,7 +65,9 @@ public class Lift {
 
         return ratio;
     }
+    */
 
+    /*
     public boolean distanceAlign(){
         double ultraLeftDistance;
         double ultraRightDistance;
@@ -123,6 +128,7 @@ public class Lift {
         }
         
     }
+    */
 
     public void lift(Toggle liftIsDeployed){
         switch(liftStates){
