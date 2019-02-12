@@ -15,26 +15,26 @@ public class Lift {
     private WPI_TalonSRX backLiftMotor;
     private SensorCollection limits;
 
-    private Ultrasonic ultraLeft;
-    private Ultrasonic ultraRight;
+    //private Ultrasonic ultraLeft;
+    //private Ultrasonic ultraRight;
 
     //private boolean aligned;
     boolean alignedDistance;
     boolean alignedAngle;
-    private double distanceAtLift;
+    //private double distanceAtLift;
     
     public Lift(){
         frontLiftMotor = new WPI_TalonSRX(Constants.FRONT_LIFT_MOTOR_ID);
         backLiftMotor = new WPI_TalonSRX(Constants.BACK_LIFT_MOTOR_ID);
         limits = new SensorCollection(frontLiftMotor);
 
-        ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
-        ultraRight = new Ultrasonic(Constants.ULTRASONIC_HATCH_RIGHT_PORT);
+        //ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
+        //ultraRight = new Ultrasonic(Constants.ULTRASONIC_HATCH_RIGHT_PORT);
 
         //aligned = false;
         alignedDistance = false;
         alignedAngle = false;
-        distanceAtLift = Constants.DISTANCE_AT_LIFT;
+        //distanceAtLift = Constants.DISTANCE_AT_LIFT;
     }
 
     public void initialize() {

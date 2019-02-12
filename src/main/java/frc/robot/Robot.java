@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
   private Cameras cameras;
 	private Controllers controllers;
-  private Controllers controller;
   
   private CargoManip cargoManip;
   
@@ -42,7 +41,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    controller = new Controllers();
     cargoManip = new CargoManip();
 
 	  controllers = new Controllers();
@@ -129,15 +127,15 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    controller.setControllerValues();
+    controllers.setControllerValues();
 
     cameras.cameraVideo();
 
-    cargoManip.armMove(controller.getCargoArmTopButton(), controller.getCargoArmBottomButton(), controller.getCargoArmCargoShipButton(), controller.getCargoArmRocketButton());
-    cargoManip.intakeMove(controller.getCargoArmIntakeAxis(), controller.getCargoArmOuttakeAxis());
+    cargoManip.armMove(controllers.getCargoArmTopButton(), controllers.getCargoArmBottomButton(), controllers.getCargoArmCargoShipButton(), controllers.getCargoArmRocketButton());
+    cargoManip.intakeMove(controllers.getCargoArmIntakeAxis(), controllers.getCargoArmOuttakeAxis());
     cargoManip.sensorLight();
     
-    controllers.setControllerValues();
+
     setSide(controllers.getDriveToggleValue());
 
     leftHatchUltrasonic.setUltrasonicValue();
