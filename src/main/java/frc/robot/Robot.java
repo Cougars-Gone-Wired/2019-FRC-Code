@@ -24,7 +24,6 @@ public class Robot extends TimedRobot {
   
   private CargoManip cargoManip;
   
-
   private Drive drive;
   private HatchArm hatchArm;
   private Logging logging;

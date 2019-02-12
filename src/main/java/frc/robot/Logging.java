@@ -80,7 +80,6 @@ public class Logging extends Object{
         file = new File("/home/lvuser/" + "log-" + fileTimeStamp + ".csv");
         file.createNewFile();
         System.out.println("File Created at" + file.getAbsolutePath());
-        
 
         int i = 0;
         while(i < logLength) {
