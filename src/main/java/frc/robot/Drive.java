@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 public class Drive {
     public enum DriveStates {
@@ -17,7 +18,7 @@ public class Drive {
     private DriveStates driveState;
     private DriveModes driveMode;
     
-    private WPI_TalonSRX frontLeftMotor;
+    private WPI_TalonSRX frontLeftMotor; //Based off Hatch Side
     private WPI_TalonSRX midLeftMotor;
     private WPI_TalonSRX backLeftMotor;
 
@@ -26,6 +27,9 @@ public class Drive {
     private WPI_TalonSRX backRightMotor;
 
     private DifferentialDrive robotDrive;
+
+    private SensorCollection leftSensor;
+    private SensorCollection rightSensor;
 
     /**
      *  hello
@@ -56,6 +60,9 @@ public class Drive {
 
         driveState = DriveStates.DRIVE_CARGO_SIDE;
         driveMode = DriveModes.DRIVE_STANDARD;
+
+        leftSensor = frontLeftMotor.getSensorCollection();
+        rightSensor = frontRightMotor.getSensorCollection();
 
         initalize();
     }
@@ -231,5 +238,13 @@ public class Drive {
 
     public double getBackRightMotorCurrent() {
         return backRightMotor.getOutputCurrent();
+    }
+
+    public SensorCollection getLeftSensor() {
+        return leftSensor;
+    }
+
+    public SensorCollection getRightSensor() {
+        return rightSensor;
     }
 }
