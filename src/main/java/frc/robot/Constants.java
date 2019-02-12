@@ -66,7 +66,14 @@ public class Constants {
 	static final double DRIVE_TURN_SPEED = 0.75;
 	static final double DRIVE_DEADZONE = 0.15;
 
-	static final int HATCH_ULTRASONIC_SENSOR_PORT = 1;
+	static final double DETECTING_DRIVE_SPEED = .4;
+	static final double DETECTING_SLOW_SPEED = .2;
+	static final double DETECTING_DEAD_ZONE = 1.5;
+	static final double SLOW_DISTANCE = 30;
+	static final double STOP_DISTANCE = 12;
+
+	static final int LEFT_HATCH_ULTRASONIC_SENSOR_PORT = 1;
+	static final int RIGHT_HATCH_ULTRASONIC_SENSOR_PORT = 0;
 	static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
 
 }

@@ -27,13 +27,22 @@ public class Drive {
 
     private DifferentialDrive robotDrive;
 
+    /**
+     *  hello
+     * I have destroyed the universe
+     * @param accepts the_universe.app
+     * @return the_nothing.txt (empty text file)
+     * @throws InvalidUniverseException
+     * @see
+     * {@code}> Executing task: destroy_the_universe.exe <
+     * 
+     */
     public Drive() {
         frontLeftMotor = new WPI_TalonSRX(Constants.FRONT_LEFT_MOTOR_ID);
         midLeftMotor = new WPI_TalonSRX(Constants.MID_LEFT_MOTOR_ID);
         backLeftMotor = new WPI_TalonSRX(Constants.BACK_LEFT_MOTOR_ID);
         midLeftMotor.follow(frontLeftMotor);
         backLeftMotor.follow(frontLeftMotor);
-
 
         frontRightMotor = new WPI_TalonSRX(Constants.FRONT_RIGHT_MOTOR_ID);
         midRightMotor = new WPI_TalonSRX(Constants.MID_RIGHT_MOTOR_ID);
@@ -46,6 +55,7 @@ public class Drive {
         robotDrive.setSafetyEnabled(false);
 
         driveState = DriveStates.DRIVE_CARGO_SIDE;
+        driveMode = DriveModes.DRIVE_STANDARD;
 
         initalize();
     }
@@ -62,28 +72,59 @@ public class Drive {
         backRightMotor.set(0);
     }
 
-    public void robotDrive(double driveSpeedAxis, double driveTurnAxis, double hatchUltrasonicImperialValue) {
+    public void robotDrive(double driveSpeedAxis, double driveTurnAxis, double leftHatchUltrasonic, double rightHatchUltrasonic) {
         driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
         driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
         switch (driveMode) {
             case DRIVE_STANDARD:
+           // robotDrive.arcadeDrive(-driveSpeedAxis, driveTurnAxis);
                 switch (driveState) {
                     case DRIVE_HATCH_SIDE:
-                        robotDrive.arcadeDrive(driveSpeedAxis, -driveTurnAxis);
-                        break;
-                    case DRIVE_CARGO_SIDE:
                         robotDrive.arcadeDrive(-driveSpeedAxis, -driveTurnAxis);
                         break;
+
+                    case DRIVE_CARGO_SIDE:
+                        robotDrive.arcadeDrive(driveSpeedAxis, -driveTurnAxis);
+                        break;
                 }
                 break;
+
             case DRIVE_DETECT:
-                if(hatchUltrasonicImperialValue <= 12.0) {
-                    //robotDrive.arcadeDrive(0, 0);
-                    driveMode = DriveModes.DRIVE_STANDARD; 
+            if(driveSpeedAxis > Constants.DRIVE_DEADZONE || driveTurnAxis > Constants.DRIVE_DEADZONE) {
+                driveMode = DriveModes.DRIVE_STANDARD;
+            }
+            if(leftHatchUltrasonic <= Constants.STOP_DISTANCE && rightHatchUltrasonic <= Constants.STOP_DISTANCE) {
+                robotDrive.arcadeDrive(0,0);
+
+            } else if (leftHatchUltrasonic <= Constants.SLOW_DISTANCE || rightHatchUltrasonic <= Constants.SLOW_DISTANCE) {
+                if(leftHatchUltrasonic - rightHatchUltrasonic > Constants.DETECTING_DEAD_ZONE) {
+                    frontLeftMotor.set(Constants.DETECTING_SLOW_SPEED);
+                    frontRightMotor.set((leftHatchUltrasonic / rightHatchUltrasonic) * 1.5 * -Constants.DETECTING_SLOW_SPEED);
+                
+                } else if (rightHatchUltrasonic - leftHatchUltrasonic > Constants.DETECTING_DEAD_ZONE) {
+                    frontRightMotor.set(-Constants.DETECTING_SLOW_SPEED);
+                    frontLeftMotor.set((rightHatchUltrasonic / leftHatchUltrasonic) * 1.5 * Constants.DETECTING_SLOW_SPEED);
+                
                 } else {
-                    //robotDrive.arcadeDrive(.5, 0);
+                    frontRightMotor.set(-Constants.DETECTING_SLOW_SPEED);
+                    frontLeftMotor.set(Constants.DETECTING_SLOW_SPEED);
                 }
-                break;
+
+            } else {
+                if(leftHatchUltrasonic - rightHatchUltrasonic > Constants.DETECTING_DEAD_ZONE) {
+                    frontLeftMotor.set(Constants.DETECTING_DRIVE_SPEED);
+                    frontRightMotor.set((leftHatchUltrasonic / rightHatchUltrasonic) * 1.5 * -Constants.DETECTING_DRIVE_SPEED);
+                
+                } else if (rightHatchUltrasonic - leftHatchUltrasonic > Constants.DETECTING_DEAD_ZONE) {
+                    frontRightMotor.set(-Constants.DETECTING_DRIVE_SPEED);
+                    frontLeftMotor.set((rightHatchUltrasonic / leftHatchUltrasonic) * 1.5 * Constants.DETECTING_DRIVE_SPEED);
+                
+                } else {
+                    frontRightMotor.set(-Constants.DETECTING_DRIVE_SPEED);
+                    frontLeftMotor.set(Constants.DETECTING_DRIVE_SPEED);
+                }
+            }
+            break;
         }
     }
 
@@ -113,6 +154,7 @@ public class Drive {
 
     public void showDashboard() {
         SmartDashboard.putString("Side Facing", driveState.toString());
+        SmartDashboard.putString("Drive Mode", driveMode.toString());
         SmartDashboard.putNumber("RoboRIO Voltage", getBatteryVoltage());
 
         ///Front Left Motor
