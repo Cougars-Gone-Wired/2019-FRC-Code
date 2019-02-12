@@ -190,6 +190,10 @@ public class Robot extends TimedRobot {
     return drive;
   }
 
+  public Controllers getControllers() {
+    return controllers;
+  }
+
   public Ultrasonic getLeftHatchUltrasonic() {
     return leftHatchUltrasonic;
   }
