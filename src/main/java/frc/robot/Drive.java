@@ -163,6 +163,17 @@ public class Drive {
         }
     }
 
+    public void backUpFromStairs() {
+        encoders.reset();
+        if(encoders.getAverageDistanceInches() < Constants.DISTANCE_AT_LIFT) {
+            robotDrive.curvatureDrive(-1, 0, false);
+        } else if (encoders.getAverageDistanceInches() > Constants.DISTANCE_AT_LIFT + 1) {
+            robotDrive.curvatureDrive(1, 0, false);
+        } else {
+            robotDrive.curvatureDrive(0, 0, false);
+        }
+    }
+
     public void showDashboard() {
         SmartDashboard.putString("Side Facing", driveState.toString());
         SmartDashboard.putString("Drive Mode", driveMode.toString());
