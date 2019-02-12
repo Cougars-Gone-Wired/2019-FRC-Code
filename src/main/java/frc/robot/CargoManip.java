@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CargoManip {
 
-    /*public enum ArmStates {
+    public enum ArmStatesManual {
         MOVING_UP, MOVING_DOWN, NOT_MOVING
-    }*/
+    }
 
     public enum ArmStates {
         TOP, ROCKET, CARGO_SHIP, BOTTOM, TO_TOP, TO_ROCKET, TO_CARGO_SHIP, TO_BOTTOM
@@ -23,8 +23,8 @@ public class CargoManip {
         TOP_LIMIT, BOTTOM_LIMIT, CARGO_SHIP, ROCKET, NO_SWITCH
     }*/
 
-    //private ArmStates armState;
     private ArmStates armState;
+    private ArmStatesManual armStateM;
     private IntakeStates intakeState;
     //private LimitSwitchStates limitSwitchState;
     
@@ -60,18 +60,19 @@ public class CargoManip {
     
     public void initialize() {
         armState = ArmStates.TOP;
+        armStateM = ArmStatesManual.NOT_MOVING;
         intakeState = IntakeStates.NOT_MOVING;
         //limitSwitchState = LimitSwitchStates.NO_SWITCH;
         armMotor.set(0);
         intakeMotor.set(0);
     }
 
-    /*public void armMove(double armAxis) {
-        switch (armState) {
+    public void armMoveManual(double armAxis) {
+        switch (armStateM) {
             case MOVING_UP:
             if (armAxis < 0.15 || armSensors.isFwdLimitSwitchClosed()) {
                 armMotor.set(0);
-                armState = ArmStates.NOT_MOVING;
+                armStateM = ArmStatesManual.NOT_MOVING;
             }
             else {
                 armMotor.set(armAxis);
@@ -80,7 +81,7 @@ public class CargoManip {
             case MOVING_DOWN:
             if (armAxis > -0.15 || armSensors.isRevLimitSwitchClosed()) {
                 armMotor.set(0);
-                armState = ArmStates.NOT_MOVING;
+                armStateM = ArmStatesManual.NOT_MOVING;
             }
             else {
                 armMotor.set(armAxis);
@@ -89,15 +90,15 @@ public class CargoManip {
             case NOT_MOVING:
             if (armAxis > 0.15 && !armSensors.isFwdLimitSwitchClosed()) {
                 armMotor.set(armAxis);
-                armState = ArmStates.MOVING_UP;
+                armStateM = ArmStatesManual.MOVING_UP;
             }
             if (armAxis < -0.15 && !armSensors.isRevLimitSwitchClosed()) {
                 armMotor.set(armAxis);
-                armState = ArmStates.MOVING_DOWN;
+                armStateM = ArmStatesManual.MOVING_DOWN;
             }
             break;
         }
-    }*/
+    }
 
     public void armMove(boolean topButton, boolean bottomButton, boolean cargoShipButton, boolean rocketButton) {
         topLimitSwitch = armSensors.isFwdLimitSwitchClosed();
