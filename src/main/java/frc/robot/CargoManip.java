@@ -7,10 +7,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CargoManip {
 
+    //for using a joystick to control the arm
     public enum ArmStatesManual {
         MOVING_UP, MOVING_DOWN, NOT_MOVING
     }
 
+    //for using buttons to control the arm
     public enum ArmStates {
         TOP, ROCKET, CARGO_SHIP, BOTTOM, TO_TOP, TO_ROCKET, TO_CARGO_SHIP, TO_BOTTOM
     }
@@ -67,6 +69,7 @@ public class CargoManip {
         intakeMotor.set(0);
     }
 
+    //move the arm using a joystick
     public void armMoveManual(double armAxis) {
         switch (armStateM) {
             case MOVING_UP:
@@ -100,6 +103,7 @@ public class CargoManip {
         }
     }
 
+    //move the arm using buttons
     public void armMove(boolean topButton, boolean bottomButton, boolean cargoShipButton, boolean rocketButton) {
         topLimitSwitch = armSensors.isFwdLimitSwitchClosed();
         bottomLimitSwitch = armSensors.isRevLimitSwitchClosed();
@@ -162,16 +166,19 @@ public class CargoManip {
             }
             break;
             case TO_TOP:
+            //check if reached top
             if (topLimitSwitch) {
                 armMotor.set(0);
                 armSensors.setQuadraturePosition(0, 0);
                 armState = ArmStates.TOP;
             }
+            //check if a different button has been pressed
             else if (bottomButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
                 armState = ArmStates.TO_BOTTOM;
             }
             else if (cargoShipButton) {
+                //check which side of the cargo ship position the arm is on
                 if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
                     armState = ArmStates.TO_CARGO_SHIP;
@@ -186,6 +193,7 @@ public class CargoManip {
                 }
             }
             else if (rocketButton) {
+                //check which side of the rocket position the arm is on
                 if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
                     armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
                     armState = ArmStates.TO_ROCKET;
