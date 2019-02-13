@@ -53,7 +53,7 @@ public class Ultrasonic {
         return averagedUltrasonicValue;
     }
 
-    public double getImperialUltrasonicValue() { // Is averaged
-        return averagedUltrasonicValue / Constants.ULTRASONIC_IMPERIAL_CONVERSION_RATIO;
+    public double getImperialUltrasonicValue() { 
+        return averagedUltrasonicValue / Constants.ULTRASONIC_IMPERIAL_CONVERSION_RATIO;// Is averaged
     }
 }
