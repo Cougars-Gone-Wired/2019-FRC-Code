@@ -203,6 +203,10 @@ public class Robot extends TimedRobot {
   public Ultrasonic getRightHatchUltrasonic() {
     return rightHatchUltrasonic;
   }
+
+  public Lift getLift() {
+    return lift;
+  }
 }
 
 
