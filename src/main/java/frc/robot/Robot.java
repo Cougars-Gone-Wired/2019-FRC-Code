@@ -49,6 +49,7 @@ public class Robot extends TimedRobot {
     leftHatchUltrasonic = new Ultrasonic(Constants.LEFT_HATCH_ULTRASONIC_SENSOR_PORT);
     rightHatchUltrasonic = new Ultrasonic(Constants.RIGHT_HATCH_ULTRASONIC_SENSOR_PORT);
     lift = new Lift();
+    
     logging.activeInitialize();
   }
 
@@ -89,10 +90,11 @@ public class Robot extends TimedRobot {
 
     hatchArm.initialize();
 
-    logging.activeInitialize();
-
     leftHatchUltrasonic.initialize();
     rightHatchUltrasonic.initialize();
+    
+    logging.activeInitialize();
+
   }
 
   /**
@@ -119,10 +121,11 @@ public class Robot extends TimedRobot {
     drive.initalize();
     controllers.initialize();
     lift.initialize();
-    logging.activeInitialize();
 
     leftHatchUltrasonic.initialize();
     rightHatchUltrasonic.initialize();
+
+    logging.activeInitialize();
   }
 
   /**
