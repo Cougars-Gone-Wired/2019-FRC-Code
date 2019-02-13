@@ -85,11 +85,11 @@ public class Logging extends Object{
         logger.addHandler(fh);
         level = Level.FINE;
         logger.setLevel(level);
-        
+
         System.out.println("File Created at" + file.getAbsolutePath());
 
         int i = 0;
-        while(i < logLength) {
+        while(i < logLength && logArray[i] != null) {
             logger.fine(logArray[i]);
             i++;
         }
@@ -133,9 +133,12 @@ public class Logging extends Object{
             logValues.append(d).append("BackRightMotorVoltage");
             logValues.append(d).append("BackRightMotorCurrent");
 
+            logValues.append(d).append("BackRightMotorVoltage");
+            logValues.append(d).append("BackRightMotorCurrent");
+
             //Ultrasonic 
-            logValues.append(d).append("LeftHatchUltrasonic");
-            logValues.append(d).append("RightHatchUltrasonic");
+            // logValues.append(d).append("LeftHatchUltrasonic");
+            // logValues.append(d).append("RightHatchUltrasonic");
             //logValues.append(d).append("HatchUltrasonicDistance");
 
             logArray[0] = logValues.toString();
@@ -179,9 +182,11 @@ public class Logging extends Object{
             logValues.append(d).append(drive.getBackRightMotorVoltage());
             logValues.append(d).append(drive.getBackLeftMotorCurrent());
 
+            logValues.append(d).append(drive.getBackRightMotorVoltage());
+            logValues.append(d).append(drive.getBackLeftMotorCurrent());
             //Ultrasonic
-            logValues.append(d).append(leftHatchUltrasonic.getImperialUltrasonicValue());
-            logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
+            // logValues.append(d).append(leftHatchUltrasonic.getImperialUltrasonicValue());
+            // logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
             //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
 
             if(place < logLength) {
