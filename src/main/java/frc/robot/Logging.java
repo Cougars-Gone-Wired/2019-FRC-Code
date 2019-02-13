@@ -46,7 +46,7 @@ public class Logging extends Object{
     }
 
     public void activeInitialize() {
-        SmartDashboard.putBoolean("Save Logger", false);
+        SmartDashboard.putBoolean("Save Logger", loggingSave);
 
         logger = Logger.getLogger(Logging.class.getName());
         logLength = 1000;
