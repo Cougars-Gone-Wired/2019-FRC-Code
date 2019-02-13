@@ -60,6 +60,7 @@ public class Ultrasonic {
 
     public void displayValues(String key) {
         SmartDashboard.putNumber(key + " Raw Value", rawUltrasonicValue);
+        SmartDashboard.putNumber(key + " Raw Averaged Value", averagedUltrasonicValue);
         SmartDashboard.putNumber(key + " Imperial Value", averagedUltrasonicValue);
     }
 }
