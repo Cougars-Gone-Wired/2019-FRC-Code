@@ -142,8 +142,8 @@ public class Robot extends TimedRobot {
 
     setSide(controllers.getDriveToggleValue());
 
-    leftHatchUltrasonic.setUltrasonicValue();
-    rightHatchUltrasonic.setUltrasonicValue();
+    leftHatchUltrasonic.setUltrasonicValues();
+    rightHatchUltrasonic.setUltrasonicValues();
     leftHatchUltrasonic.displayValues("Left Ultrasonic");
     rightHatchUltrasonic.displayValues("Right Ultrasonic");
 

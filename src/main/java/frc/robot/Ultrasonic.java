@@ -26,7 +26,7 @@ public class Ultrasonic {
         }
     }
 
-    public void setUltrasonicValue() {
+    public void setUltrasonicValues() {
         rawUltrasonicValue = ultrasonicSensor.getValue();
         setAveragedUltrasonicValue();
         ultrasonicRecord();
