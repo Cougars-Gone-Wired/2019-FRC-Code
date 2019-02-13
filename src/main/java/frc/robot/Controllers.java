@@ -96,12 +96,9 @@ public class Controllers {
 
 		//Lift
 		//liftIsDeployed = liftToggleDeployer.toggle();
-		
 		if(manipulatorStick.getRawButton(3) && liftToggleDeployer.toggle()){
-			//if(false){
-
-			//}
 			liftIsDeployed = true;
+			liftToggleDeployer.toggle();
 		}
 	}
 

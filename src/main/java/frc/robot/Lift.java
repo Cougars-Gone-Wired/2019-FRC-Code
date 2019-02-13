@@ -130,12 +130,15 @@ public class Lift {
     }
     */
 
-    public void lift(Toggle liftIsDeployed){
+    public void lift(Boolean liftIsDeployed , Toggle liftToggleDeployer){
+        if(limits.isFwdLimitSwitchClosed() || limits.isRevLimitSwitchClosed()){
+            liftToggleDeployer.setOutput(false);
+        }
         switch(liftState){
             case LOCK:
                 //State: LOCK -> EN || STOP (@ 20sec. left in match)
                 if(Timer.getMatchTime() <= 20){
-                    liftIsDeployed.setOutput(false);
+                    liftToggleDeployer.setOutput(false);
                     if(!limits.isFwdLimitSwitchClosed()) {
                         frontLiftMotor.set(Constants.LIFT_SPEED);
                         backLiftMotor.set(-Constants.LIFT_SPEED);
@@ -151,7 +154,7 @@ public class Lift {
 
             case EN:
                 //State: EN -> STOP
-                if(liftIsDeployed.toggle() == true || limits.isFwdLimitSwitchClosed()){
+                if(liftToggleDeployer.toggle() == true || limits.isFwdLimitSwitchClosed()){
                     backLiftMotor.set(0);
                     frontLiftMotor.set(0);
                     liftState = LiftStates.STOP;
@@ -160,7 +163,7 @@ public class Lift {
 
             case STOP:
 
-                if(liftIsDeployed.toggle() == true){
+                if(liftToggleDeployer.toggle() == true){
                     if(!limits.isFwdLimitSwitchClosed()){
                     //State: STOP -> EN
                         frontLiftMotor.set(Constants.LIFT_SPEED);
@@ -177,7 +180,7 @@ public class Lift {
 
             case EC:
                 //State: EC -> STOP
-                if(liftIsDeployed.toggle() == true || limits.isRevLimitSwitchClosed()){
+                if(liftToggleDeployer.toggle() == true || limits.isRevLimitSwitchClosed()){
                     frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     liftState = LiftStates.STOP;
