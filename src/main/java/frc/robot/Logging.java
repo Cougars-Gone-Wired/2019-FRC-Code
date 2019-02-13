@@ -32,12 +32,14 @@ public class Logging extends Object{
     private StringBuilder logValues = new StringBuilder();
 
     private Drive drive;
+    private Controllers controllers;
     private Ultrasonic leftHatchUltrasonic;
     private Ultrasonic rightHatchUltrasonic;
     //private Ultrasonic hatchUltrasonic;    
 
     Logging(Robot robot) {
         drive = robot.getDrive();
+        controllers = robot.getControllers();
         leftHatchUltrasonic = robot.getLeftHatchUltrasonic();
         rightHatchUltrasonic = robot.getRightHatchUltrasonic();
         //hatchUltrasonic = robot.getHatchUltrasonic();        
@@ -78,7 +80,6 @@ public class Logging extends Object{
         file = new File("/home/lvuser/" + "log-" + fileTimeStamp + ".csv");
         file.createNewFile();
         System.out.println("File Created at" + file.getAbsolutePath());
-        
 
         int i = 0;
         while(i < logLength) {
@@ -96,6 +97,7 @@ public class Logging extends Object{
             
             //logValues.append(timeStamp);
             
+            //Battery Voltage
             logValues.append(d).append("BatteryVoltage");
 
             //Joystick Values
@@ -145,10 +147,10 @@ public class Logging extends Object{
             logValues.append(d).append(drive.getBatteryVoltage());
 
             //Joystick Values
-            logValues.append(d).append("SpeedAxis");
-            logValues.append(d).append("TurnAxis");
-            logValues.append(d).append("DriveToggleValue");
-            logValues.append(d).append("UltrasonicToggleValue");
+            logValues.append(d).append(controllers.getDriveSpeedAxis());
+            logValues.append(d).append(controllers.getDriveTurnAxis());
+            logValues.append(d).append(controllers.getDriveToggleValue());
+            logValues.append(d).append(controllers.getUltrasonicToggleValue());
 
             //Left
             logValues.append(d).append(drive.getFrontLeftMotorVoltage());

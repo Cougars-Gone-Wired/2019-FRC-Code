@@ -24,7 +24,6 @@ public class Robot extends TimedRobot {
   
   private CargoManip cargoManip;
   
-
   private Drive drive;
   private HatchArm hatchArm;
   private Logging logging;
@@ -186,6 +185,10 @@ public class Robot extends TimedRobot {
 
   public Drive getDrive() {
     return drive;
+  }
+
+  public Controllers getControllers() {
+    return controllers;
   }
 
   public Ultrasonic getLeftHatchUltrasonic() {

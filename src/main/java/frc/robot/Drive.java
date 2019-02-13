@@ -12,7 +12,7 @@ public class Drive {
         DRIVE_CARGO_SIDE, DRIVE_HATCH_SIDE
     }
     public enum DriveModes {
-        DRIVE_STANDARD, DRIVE_DETECT
+        DRIVE_STANDARD, DRIVE_DETECT, BACKING_UP
     }
 
     private DriveStates driveState;
@@ -60,7 +60,7 @@ public class Drive {
         robotDrive.setDeadband(Constants.DRIVE_DEADZONE);
         robotDrive.setSafetyEnabled(false);
 
-        driveState = DriveStates.DRIVE_CARGO_SIDE;
+        driveState = DriveStates.DRIVE_HATCH_SIDE;
         driveMode = DriveModes.DRIVE_STANDARD;
 
         leftSensors = frontLeftMotor.getSensorCollection();
@@ -72,7 +72,7 @@ public class Drive {
     }
 
     public void initalize() {
-        SmartDashboard.putBoolean("StartCargoSide", true);
+        SmartDashboard.putBoolean("StartCargoSide", false);
 
         frontLeftMotor.set(0);
         midLeftMotor.set(0);
@@ -136,6 +136,15 @@ public class Drive {
                 }
             }
             break;
+            case BACKING_UP:
+                if(encoders.getAverageDistanceInches() < Constants.DISTANCE_AT_LIFT) {
+                    robotDrive.curvatureDrive(1, 0, false);
+                } else if (encoders.getAverageDistanceInches() > Constants.DISTANCE_AT_LIFT + 1) {
+                    robotDrive.curvatureDrive(-1, 0, false);
+                } else {
+                    robotDrive.curvatureDrive(0, 0, false);
+                }
+            break;
         }
     }
 
@@ -163,6 +172,10 @@ public class Drive {
         }
     }
 
+    public void backUpFromStairs() {
+        driveMode = DriveModes.BACKING_UP;
+    }
+
     public void showDashboard() {
         SmartDashboard.putString("Side Facing", driveState.toString());
         SmartDashboard.putString("Drive Mode", driveMode.toString());
@@ -184,7 +197,6 @@ public class Drive {
         // SmartDashboard.putNumber("BRCurrent", getBackRightMotorCurrent());
     }
 
-    
     //RoboRIO Battery Voltage
     public double getBatteryVoltage() {
         return RobotController.getBatteryVoltage();
