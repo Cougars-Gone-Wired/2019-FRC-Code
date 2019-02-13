@@ -60,7 +60,7 @@ public class Drive {
         robotDrive.setDeadband(Constants.DRIVE_DEADZONE);
         robotDrive.setSafetyEnabled(false);
 
-        driveState = DriveStates.DRIVE_CARGO_SIDE;
+        driveState = DriveStates.DRIVE_HATCH_SIDE;
         driveMode = DriveModes.DRIVE_STANDARD;
 
         leftSensors = frontLeftMotor.getSensorCollection();
@@ -72,7 +72,7 @@ public class Drive {
     }
 
     public void initalize() {
-        SmartDashboard.putBoolean("StartCargoSide", true);
+        SmartDashboard.putBoolean("StartCargoSide", false);
 
         frontLeftMotor.set(0);
         midLeftMotor.set(0);
