@@ -41,7 +41,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     cargoManip = new CargoManip();
-
 	  controllers = new Controllers();
     drive = new Drive();
     hatchArm = new HatchArm();
@@ -91,6 +90,9 @@ public class Robot extends TimedRobot {
     hatchArm.initialize();
 
     logging.activeInitialize();
+
+    leftHatchUltrasonic.initialize();
+    rightHatchUltrasonic.initialize();
   }
 
   /**
@@ -118,6 +120,9 @@ public class Robot extends TimedRobot {
     controllers.initialize();
     lift.initialize();
     logging.activeInitialize();
+
+    leftHatchUltrasonic.initialize();
+    rightHatchUltrasonic.initialize();
   }
 
   /**

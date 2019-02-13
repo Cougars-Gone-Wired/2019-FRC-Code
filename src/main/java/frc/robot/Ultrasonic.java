@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 public class Ultrasonic {
     private AnalogInput ultrasonicSensor;
 
-    private double[] ultrasonicLog = new double[5];
+    private double[] ultrasonicLog = new double[Constants.ULTRASONIC_LOG_ELEMENT_COUNT];
 
     private double rawUltrasonicValue;
     private double averagedUltrasonicValue;
@@ -20,7 +20,7 @@ public class Ultrasonic {
     }
 
     public void initialize() {
-        for (int j = 4; j >= 0; j--) {
+        for (int j = Constants.ULTRASONIC_LOG_ELEMENT_COUNT - 1; j >= 0; j--) {
             ultrasonicLog[j] = 0;
         }
     }
@@ -33,7 +33,7 @@ public class Ultrasonic {
 
     private void ultrasonicRecord() {
         ultrasonicLog[i] = rawUltrasonicValue;
-        if (i < 4) {
+        if (i < Constants.ULTRASONIC_LOG_ELEMENT_COUNT - 1) {
             i++;
         } else {
             i = 0;
@@ -53,7 +53,7 @@ public class Ultrasonic {
         return averagedUltrasonicValue;
     }
 
-    public double getImperialUltrasonicValue() { // Is averaged
-        return averagedUltrasonicValue / Constants.ULTRASONIC_IMPERIAL_CONVERSION_RATIO;
+    public double getImperialUltrasonicValue() { 
+        return averagedUltrasonicValue / Constants.ULTRASONIC_IMPERIAL_CONVERSION_RATIO;// Is averaged
     }
 }
