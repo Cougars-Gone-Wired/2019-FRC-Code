@@ -76,4 +76,6 @@ public class Constants {
 	static final int RIGHT_HATCH_ULTRASONIC_SENSOR_PORT = 0;
 	static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
 
+	static final int ULTRASONIC_LOG_ELEMENT_COUNT = 5;
+
 }
