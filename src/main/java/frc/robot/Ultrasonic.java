@@ -3,6 +3,7 @@ package frc.robot;
 import java.util.stream.DoubleStream;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Ultrasonic {
     private AnalogInput ultrasonicSensor;
@@ -53,7 +54,12 @@ public class Ultrasonic {
         return averagedUltrasonicValue;
     }
 
-    public double getImperialUltrasonicValue() { 
-        return averagedUltrasonicValue / Constants.ULTRASONIC_IMPERIAL_CONVERSION_RATIO;// Is averaged
+    public double getImperialUltrasonicValue() { // Is averaged
+        return averagedUltrasonicValue / Constants.ULTRASONIC_IMPERIAL_CONVERSION_RATIO;
+    }
+
+    public void displayValues(String key) {
+        SmartDashboard.putNumber(key + " Raw Value", rawUltrasonicValue);
+        SmartDashboard.putNumber(key + " Imperial Value", averagedUltrasonicValue);
     }
 }
