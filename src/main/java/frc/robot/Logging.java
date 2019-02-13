@@ -55,13 +55,12 @@ public class Logging extends Object{
 
         logger = Logger.getLogger(Logging.class.getName());
         logger.setUseParentHandlers(false);
-        logger.addHandler(fh);
-        level = Level.FINE;
-        logger.setLevel(level);
     }
 
     public void disabledInitialize() {
-        loggingStart = false;
+        if(loggingStart) {
+            loggingStart = false;
+        }
         if(loggingSave) {
             try {
                 makeFile();
@@ -79,6 +78,14 @@ public class Logging extends Object{
     public void makeFile() throws IOException {
         file = new File("/home/lvuser/" + "log-" + fileTimeStamp + ".csv");
         file.createNewFile();
+
+        fh = new FileHandler(file.getAbsolutePath());
+        fh.setFormatter(new LoggingFormatter());
+
+        logger.addHandler(fh);
+        level = Level.FINE;
+        logger.setLevel(level);
+        
         System.out.println("File Created at" + file.getAbsolutePath());
 
         int i = 0;
