@@ -48,6 +48,10 @@ public class Controllers {
 	//Lift
 	private boolean liftIsDeployed;
 	private Toggle liftToggleDeployer;
+	public enum LiftStates {
+        LOCK, STOP, EN, EC
+	}
+	LiftStates liftStates;
 	
 	public Controllers() {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
@@ -63,6 +67,7 @@ public class Controllers {
 	}
 
 	public void setControllerValues() {
+
 		//Hatch Arm
 		hatchArmGrabButton = hatchArmGrabToggle.toggle();
         dPad = manipulatorStick.getPOV();
@@ -90,7 +95,14 @@ public class Controllers {
 		driveTurnAxis = mobilityStick.getRawAxis(Constants.DRIVE_TURN_AXIS);
 
 		//Lift
-		liftIsDeployed = liftToggleDeployer.toggle();
+		//liftIsDeployed = liftToggleDeployer.toggle();
+		
+		if(manipulatorStick.getRawButton(3) && liftToggleDeployer.toggle()){
+			//if(false){
+
+			//}
+			liftIsDeployed = true;
+		}
 	}
 
 	public void initialize() {
