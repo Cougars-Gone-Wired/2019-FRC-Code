@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.stream.DoubleStream;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 
 public class Ultrasonic {
@@ -10,29 +12,36 @@ public class Ultrasonic {
     private double rawUltrasonicValue;
     private double averagedUltrasonicValue;
 
+    private int i = 0;
+
     public Ultrasonic(int ultrasonicPort) {
         ultrasonicSensor = new AnalogInput(ultrasonicPort);
-        
+        initialize();
+    }
+
+    public void initialize() {
+        for (int j = 4; j >= 0; j--) {
+            ultrasonicLog[j] = 0;
+        }
     }
 
     public void setUltrasonicValue() {
         rawUltrasonicValue = ultrasonicSensor.getValue();
-        ultrasonicRecord();
         setAveragedUltrasonicValue();
+        ultrasonicRecord();
     }
 
     private void ultrasonicRecord() {
-        for (int i = 4; i > 0; i--) {
-            ultrasonicLog[i] = ultrasonicLog[i - 1];
+        ultrasonicLog[i] = rawUltrasonicValue;
+        if (i < 4) {
+            i++;
+        } else {
+            i = 0;
         }
-        ultrasonicLog[0] = rawUltrasonicValue;
     }
 
     private void setAveragedUltrasonicValue() {
-        double sum = 0;
-        for (double i : ultrasonicLog) {
-            sum += i;
-        }
+        double sum = DoubleStream.of(ultrasonicLog).sum();
         averagedUltrasonicValue = (sum + rawUltrasonicValue) / 6;
     }
 
