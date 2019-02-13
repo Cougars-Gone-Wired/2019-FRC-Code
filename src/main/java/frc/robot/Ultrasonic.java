@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Ultrasonic {
     private AnalogInput ultrasonicSensor;
 
-    private double[] ultrasonicLog = new double[Constants.ULTRASONIC_LOG_ELEMENT_COUNT];
+    private double[] ultrasonicLog = new double[Constants.ULTRASONIC_LOG_ELEMENT_COUNT - 1];
 
     private double rawUltrasonicValue;
     private double averagedUltrasonicValue;
@@ -21,7 +21,7 @@ public class Ultrasonic {
     }
 
     public void initialize() {
-        for (int j = Constants.ULTRASONIC_LOG_ELEMENT_COUNT - 1; j >= 0; j--) {
+        for (int j = Constants.ULTRASONIC_LOG_ELEMENT_COUNT - 2; j >= 0; j--) {
             ultrasonicLog[j] = 0;
         }
     }
@@ -34,7 +34,7 @@ public class Ultrasonic {
 
     private void ultrasonicRecord() {
         ultrasonicLog[i] = rawUltrasonicValue;
-        if (i < Constants.ULTRASONIC_LOG_ELEMENT_COUNT - 1) {
+        if (i < Constants.ULTRASONIC_LOG_ELEMENT_COUNT - 2) {
             i++;
         } else {
             i = 0;
@@ -43,7 +43,7 @@ public class Ultrasonic {
 
     private void setAveragedUltrasonicValue() {
         double sum = DoubleStream.of(ultrasonicLog).sum();
-        averagedUltrasonicValue = (sum + rawUltrasonicValue) / 6;
+        averagedUltrasonicValue = (sum + rawUltrasonicValue) / Constants.ULTRASONIC_LOG_ELEMENT_COUNT;
     }
 
     public double getRawUltrasonicValue() {
