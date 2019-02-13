@@ -10,7 +10,7 @@ public class Lift {
         LOCK, STOP, EN, EC
     }
     
-    LiftStates liftStates;
+    LiftStates liftState;
     private WPI_TalonSRX frontLiftMotor;
     private WPI_TalonSRX backLiftMotor;
     private SensorCollection limits;
@@ -39,7 +39,7 @@ public class Lift {
 
     public void initialize() {
         frontLiftMotor.set(0);
-        liftStates = LiftStates.LOCK;
+        liftState = LiftStates.LOCK;
     }
 
     // __    ___    ___   _____
@@ -131,7 +131,7 @@ public class Lift {
     */
 
     public void lift(Toggle liftIsDeployed){
-        switch(liftStates){
+        switch(liftState){
             case LOCK:
                 //State: LOCK -> EN || STOP (@ 20sec. left in match)
                 if(Timer.getMatchTime() <= 20){
@@ -139,11 +139,11 @@ public class Lift {
                     if(!limits.isFwdLimitSwitchClosed()) {
                         frontLiftMotor.set(Constants.LIFT_SPEED);
                         backLiftMotor.set(-Constants.LIFT_SPEED);
-                        liftStates = LiftStates.EN;
+                        liftState = LiftStates.EN;
                     } else {
                         frontLiftMotor.set(0);
                         backLiftMotor.set(0);
-                        liftStates = LiftStates.STOP;
+                        liftState = LiftStates.STOP;
                     }
                     
                 }
@@ -154,7 +154,7 @@ public class Lift {
                 if(liftIsDeployed.toggle() == true || limits.isFwdLimitSwitchClosed()){
                     backLiftMotor.set(0);
                     frontLiftMotor.set(0);
-                    liftStates = LiftStates.STOP;
+                    liftState = LiftStates.STOP;
                 }
                 break;
 
@@ -165,12 +165,12 @@ public class Lift {
                     //State: STOP -> EN
                         frontLiftMotor.set(Constants.LIFT_SPEED);
                         backLiftMotor.set( -Constants.LIFT_SPEED );
-                        liftStates = LiftStates.EN;
+                        liftState = LiftStates.EN;
                     } else {
                     //State: STOP -> EC
                         frontLiftMotor.set(-Constants.LIFT_SPEED);
                         backLiftMotor.set(Constants.LIFT_SPEED);
-                        liftStates = LiftStates.EC;
+                        liftState = LiftStates.EC;
                     }
                 }
                 break;
@@ -180,15 +180,19 @@ public class Lift {
                 if(liftIsDeployed.toggle() == true || limits.isRevLimitSwitchClosed()){
                     frontLiftMotor.set(0);
                     backLiftMotor.set(0);
-                    liftStates = LiftStates.STOP;
+                    liftState = LiftStates.STOP;
                 }
                 break;
 
             default:
                 //State: Emergency -> EN
                 frontLiftMotor.set(Constants.LIFT_SPEED);
-                liftStates = LiftStates.EN;
+                liftState = LiftStates.EN;
                 break;
         }
+    }
+
+    public LiftStates getLiftState() {
+        return liftState;
     }
 }
