@@ -54,13 +54,13 @@ public class Ultrasonic {
         return averagedUltrasonicValue;
     }
 
-    public double getImperialUltrasonicValue() { // Is averaged
+    public double getImperialUltrasonicValue() {
         return averagedUltrasonicValue / Constants.ULTRASONIC_IMPERIAL_CONVERSION_RATIO;
     }
 
     public void displayValues(String key) {
         SmartDashboard.putNumber(key + " Raw Value", rawUltrasonicValue);
         SmartDashboard.putNumber(key + " Raw Averaged Value", averagedUltrasonicValue);
-        SmartDashboard.putNumber(key + " Imperial Value", averagedUltrasonicValue);
+        SmartDashboard.putNumber(key + " Imperial Value", getImperialUltrasonicValue());
     }
 }
