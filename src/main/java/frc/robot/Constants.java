@@ -41,7 +41,11 @@ public class Constants {
 	static final int DRIVE_SPEED_AXIS = 1;
 	static final int DRIVE_TURN_AXIS = 4;
 
-	static final int LIFT_TOGGLE_BUTTON = 3;
+	  //Lift
+	static final int LIFT_DEPLOY_BUTTON = 3;
+	static final int LIFT_STOP_BUTTON = 2;
+	static final int LIFT_WITHDRAW_FROM_STAIR_BUTTON = 4;
+
 	static final int DRIVE_TOGGLE_BUTTON = 1;
 	static final int ULTRASONIC_TOGGLE_BUTTON = 4;
 
