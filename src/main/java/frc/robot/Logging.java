@@ -137,8 +137,8 @@ public class Logging extends Object{
             logValues.append(d).append("BackRightMotorCurrent");
 
             //Ultrasonic 
-            // logValues.append(d).append("LeftHatchUltrasonic");
-            // logValues.append(d).append("RightHatchUltrasonic");
+            logValues.append(d).append("LeftHatchUltrasonic");
+            logValues.append(d).append("RightHatchUltrasonic");
             //logValues.append(d).append("HatchUltrasonicDistance");
 
             logArray[0] = logValues.toString();
