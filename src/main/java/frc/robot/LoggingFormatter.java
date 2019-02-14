@@ -11,7 +11,7 @@ public class LoggingFormatter extends Formatter {
     public String format(LogRecord line) {
         StringBuilder sb = new StringBuilder();
         String timeStamp = new SimpleDateFormat("MMM dd, YYYY_HH.mm.ss.SSS").format(Calendar.getInstance().getTime());
-        sb.append(timeStamp);
+        //sb.append(timeStamp);
         sb.append(line.getMessage());
         sb.append("\n");
         return sb.toString();   

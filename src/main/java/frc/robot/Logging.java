@@ -25,7 +25,7 @@ public class Logging extends Object{
     private FileHandler fh;
     private Logger logger;
     private Level level;
-    //private String timeStamp;
+    private String timeStamp;
     private String fileTimeStamp;
     private String[] logArray;
 
@@ -64,8 +64,8 @@ public class Logging extends Object{
         if(loggingSave) {
             try {
                 makeFile();
-                //timeStamp = new SimpleDateFormat("MMM dd, YYYY_HH.mm.ss").format(Calendar.getInstance().getTime());
-                logger.fine("Logging Stopped");
+                timeStamp = new SimpleDateFormat("MMM dd YYYY_HH.mm.ss").format(Calendar.getInstance().getTime());
+                logger.fine(timeStamp + ", Logging Stopped");
                 //logger.fine(timeStamp + "Logging Stopped");
                 logger.fine("+++Reload universe and reboot+++");
                 fh.close();
@@ -100,9 +100,9 @@ public class Logging extends Object{
         if(!loggingStart) {
             loggingStart = true;
             logValues = new StringBuilder();
-            //timeStamp = new SimpleDateFormat("MMM dd YYYY_HH.mm.ss.SSS").format(Calendar.getInstance().getTime());
+            timeStamp = new SimpleDateFormat("MMM dd YYYY_HH.mm.ss.SSS").format(Calendar.getInstance().getTime());
             
-            //logValues.append(timeStamp);
+            logValues.append(timeStamp);
             
             //Battery Voltage
             logValues.append(d).append("BatteryVoltage");
@@ -149,9 +149,9 @@ public class Logging extends Object{
         if(runs >= 5) {
             runs = 0;
             logValues = new StringBuilder();
-            //timeStamp = new SimpleDateFormat("MMM dd YYYY_HH.mm.ss.SSS").format(Calendar.getInstance().getTime());
+            timeStamp = new SimpleDateFormat("MMM dd YYYY_HH.mm.ss.SSS").format(Calendar.getInstance().getTime());
             
-            //logValues.append(timeStamp);
+            logValues.append(timeStamp);
             
             //Battery Voltage
             logValues.append(d).append(drive.getBatteryVoltage());
@@ -185,6 +185,9 @@ public class Logging extends Object{
             logValues.append(d).append(drive.getBackRightMotorVoltage());
             logValues.append(d).append(drive.getBackLeftMotorCurrent());
             //Ultrasonic
+            logValues.append(d).append(SmartDashboard.getNumber("Left Ultrasonic Imperial Value", 0));
+            logValues.append(d).append(SmartDashboard.getNumber("Right Ultrasonic Imperial Value", 0));
+
             // logValues.append(d).append(leftHatchUltrasonic.getImperialUltrasonicValue());
             // logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
             //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());

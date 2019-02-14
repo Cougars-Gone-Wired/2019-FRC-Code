@@ -72,7 +72,7 @@ public class Constants {
 	static final double SLOW_DISTANCE = 30;
 	static final double STOP_DISTANCE = 12;
 
-	static final int LEFT_HATCH_ULTRASONIC_SENSOR_PORT = 0;
+	static final int LEFT_HATCH_ULTRASONIC_SENSOR_PORT = 2;
 	static final int RIGHT_HATCH_ULTRASONIC_SENSOR_PORT = 1;
 	static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
 
