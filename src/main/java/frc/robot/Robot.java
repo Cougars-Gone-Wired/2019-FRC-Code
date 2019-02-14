@@ -208,6 +208,14 @@ public class Robot extends TimedRobot {
     return rightHatchUltrasonic;
   }
 
+  public double getLeftHatchUltrasonicImperialValue() {
+    return leftHatchUltrasonic.getImperialUltrasonicValue();
+  }
+
+  public double getRightHatchUltrasonicImperialValue() {
+    return rightHatchUltrasonic.getImperialUltrasonicValue();
+  }
+
   public Lift getLift() {
     return lift;
   }

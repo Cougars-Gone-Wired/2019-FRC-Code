@@ -31,17 +31,19 @@ public class Logging extends Object{
 
     private StringBuilder logValues = new StringBuilder();
 
+    //private Robot xrobot;
     private Drive drive;
     private Controllers controllers;
-    private Ultrasonic leftHatchUltrasonic;
-    private Ultrasonic rightHatchUltrasonic;
+    //private Ultrasonic leftHatchUltrasonic;
+    //private Ultrasonic rightHatchUltrasonic;
     //private Ultrasonic hatchUltrasonic;    
 
     Logging(Robot robot) {
+        //xrobot = robot;
         drive = robot.getDrive();
         controllers = robot.getControllers();
-        leftHatchUltrasonic = robot.getLeftHatchUltrasonic();
-        rightHatchUltrasonic = robot.getRightHatchUltrasonic();
+        //leftHatchUltrasonic = robot.getLeftHatchUltrasonic();
+        //rightHatchUltrasonic = robot.getRightHatchUltrasonic();
         //hatchUltrasonic = robot.getHatchUltrasonic();        
     }
 
@@ -182,15 +184,17 @@ public class Logging extends Object{
             logValues.append(d).append(drive.getBackRightMotorVoltage());
             logValues.append(d).append(drive.getBackLeftMotorCurrent());
 
-            logValues.append(d).append(drive.getBackRightMotorVoltage());
-            logValues.append(d).append(drive.getBackLeftMotorCurrent());
             //Ultrasonic
+
+            // logValues.append(d).append(xrobot.getLeftHatchUltrasonicImperialValue());
+            // logValues.append(d).append(xrobot.getRightHatchUltrasonicImperialValue());
+
             logValues.append(d).append(SmartDashboard.getNumber("Left Ultrasonic Imperial Value", 0));
             logValues.append(d).append(SmartDashboard.getNumber("Right Ultrasonic Imperial Value", 0));
 
             // logValues.append(d).append(leftHatchUltrasonic.getImperialUltrasonicValue());
             // logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
-            //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
+            // //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
 
             if(place < logLength) {
                 logArray[place] = logValues.toString();
