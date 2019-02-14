@@ -46,8 +46,9 @@ public class Controllers {
 	private Toggle ultrasonicToggle;
 
 	//Lift
-	private boolean liftIsDeployed;
-	private Toggle liftToggleDeployer;
+	private boolean liftDeployButton;
+	private boolean liftStopButton;
+	private boolean liftWithdrawFromStairButton;
 	public enum LiftStates {
         LOCK, STOP, EN, EC
 	}
@@ -61,9 +62,6 @@ public class Controllers {
         hatchArmSchemeToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_SCHEME_BUTTON);
 		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
-
-		//Lift
-		liftToggleDeployer = new Toggle(mobilityStick, Constants.LIFT_TOGGLE_BUTTON);
 	}
 
 	public void setControllerValues() {
@@ -95,11 +93,14 @@ public class Controllers {
 		driveTurnAxis = mobilityStick.getRawAxis(Constants.DRIVE_TURN_AXIS);
 
 		//Lift
-		//liftIsDeployed = liftToggleDeployer.toggle();
+		//liftDeployButton = liftToggleDeployer.toggle();
 		/*if(manipulatorStick.getRawButton(3) && liftToggleDeployer.toggle()){
-			liftIsDeployed = true;
+			liftDeployButton = true;
 			liftToggleDeployer.toggle();
 		}*/
+		liftDeployButton = mobilityStick.getRawButton(Constants.LIFT_DEPLOY_BUTTON);
+		liftStopButton = mobilityStick.getRawButton(Constants.LIFT_STOP_BUTTON);
+		liftWithdrawFromStairButton = mobilityStick.getRawButton(Constants.LIFT_WITHDRAW_FROM_STAIR_BUTTON);
 	}
 
 	public void initialize() {
@@ -200,11 +201,15 @@ public class Controllers {
 		driveToggle.setDriveToggleValue(SmartDashboard.getBoolean("StartCargoSide", true));
 	}
 
-	public boolean isLiftIsDeployed() {
-		return liftIsDeployed;
+	public boolean isLiftDeployButton() {
+		return liftDeployButton;
 	}
 
-	public Toggle getLiftToggleDeployer() {
-		return liftToggleDeployer;
+	public boolean isLiftStopButton() {
+		return liftStopButton;
+	}
+
+	public boolean isLiftWithdrawFromStairButton() {
+		return liftWithdrawFromStairButton;
 	}
 }
