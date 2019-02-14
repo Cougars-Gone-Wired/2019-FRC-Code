@@ -12,7 +12,7 @@ public class Drive {
         DRIVE_CARGO_SIDE, DRIVE_HATCH_SIDE
     }
     public enum DriveModes {
-        DRIVE_STANDARD, DRIVE_DETECT, BACKING_UP
+        DRIVE_STANDARD, DRIVE_TO_STAIRS, BACKING_UP
     }
 
     private DriveStates driveState;
@@ -100,7 +100,7 @@ public class Drive {
                 }
                 break;
 
-            case DRIVE_DETECT:
+            case DRIVE_TO_STAIRS:
             if(driveSpeedAxis > Constants.DRIVE_DEADZONE || driveTurnAxis > Constants.DRIVE_DEADZONE) {
                 driveMode = DriveModes.DRIVE_STANDARD;
             }
@@ -156,13 +156,13 @@ public class Drive {
         }
     }
 
-    public void setMode(boolean switchMode) {
-        if(switchMode) {
-            driveMode = DriveModes.DRIVE_STANDARD;
-        } else {
-            driveMode = DriveModes.DRIVE_DETECT;
-        }
-    }
+    // public void setMode(boolean switchMode) {
+    //     if(switchMode) {
+    //         driveMode = DriveModes.DRIVE_STANDARD;
+    //     } else {
+    //         driveMode = DriveModes.DRIVE_DETECT;
+    //     }
+    // }
 
     public void initialSide() {
         if(SmartDashboard.getBoolean("StartCargoSide", true)) {
@@ -170,6 +170,10 @@ public class Drive {
         } else {
             driveState = DriveStates.DRIVE_HATCH_SIDE;
         }
+    }
+
+    public void driveToStairs() {
+        driveMode = DriveModes.DRIVE_TO_STAIRS;
     }
 
     public void backUpFromStairs() {
