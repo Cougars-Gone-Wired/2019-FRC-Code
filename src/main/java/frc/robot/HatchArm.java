@@ -8,6 +8,9 @@ import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class HatchArm {
+    private enum HatchArmManualMoveStates {
+        NOT_MOVING, MOVING_TOWARDS_FLOOR, MOVING_TOWARDS_INITIAL
+    }
     private enum HatchArmMoveStates {
         INSIDE, VERT, FLOOR, FLOOR_TO_VERT, FLOOR_TO_VERT_TO_INSIDE, INSIDE_TO_VERT, INSIDE_TO_VERT_TO_FLOOR, VERT_TO_FLOOR, VERT_TO_INSIDE
     }
@@ -15,6 +18,7 @@ public class HatchArm {
         IN, OUT, TO_OUT, TO_IN, TO_OUT_INTER, TO_IN_INTER
     }
     
+    HatchArmManualMoveStates hatchArmManualMoveState;
     HatchArmMoveStates hatchArmMoveState;
     HatchArmGrabStates hatchArmGrabState;
     private WPI_TalonSRX hatchArmMoveMotor;
@@ -35,6 +39,7 @@ public class HatchArm {
 
     public void initialize() {
         hatchArmMoveMotor.set(0);
+        hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
         hatchArmMoveState = HatchArmMoveStates.INSIDE;
         hatchArmGrabMotor.set(0);
         hatchArmGrabState = HatchArmGrabStates.OUT;
@@ -80,6 +85,38 @@ public class HatchArm {
             case TO_OUT_INTER:
                 if (!grabLimitSwitches.isFwdLimitSwitchClosed()) {
                     hatchArmGrabState = HatchArmGrabStates.TO_OUT;
+                }
+                break;
+        }
+    }
+
+    public void hatchArmManualMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) {
+        switch(hatchArmManualMoveState) {
+            case NOT_MOVING:
+                if (lowerHatchArmButton && !raiseHatchArmButton) {
+                    hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_FLOOR;
+                } else if (raiseHatchArmButton && !lowerHatchArmButton) {
+                    hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_INITIAL;
+                }
+                break;
+            case MOVING_TOWARDS_FLOOR:
+                if (!lowerHatchArmButton && !raiseHatchArmButton) {
+                    hatchArmMoveMotor.set(0);
+                    hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
+                } else if (raiseHatchArmButton) {
+                    hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_INITIAL;
+                }
+                break;
+            case MOVING_TOWARDS_INITIAL:
+                if (!lowerHatchArmButton && !raiseHatchArmButton) {
+                    hatchArmMoveMotor.set(0);
+                    hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
+                } else if (lowerHatchArmButton) {
+                    hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_FLOOR;
                 }
                 break;
         }
