@@ -39,6 +39,7 @@ public class Lift {
 
     public void initialize() {
         frontLiftMotor.set(0);
+        backLiftMotor.set(0);
         liftState = LiftStates.LOCK;
     }
 
@@ -135,15 +136,7 @@ public class Lift {
             case LOCK:
                 //State: LOCK -> EN || STOP (@ 20sec. left in match)
                 if(Timer.getMatchTime() <= 20){
-                    if(!limits.isFwdLimitSwitchClosed()) {
-                        frontLiftMotor.set(Constants.LIFT_SPEED);
-                        backLiftMotor.set(-Constants.LIFT_SPEED);
-                        liftState = LiftStates.EN;
-                    } else {
-                        frontLiftMotor.set(0);
-                        backLiftMotor.set(0);
-                        liftState = LiftStates.STOP;
-                    }
+                    liftState = LiftStates.STOP;
                     
                 }
                 break;
