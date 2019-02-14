@@ -130,15 +130,11 @@ public class Lift {
     }
     */
 
-    public void lift(Boolean liftIsDeployed , Toggle liftToggleDeployer){
-        if(limits.isFwdLimitSwitchClosed() || limits.isRevLimitSwitchClosed()){
-            liftToggleDeployer.setOutput(false);
-        }
+    public void lift(Boolean liftDeployButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive){
         switch(liftState){
             case LOCK:
                 //State: LOCK -> EN || STOP (@ 20sec. left in match)
                 if(Timer.getMatchTime() <= 20){
-                    liftToggleDeployer.setOutput(false);
                     if(!limits.isFwdLimitSwitchClosed()) {
                         frontLiftMotor.set(Constants.LIFT_SPEED);
                         backLiftMotor.set(-Constants.LIFT_SPEED);
@@ -154,7 +150,7 @@ public class Lift {
 
             case EN:
                 //State: EN -> STOP
-                if(liftToggleDeployer.toggle() == true || limits.isFwdLimitSwitchClosed()){
+                if(liftStopButton || limits.isFwdLimitSwitchClosed()){
                     backLiftMotor.set(0);
                     frontLiftMotor.set(0);
                     liftState = LiftStates.STOP;
@@ -163,7 +159,7 @@ public class Lift {
 
             case STOP:
 
-                if(liftToggleDeployer.toggle() == true){
+                if(liftDeployButton){
                     if(!limits.isFwdLimitSwitchClosed()){
                     //State: STOP -> EN
                         frontLiftMotor.set(Constants.LIFT_SPEED);
@@ -176,11 +172,15 @@ public class Lift {
                         liftState = LiftStates.EC;
                     }
                 }
+
+                if(liftWithdrawFromStairButton){
+                    drive.backUpFromStairs();
+                }
                 break;
 
             case EC:
                 //State: EC -> STOP
-                if(liftToggleDeployer.toggle() == true || limits.isRevLimitSwitchClosed()){
+                if(liftStopButton || limits.isRevLimitSwitchClosed()){
                     frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     liftState = LiftStates.STOP;

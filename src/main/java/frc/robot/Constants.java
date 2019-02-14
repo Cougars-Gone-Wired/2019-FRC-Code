@@ -31,8 +31,8 @@ public class Constants {
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.8;
 	static final double HATCH_ARM_GRAB_AXIS_THRESHHOLD = 0.8;
-	static final int CARGO_SHIP_ENCODER_VALUE_GOAL = 40; //
-    static final int ROCKET_ENCODER_VALUE_GOAL = 50; //
+	static final int CARGO_SHIP_ENCODER_VALUE_GOAL = 50; //In degrees
+    static final int ROCKET_ENCODER_VALUE_GOAL = 40; //In degrees
 
 
 	//Mobility
@@ -41,7 +41,11 @@ public class Constants {
 	static final int DRIVE_SPEED_AXIS = 1;
 	static final int DRIVE_TURN_AXIS = 4;
 
-	static final int LIFT_TOGGLE_BUTTON = 3;
+	  //Lift
+	static final int LIFT_DEPLOY_BUTTON = 3;
+	static final int LIFT_STOP_BUTTON = 2;
+	static final int LIFT_WITHDRAW_FROM_STAIR_BUTTON = 4;
+
 	static final int DRIVE_TOGGLE_BUTTON = 1;
 	static final int ULTRASONIC_TOGGLE_BUTTON = 4;
 

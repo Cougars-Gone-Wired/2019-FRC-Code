@@ -158,7 +158,7 @@ public class Robot extends TimedRobot {
     hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     
     //Lift
-    lift.lift(controllers.isLiftIsDeployed(), controllers.getLiftToggleDeployer());
+    lift.lift(controllers.isLiftDeployButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive);
     
     //The Loggers chopping down trees
     logging.collectData();
