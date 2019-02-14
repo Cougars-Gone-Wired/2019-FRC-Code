@@ -130,7 +130,7 @@ public class Lift {
     }
     */
 
-    public void lift(Boolean liftDeployButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton){
+    public void lift(Boolean liftDeployButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive){
         switch(liftState){
             case LOCK:
                 //State: LOCK -> EN || STOP (@ 20sec. left in match)
@@ -171,6 +171,10 @@ public class Lift {
                         backLiftMotor.set(Constants.LIFT_SPEED);
                         liftState = LiftStates.EC;
                     }
+                }
+
+                if(liftWithdrawFromStairButton){
+                    drive.backUpFromStairs();
                 }
                 break;
 
