@@ -155,7 +155,8 @@ public class Robot extends TimedRobot {
     drive.showDashboard();
 
     hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
-    hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
+    hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
+    // hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     
     //Lift
     lift.lift(controllers.isLiftDeployButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive);
@@ -206,6 +207,14 @@ public class Robot extends TimedRobot {
 
   public Ultrasonic getRightHatchUltrasonic() {
     return rightHatchUltrasonic;
+  }
+
+  public double getLeftHatchUltrasonicImperialValue() {
+    return leftHatchUltrasonic.getImperialUltrasonicValue();
+  }
+
+  public double getRightHatchUltrasonicImperialValue() {
+    return rightHatchUltrasonic.getImperialUltrasonicValue();
   }
 
   public Lift getLift() {

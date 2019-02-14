@@ -1,9 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Controllers {
+
+	private boolean rumbleButton;
 
 	//Manipulator
 	private Joystick manipulatorStick;
@@ -66,6 +69,8 @@ public class Controllers {
 
 	public void setControllerValues() {
 
+		rumbleButton = mobilityStick.getRawButton(Constants.RUMBLE_BUTTON);
+
 		//Hatch Arm
 		hatchArmGrabButton = hatchArmGrabToggle.toggle();
         dPad = manipulatorStick.getPOV();
@@ -101,6 +106,15 @@ public class Controllers {
 		liftDeployButton = mobilityStick.getRawButton(Constants.LIFT_DEPLOY_BUTTON);
 		liftStopButton = mobilityStick.getRawButton(Constants.LIFT_STOP_BUTTON);
 		liftWithdrawFromStairButton = mobilityStick.getRawButton(Constants.LIFT_WITHDRAW_FROM_STAIR_BUTTON);
+
+		if (rumbleButton) {
+			mobilityStick.setRumble(RumbleType.kLeftRumble, 1);
+			mobilityStick.setRumble(RumbleType.kRightRumble, 1);
+		} else {
+			mobilityStick.setRumble(RumbleType.kLeftRumble, 0);
+			mobilityStick.setRumble(RumbleType.kRightRumble, 0);
+		}
+
 	}
 
 	public void initialize() {
