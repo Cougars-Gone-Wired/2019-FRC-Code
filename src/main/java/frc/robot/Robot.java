@@ -160,6 +160,7 @@ public class Robot extends TimedRobot {
     //Lift
     lift.lift(controllers.isLiftIsDeployed(), controllers.getLiftToggleDeployer());
     
+    //The Loggers chopping down trees
     logging.collectData();
   }
 
