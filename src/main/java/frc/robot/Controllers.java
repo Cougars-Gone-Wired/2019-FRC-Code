@@ -110,6 +110,9 @@ public class Controllers {
 		if (rumbleButton) {
 			mobilityStick.setRumble(RumbleType.kLeftRumble, 1);
 			mobilityStick.setRumble(RumbleType.kRightRumble, 1);
+		} else {
+			mobilityStick.setRumble(RumbleType.kLeftRumble, 0);
+			mobilityStick.setRumble(RumbleType.kRightRumble, 0);
 		}
 
 	}
