@@ -31,7 +31,7 @@ public class Constants {
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.8;
 	static final double HATCH_ARM_GRAB_AXIS_THRESHHOLD = 0.8;
-	static final int CARGO_SHIP_ENCODER_VALUE_GOAL = 50; //In degrees
+	static final int CARGO_SHIP_ENCODER_VALUE_GOAL = 60; //In degrees
     static final int ROCKET_ENCODER_VALUE_GOAL = 40; //In degrees
 
 
