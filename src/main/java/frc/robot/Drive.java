@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 public class Drive {
-    public enum DriveStates {
-        DRIVE_CARGO_SIDE, DRIVE_HATCH_SIDE
-    }
     public enum DriveModes {
         DRIVE_STANDARD, DRIVE_TO_STAIRS, BACKING_UP
     }
-
-    private DriveStates driveState;
-    private DriveModes driveMode;
+    public enum DriveStates {
+        DRIVE_CARGO_SIDE, DRIVE_HATCH_SIDE
+    }
     
+    public DriveModes driveMode;
+    private DriveStates driveState;
+
     private WPI_TalonSRX frontLeftMotor; //Based off Hatch Side
     private WPI_TalonSRX midLeftMotor;
     private WPI_TalonSRX backLeftMotor;
@@ -143,6 +143,7 @@ public class Drive {
                     robotDrive.curvatureDrive(-1, 0, false);
                 } else {
                     robotDrive.curvatureDrive(0, 0, false);
+                    driveMode = DriveModes.DRIVE_STANDARD;
                 }
             break;
         }

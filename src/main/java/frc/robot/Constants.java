@@ -31,8 +31,8 @@ public class Constants {
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.8;
 	static final double HATCH_ARM_GRAB_AXIS_THRESHHOLD = 0.8;
-	static final int CARGO_SHIP_ENCODER_VALUE_GOAL = 40; //
-    static final int ROCKET_ENCODER_VALUE_GOAL = 50; //
+	static final int CARGO_SHIP_ENCODER_VALUE_GOAL = 40; //In degrees
+    static final int ROCKET_ENCODER_VALUE_GOAL = 50; //In degrees
 
 
 	//Mobility
@@ -76,8 +76,8 @@ public class Constants {
 	static final double SLOW_DISTANCE = 30;
 	static final double STOP_DISTANCE = 12;
 
-	static final int LEFT_HATCH_ULTRASONIC_SENSOR_PORT = 1;
-	static final int RIGHT_HATCH_ULTRASONIC_SENSOR_PORT = 0;
+	static final int LEFT_HATCH_ULTRASONIC_SENSOR_PORT = 0;
+	static final int RIGHT_HATCH_ULTRASONIC_SENSOR_PORT = 1;
 	static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
 
 	static final int ULTRASONIC_LOG_ELEMENT_COUNT = 6;
