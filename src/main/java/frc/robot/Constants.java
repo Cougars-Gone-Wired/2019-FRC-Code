@@ -1,6 +1,8 @@
 package frc.robot;
 
 public class Constants {
+	
+	static final int RUMBLE_BUTTON = 7;
 
 	//Manipulator
 	static final int MANIPULATOR_CONTROLLER_PORT = 1;
