@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Lift {
     public enum LiftStates {
-        LOCK, STOP, EN, EC
+        LOCK, READYTOBACKUPFROMSTAIR, BACKINGUPFROMSTAIR, STOP, EN, EC
     }
     
     LiftStates liftState;
@@ -136,9 +136,23 @@ public class Lift {
             case LOCK:
                 //State: LOCK -> EN || STOP (@ 20sec. left in match)
                 if(Timer.getMatchTime() <= 20){
-                    liftState = LiftStates.STOP;
+                    liftState = LiftStates.BACKINGUPFROMSTAIR;
                     
                 }
+                break;
+
+            case READYTOBACKUPFROMSTAIR:
+                if(liftWithdrawFromStairButton){
+                    drive.backUpFromStairs();
+                    liftState = LiftStates.BACKINGUPFROMSTAIR;
+                }
+                break;
+
+            case BACKINGUPFROMSTAIR:
+                if(backedUp){
+                    liftState = LiftStates.STOP;
+                }
+
                 break;
 
             case EN:
@@ -166,9 +180,6 @@ public class Lift {
                     }
                 }
 
-                if(liftWithdrawFromStairButton){
-                    drive.backUpFromStairs();
-                }
                 break;
 
             case EC:
