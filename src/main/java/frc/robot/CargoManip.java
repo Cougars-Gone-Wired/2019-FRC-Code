@@ -259,6 +259,10 @@ public class CargoManip {
                     armState = ArmStates.ROCKET;
                 }
             }
+            else if (topButton) {
+                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+                armState = ArmStates.TO_TOP;
+            }
             break;
             case TO_BOTTOM:
             if (bottomLimitSwitch) {
@@ -297,10 +301,6 @@ public class CargoManip {
                     armMotor.set(0);
                     armState = ArmStates.ROCKET;
                 }
-            }
-            else if (topButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
             }
         }
     } 
