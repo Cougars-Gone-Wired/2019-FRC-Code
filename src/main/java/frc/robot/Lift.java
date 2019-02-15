@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Drive.DriveModes;
 
 public class Lift {
     public enum LiftStates {
@@ -149,7 +150,7 @@ public class Lift {
                 break;
 
             case BACKINGUPFROMSTAIR:
-                if(backedUp){
+                if(drive.driveMode != DriveModes.BACKING_UP){
                     liftState = LiftStates.STOP;
                 }
 

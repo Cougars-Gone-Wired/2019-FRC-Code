@@ -136,6 +136,7 @@ public class Drive {
                 }
             }
             break;
+            
             case BACKING_UP:
                 if(encoders.getAverageDistanceInches() < Constants.DISTANCE_AT_LIFT) {
                     robotDrive.curvatureDrive(1, 0, false);
@@ -156,7 +157,6 @@ public class Drive {
             driveState = DriveStates.DRIVE_HATCH_SIDE;
         }
     }
-
     // public void setMode(boolean switchMode) {
     //     if(switchMode) {
     //         driveMode = DriveModes.DRIVE_STANDARD;
