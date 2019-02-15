@@ -12,7 +12,7 @@ public class Constants {
 
 	//static final int CARGO_ARM_AXIS = 1; //
 	static final int HATCH_ARM_AXIS = 1;
-	static final int HATCH_ARM_GRAB_BUTTON = 6;
+	static final int HATCH_ARM_GRAB_BUTTON = 5;
     static final int HATCH_ARM_SCHEME_BUTTON = 8;
 	static final int CARGO_INTAKE_AXIS = 2; //
     static final int CARGO_OUTTAKE_AXIS = 3; //
@@ -63,8 +63,8 @@ public class Constants {
 	static final int BACK_RIGHT_MOTOR_ID = 4;
 
 	static final double LIFT_SPEED = 1; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
-	static final int ULTRASONIC_HATCH_LEFT_PORT = 1; //SET PORTS!!!
-	static final int ULTRASONIC_HATCH_RIGHT_PORT = 0; //SET PORTS!!!
+	//static final int ULTRASONIC_HATCH_LEFT_PORT = 1; //SET PORTS!!!
+	//static final int ULTRASONIC_HATCH_RIGHT_PORT = 0; //SET PORTS!!!
 	static final double DISTANCE_AT_LIFT = 12; //Inches
 	static final double ULTRASONIC_THRESHOLD = 11; //Inches
 
@@ -78,8 +78,8 @@ public class Constants {
 	static final double SLOW_DISTANCE = 30;
 	static final double STOP_DISTANCE = 12;
 
-	static final int LEFT_HATCH_ULTRASONIC_SENSOR_PORT = 2;
-	static final int RIGHT_HATCH_ULTRASONIC_SENSOR_PORT = 1;
+	//static final int LEFT_HATCH_ULTRASONIC_SENSOR_PORT = 2;
+	//static final int RIGHT_HATCH_ULTRASONIC_SENSOR_PORT = 1;
 	static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
 
 	static final int ULTRASONIC_LOG_ELEMENT_COUNT = 6;
