@@ -80,7 +80,7 @@ public class Controllers {
 		hatchArmInsideButton = manipulatorStick.getPOV() == 90;
 
 		//Cargo
-		//cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
+		cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
 		cargoArmIntakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_INTAKE_AXIS);
 		cargoArmOuttakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_OUTTAKE_AXIS);
 		cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
