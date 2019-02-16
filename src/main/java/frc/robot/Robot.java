@@ -120,7 +120,7 @@ public class Robot extends TimedRobot {
 
     drive.initalize();
     controllers.initialize();
-    lift.initialize();
+    //lift.initialize();
 
     leftHatchUltrasonic.initialize();
     rightHatchUltrasonic.initialize();
@@ -159,7 +159,7 @@ public class Robot extends TimedRobot {
     // hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     
     //Lift
-    lift.lift(controllers.isLiftDeployButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive);
+    //lift.lift(controllers.isLiftDeployButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive);
     
     //The Loggers chopping down trees
     logging.collectData();
