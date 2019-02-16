@@ -24,7 +24,7 @@ public class HatchArm {
     private WPI_TalonSRX hatchArmMoveMotor;
     private WPI_TalonSRX hatchArmGrabMotor;
     private SensorCollection moveLimitSwitches;
-    private SensorCollection grabLimitSwitches;
+    private DigitalInput grabLimitSwitch;
     private DigitalInput moveMidSwitch;
     private boolean moveMidSwitchValue;
 
@@ -32,7 +32,7 @@ public class HatchArm {
         hatchArmMoveMotor = new WPI_TalonSRX(Constants.HATCH_ARM_MOVE_MOTOR_ID);
         hatchArmGrabMotor = new WPI_TalonSRX(Constants.HATCH_ARM_GRAB_MOTOR_ID);
         moveLimitSwitches = new SensorCollection(hatchArmMoveMotor);
-        grabLimitSwitches = new SensorCollection(hatchArmGrabMotor);
+        grabLimitSwitch = new DigitalInput(Constants.GRAB_SWITCH_PORT);
         moveMidSwitch = new DigitalInput(Constants.MID_SWITCH_PORT);
         initialize();
     }
@@ -60,7 +60,7 @@ public class HatchArm {
                 }
                 break;
             case TO_IN:
-                if (grabLimitSwitches.isFwdLimitSwitchClosed()) {
+                if (grabLimitSwitch.get()) {
                     hatchArmGrabMotor.set(0);
                     hatchArmGrabState = HatchArmGrabStates.IN;
                 } else if (!hatchArmGrabToggle) {
@@ -69,7 +69,7 @@ public class HatchArm {
                 }
                 break;
             case TO_OUT:
-                if (grabLimitSwitches.isFwdLimitSwitchClosed()) {
+                if (grabLimitSwitch.get()) {
                     hatchArmGrabMotor.set(0);
                     hatchArmGrabState = HatchArmGrabStates.OUT;
                 } else if (hatchArmGrabToggle) {
@@ -78,12 +78,12 @@ public class HatchArm {
                 }
                 break;
             case TO_IN_INTER:
-                if (!grabLimitSwitches.isFwdLimitSwitchClosed()) {
+                if (!grabLimitSwitch.get()) {
                     hatchArmGrabState = HatchArmGrabStates.TO_IN;
                 }
                 break;
             case TO_OUT_INTER:
-                if (!grabLimitSwitches.isFwdLimitSwitchClosed()) {
+                if (!grabLimitSwitch.get()) {
                     hatchArmGrabState = HatchArmGrabStates.TO_OUT;
                 }
                 break;

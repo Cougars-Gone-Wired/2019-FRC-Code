@@ -81,6 +81,9 @@ public class Drive {
         frontRightMotor.set(0);
         midLeftMotor.set(0);
         backRightMotor.set(0);
+
+        leftSensors.setQuadraturePosition(0, 0);
+        rightSensors.setQuadraturePosition(0, 0);
     }
 
     public void robotDrive(double driveSpeedAxis, double driveTurnAxis, double leftHatchUltrasonic, double rightHatchUltrasonic) {
@@ -92,11 +95,11 @@ public class Drive {
            // robotDrive.arcadeDrive(-driveSpeedAxis, driveTurnAxis);
                 switch (driveState) {
                     case DRIVE_HATCH_SIDE:
-                        robotDrive.arcadeDrive(-driveSpeedAxis, -driveTurnAxis);
+                        robotDrive.arcadeDrive(driveSpeedAxis, -driveTurnAxis);
                         break;
 
                     case DRIVE_CARGO_SIDE:
-                        robotDrive.arcadeDrive(driveSpeedAxis, -driveTurnAxis);
+                        robotDrive.arcadeDrive(-driveSpeedAxis, -driveTurnAxis);
                         break;
                 }
                 break;
@@ -186,21 +189,26 @@ public class Drive {
         SmartDashboard.putString("Side Facing", driveState.toString());
         SmartDashboard.putString("Drive Mode", driveMode.toString());
         SmartDashboard.putNumber("RoboRIO Voltage", getBatteryVoltage());
+        SmartDashboard.putNumber("Left Encoder", leftSensors.getQuadraturePosition());
+        SmartDashboard.putNumber("Right Encoder", rightSensors.getQuadraturePosition());
 
         ///Front Left Motor
-        SmartDashboard.putNumber("FLVoltage", getFrontLeftMotorVoltage());
+        //SmartDashboard.putNumber("FLVoltage", getFrontLeftMotorVoltage());
         SmartDashboard.putNumber("FLCurrent", getFrontLeftMotorCurrent());
         //Front Right Motor
-        SmartDashboard.putNumber("FRVoltage", getFrontRightMotorVoltage());
+        //SmartDashboard.putNumber("FRVoltage", getFrontRightMotorVoltage());
         SmartDashboard.putNumber("FRCurrent", getFrontRightMotorCurrent());
 
+        SmartDashboard.putNumber("MLCurrent", getMidLeftMotorCurrent());
+        
+        SmartDashboard.putNumber("MRCurrent", getMidRightMotorCurrent());
         // //Back Left Motor
         // SmartDashboard.putNumber("BLVoltage", getBackLeftMotorVoltage());
-        // SmartDashboard.putNumber("BLCurrent", getBackLeftMotorCurrent());
+        SmartDashboard.putNumber("BLCurrent", getBackLeftMotorCurrent());
 
         // //Back Right Motor
         // SmartDashboard.putNumber("BRVoltage", getBackRightMotorVoltage());
-        // SmartDashboard.putNumber("BRCurrent", getBackRightMotorCurrent());
+        SmartDashboard.putNumber("BRCurrent", getBackRightMotorCurrent());
     }
 
     //RoboRIO Battery Voltage
