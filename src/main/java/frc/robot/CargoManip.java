@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class CargoManip {
 
@@ -48,6 +49,9 @@ public class CargoManip {
     public CargoManip() {
         armMotor = new WPI_TalonSRX(Constants.CARGO_ARM_MOTOR_ID);
         intakeMotor = new WPI_TalonSRX(Constants.CARGO_INTAKE_MOTOR_ID);
+        armMotor.setNeutralMode(NeutralMode.Brake);
+        intakeMotor.setNeutralMode(NeutralMode.Brake);
+
         armSensors = new SensorCollection(armMotor);
         //limitSwitchCargoShip = new DigitalInput(Constants.CARGO_SHIP_LIMIT_SWITCH_ID);
         //limitSwitchRocket = new DigitalInput(Constants.ROCKET_LIMIT_SWITCH_ID);
@@ -71,6 +75,7 @@ public class CargoManip {
 
     //move the arm using a joystick
     public void armMoveManual(double armAxis) {
+        armAxis = armAxis * 0.5;
         switch (armStateM) {
             case MOVING_UP:
             if (armAxis < 0.15 || armSensors.isFwdLimitSwitchClosed()) {
@@ -167,7 +172,7 @@ public class CargoManip {
             break;
             case TO_TOP:
             //check if reached top
-            if (topLimitSwitch || bottomLimitSwitch) {
+            if (topLimitSwitch) {
                 armMotor.set(0);
                 armSensors.setQuadraturePosition(0, 0);
                 armState = ArmStates.TOP;
@@ -265,7 +270,7 @@ public class CargoManip {
             }
             break;
             case TO_BOTTOM:
-            if (topLimitSwitch || bottomLimitSwitch) {
+            if (bottomLimitSwitch) {
                 armMotor.set(0);
                 armState = ArmStates.BOTTOM;
             }
@@ -321,6 +326,7 @@ public class CargoManip {
             SmartDashboard.putBoolean("Moving", false);
         }
         //useless switch statement. kept it just in case
+        // From Jake: I kinda messed up the switches, don't be angry pls.
         /*switch (limitSwitchState) {
             case TOP_LIMIT:
             if (!topLimitSwitch && !bottomLimitSwitch) {

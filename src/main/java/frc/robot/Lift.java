@@ -3,8 +3,11 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.Drive.DriveModes;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class Lift {
     public enum LiftStates {
@@ -27,6 +30,9 @@ public class Lift {
     public Lift(){
         frontLiftMotor = new WPI_TalonSRX(Constants.FRONT_LIFT_MOTOR_ID);
         backLiftMotor = new WPI_TalonSRX(Constants.BACK_LIFT_MOTOR_ID);
+        frontLiftMotor.setNeutralMode(NeutralMode.Brake);
+        backLiftMotor.setNeutralMode(NeutralMode.Brake);
+
         limits = new SensorCollection(frontLiftMotor);
 
         //ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
@@ -132,7 +138,8 @@ public class Lift {
     }
     */
 
-    public void lift(Boolean liftDeployButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive){
+    public void lift(Boolean liftDeployButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive, Joystick mobilityStick){
+        
         switch(liftState){
             case LOCK:
                 //State: LOCK -> EN || STOP (@ 20sec. left in match)
@@ -151,6 +158,9 @@ public class Lift {
 
             case BACKINGUPFROMSTAIR:
                 if(drive.driveMode != DriveModes.BACKING_UP){
+                    //Rumble controller when ready to deploy lift. (Fully backed up.)
+                    mobilityStick.setRumble(RumbleType.kLeftRumble, 0.8);
+                    mobilityStick.setRumble(RumbleType.kRightRumble, 0.8);
                     liftState = LiftStates.STOP;
                 }
 
@@ -166,8 +176,9 @@ public class Lift {
                 break;
 
             case STOP:
-
                 if(liftDeployButton){
+                    mobilityStick.setRumble(RumbleType.kLeftRumble, 0);
+                    mobilityStick.setRumble(RumbleType.kRightRumble, 0);
                     if(!limits.isFwdLimitSwitchClosed()){
                     //State: STOP -> EN
                         frontLiftMotor.set(Constants.LIFT_SPEED);

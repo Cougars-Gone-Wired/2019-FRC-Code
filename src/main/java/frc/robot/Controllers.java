@@ -44,15 +44,12 @@ public class Controllers {
 
 	private Toggle driveToggle;
 	private Toggle ultrasonicToggle;
+	private Toggle driveFineToggle;
 
 	//Lift
 	private boolean liftDeployButton;
 	private boolean liftStopButton;
 	private boolean liftWithdrawFromStairButton;
-	public enum LiftStates {
-        LOCK, STOP, EN, EC
-	}
-	LiftStates liftStates;
 	
 	public Controllers() {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
@@ -62,6 +59,7 @@ public class Controllers {
         hatchArmSchemeToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_SCHEME_BUTTON);
 		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
+		driveFineToggle = new Toggle(mobilityStick, Constants.DRIVE_FINE_BUTTON);
 	}
 
 	public void setControllerValues() {
@@ -72,15 +70,15 @@ public class Controllers {
         
         hatchArmSchemeButton = hatchArmSchemeToggle.toggle();
 
-        lowerHatchArmButton = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
-        raiseHatchArmButton = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
+        raiseHatchArmButton = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
+        lowerHatchArmButton = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
 
         hatchArmFloorButton = manipulatorStick.getPOV() == 270;
         hatchArmVertButton = manipulatorStick.getPOV() == 0;
 		hatchArmInsideButton = manipulatorStick.getPOV() == 90;
 
 		//Cargo
-		//cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
+		cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
 		cargoArmIntakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_INTAKE_AXIS);
 		cargoArmOuttakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_OUTTAKE_AXIS);
 		cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
@@ -200,6 +198,14 @@ public class Controllers {
 
 	public Toggle getUltrasonicToggle() {
 		return ultrasonicToggle;
+	}
+
+	public boolean getDriveFineToggleValue() {
+		return driveFineToggle.toggle();
+	}
+
+	public Toggle getDriveFineToggle() {
+		return driveFineToggle;
 	}
 
 	public void setDriveToggle() {

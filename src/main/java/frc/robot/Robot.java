@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   private HatchArm hatchArm;
 
   //Lift code
-  private Lift lift;
+  //private Lift lift;
 
   private Ultrasonic leftHatchUltrasonic;
   private Ultrasonic rightHatchUltrasonic;
@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
     drive = new Drive();
     hatchArm = new HatchArm();
 
-    lift = new Lift();
+    //lift = new Lift();
 
     leftHatchUltrasonic = new Ultrasonic(Constants.LEFT_HATCH_ULTRASONIC_SENSOR_PORT);
     rightHatchUltrasonic = new Ultrasonic(Constants.RIGHT_HATCH_ULTRASONIC_SENSOR_PORT);
@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-
+    drive.refreshDashboard();
   }
 
   /**
@@ -86,6 +86,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     controllers.initialize();
+    
 
     controllers.setDriveToggle();
     cargoManip.initialize();
@@ -113,7 +114,7 @@ public class Robot extends TimedRobot {
     //cargoManip.armMove(controllers.getCargoArmTopButton(), controllers.getCargoArmBottomButton(), controllers.getCargoArmCargoShipButton(), controllers.getCargoArmRocketButton());
     cargoManip.armMoveManual(controllers.getCargoArmAxis());
     cargoManip.intakeMove(controllers.getCargoArmIntakeAxis(), controllers.getCargoArmOuttakeAxis());
-    cargoManip.sensorLight();
+    //cargoManip.sensorLight();
 
     //drive.setSide(controllers.getDriveToggleValue());
     //drive.setMode(controllers.getUltrasonicToggleValue());
@@ -129,8 +130,8 @@ public class Robot extends TimedRobot {
     
     leftHatchUltrasonic.setUltrasonicValues();
     rightHatchUltrasonic.setUltrasonicValues();
-    leftHatchUltrasonic.displayValues("Left Ultrasonic");
-    rightHatchUltrasonic.displayValues("Right Ultrasonic");
+    //leftHatchUltrasonic.displayValues("Left Ultrasonic");
+    //rightHatchUltrasonic.displayValues("Right Ultrasonic");
 
     //The Loggers chopping down trees
     logging.collectData();
@@ -174,7 +175,7 @@ public class Robot extends TimedRobot {
     //cargoManip.armMove(controllers.getCargoArmTopButton(), controllers.getCargoArmBottomButton(), controllers.getCargoArmCargoShipButton(), controllers.getCargoArmRocketButton());
     cargoManip.armMoveManual(controllers.getCargoArmAxis());
     cargoManip.intakeMove(controllers.getCargoArmIntakeAxis(), controllers.getCargoArmOuttakeAxis());
-    cargoManip.sensorLight();
+    //cargoManip.sensorLight();
 
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
@@ -185,12 +186,12 @@ public class Robot extends TimedRobot {
     // hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     
     //Lift
-    //lift.lift(controllers.isLiftDeployButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive);
+    //lift.lift(controllers.isLiftDeployButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive, controllers.getMobilityStick());
     
     leftHatchUltrasonic.setUltrasonicValues();
     rightHatchUltrasonic.setUltrasonicValues();
-    leftHatchUltrasonic.displayValues("Left Ultrasonic");
-    rightHatchUltrasonic.displayValues("Right Ultrasonic");
+    //leftHatchUltrasonic.displayValues("Left Ultrasonic");
+    //rightHatchUltrasonic.displayValues("Right Ultrasonic");
 
     //The Loggers chopping down trees
     logging.collectData();
@@ -209,10 +210,14 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     drive.initalize();
     logging.disabledInitialize();
+    // SmartDashboard.putBoolean("StartCargoSide", false);
+    // SmartDashboard.putBoolean("PowerFactor", false);
+    // SmartDashboard.putBoolean("Save Logger", false);
   }
 
   @Override
   public void disabledPeriodic() {
+    //drive.refreshDashboard();
     setSide(SmartDashboard.getBoolean("StartCargoSide", true));
     controllers.setDriveToggle();
     drive.showDashboard();
@@ -249,9 +254,9 @@ public class Robot extends TimedRobot {
     return rightHatchUltrasonic.getImperialUltrasonicValue();
   }
 
-  public Lift getLift() {
-    return lift;
-  }
+  // public Lift getLift() {
+  //   return lift;
+  // }
 }
 
 
