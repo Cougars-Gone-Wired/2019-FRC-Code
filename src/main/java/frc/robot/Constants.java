@@ -56,8 +56,8 @@ public class Constants {
 	static final int LIFT_STOP_BUTTON = 2;
 	static final int LIFT_WITHDRAW_FROM_STAIR_BUTTON = 4;
 
-	static final int FRONT_LIFT_MOTOR_ID = 0;
-	static final int BACK_LIFT_MOTOR_ID = 1;
+	static final int FRONT_LIFT_MOTOR_ID = 0; //Right Lift Motor
+	static final int BACK_LIFT_MOTOR_ID = 1; //Left Lift Motor
 
 	static final double LIFT_SPEED = 1; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
 	//static final int ULTRASONIC_HATCH_LEFT_PORT = 1; //SET PORTS!!!
