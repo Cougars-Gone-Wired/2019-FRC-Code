@@ -71,6 +71,7 @@ public class CargoManip {
 
     //move the arm using a joystick
     public void armMoveManual(double armAxis) {
+        armAxis = armAxis * 0.5;
         switch (armStateM) {
             case MOVING_UP:
             if (armAxis < 0.15 || armSensors.isFwdLimitSwitchClosed()) {
@@ -167,7 +168,7 @@ public class CargoManip {
             break;
             case TO_TOP:
             //check if reached top
-            if (topLimitSwitch || bottomLimitSwitch) {
+            if (topLimitSwitch) {
                 armMotor.set(0);
                 armSensors.setQuadraturePosition(0, 0);
                 armState = ArmStates.TOP;
@@ -265,7 +266,7 @@ public class CargoManip {
             }
             break;
             case TO_BOTTOM:
-            if (topLimitSwitch || bottomLimitSwitch) {
+            if (bottomLimitSwitch) {
                 armMotor.set(0);
                 armState = ArmStates.BOTTOM;
             }
@@ -321,6 +322,7 @@ public class CargoManip {
             SmartDashboard.putBoolean("Moving", false);
         }
         //useless switch statement. kept it just in case
+        // From Jake: I kinda messed up the switches, don't be angry pls.
         /*switch (limitSwitchState) {
             case TOP_LIMIT:
             if (!topLimitSwitch && !bottomLimitSwitch) {

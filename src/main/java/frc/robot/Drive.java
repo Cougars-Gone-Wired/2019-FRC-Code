@@ -48,6 +48,7 @@ public class Drive {
         frontLeftMotor = new WPI_TalonSRX(Constants.FRONT_LEFT_MOTOR_ID);
         backLeftMotor = new WPI_TalonSRX(Constants.BACK_LEFT_MOTOR_ID);
         //midLeftMotor.follow(frontLeftMotor);
+        midLeftMotor.setInverted(true);
         frontLeftMotor.follow(midLeftMotor);
         backLeftMotor.follow(frontLeftMotor);
 
@@ -55,7 +56,7 @@ public class Drive {
         frontRightMotor = new WPI_TalonSRX(Constants.FRONT_RIGHT_MOTOR_ID);
         backRightMotor =  new WPI_TalonSRX(Constants.BACK_RIGHT_MOTOR_ID);
         //midRightMotor.follow(frontRightMotor);
-        frontLeftMotor.follow(midRightMotor);
+        frontRightMotor.follow(midRightMotor);
         backRightMotor.follow(frontRightMotor);
 
         robotDrive = new DifferentialDrive(midLeftMotor, midRightMotor);
@@ -80,9 +81,8 @@ public class Drive {
         midLeftMotor.set(0);
         // backLeftMotor.set(0);
 
-        // 
-        frontRightMotor.set(0);
-        midLeftMotor.set(0);
+        //frontRightMotor.set(0);
+        midRightMotor.set(0);
         // backRightMotor.set(0);
 
         leftSensors.setQuadraturePosition(0, 0);
