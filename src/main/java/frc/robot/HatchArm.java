@@ -33,7 +33,9 @@ public class HatchArm {
         hatchArmMoveMotor = new WPI_TalonSRX(Constants.HATCH_ARM_MOVE_MOTOR_ID);
         hatchArmGrabMotor = new WPI_TalonSRX(Constants.HATCH_ARM_GRAB_MOTOR_ID);
         hatchArmMoveMotor.setNeutralMode(NeutralMode.Brake);
+        hatchArmMoveMotor.configOpenloopRamp(Constants.RAMP_TIME);
         hatchArmGrabMotor.setNeutralMode(NeutralMode.Brake);
+        //hatchArmGrabMotor.configOpenloopRamp(Constants.RAMP_TIME);
         
         moveLimitSwitches = new SensorCollection(hatchArmMoveMotor);
         grabLimitSwitch = new DigitalInput(Constants.GRAB_SWITCH_PORT);

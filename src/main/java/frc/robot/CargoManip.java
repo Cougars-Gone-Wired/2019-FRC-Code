@@ -50,7 +50,9 @@ public class CargoManip {
         armMotor = new WPI_TalonSRX(Constants.CARGO_ARM_MOTOR_ID);
         intakeMotor = new WPI_TalonSRX(Constants.CARGO_INTAKE_MOTOR_ID);
         armMotor.setNeutralMode(NeutralMode.Brake);
+        armMotor.configOpenloopRamp(Constants.RAMP_TIME);
         intakeMotor.setNeutralMode(NeutralMode.Brake);
+        intakeMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
         armSensors = new SensorCollection(armMotor);
         //limitSwitchCargoShip = new DigitalInput(Constants.CARGO_SHIP_LIMIT_SWITCH_ID);
