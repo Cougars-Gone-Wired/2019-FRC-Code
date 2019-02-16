@@ -49,10 +49,6 @@ public class Controllers {
 	private boolean liftDeployButton;
 	private boolean liftStopButton;
 	private boolean liftWithdrawFromStairButton;
-	public enum LiftStates {
-        LOCK, STOP, EN, EC
-	}
-	LiftStates liftStates;
 	
 	public Controllers() {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
