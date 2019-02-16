@@ -63,8 +63,8 @@ public class Drive {
         driveState = DriveStates.DRIVE_HATCH_SIDE;
         driveMode = DriveModes.DRIVE_STANDARD;
 
-        leftSensors = frontLeftMotor.getSensorCollection();
-        rightSensors = frontRightMotor.getSensorCollection();
+        leftSensors = midLeftMotor.getSensorCollection();
+        rightSensors = midRightMotor.getSensorCollection();
 
         encoders = new Encoders(this);
 
@@ -86,6 +86,7 @@ public class Drive {
     public void robotDrive(double driveSpeedAxis, double driveTurnAxis, double leftHatchUltrasonic, double rightHatchUltrasonic) {
         driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
         driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
+        
         switch (driveMode) {
             case DRIVE_STANDARD:
            // robotDrive.arcadeDrive(-driveSpeedAxis, driveTurnAxis);

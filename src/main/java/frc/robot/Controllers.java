@@ -178,6 +178,10 @@ public class Controllers {
     }
 
 	//Mobility
+	public Joystick getMobilityStick() {
+		return mobilityStick;
+	}
+
 	public double getDriveSpeedAxis() {
 		return driveSpeedAxis;
 	}
