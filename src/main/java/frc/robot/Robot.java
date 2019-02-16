@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-
+    drive.refreshDashboard();
   }
 
   /**
@@ -210,13 +210,14 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     drive.initalize();
     logging.disabledInitialize();
-    SmartDashboard.putBoolean("StartCargoSide", false);
-    SmartDashboard.putBoolean("PowerFactor", false);
-    SmartDashboard.putBoolean("Save Logger", false);
+    // SmartDashboard.putBoolean("StartCargoSide", false);
+    // SmartDashboard.putBoolean("PowerFactor", false);
+    // SmartDashboard.putBoolean("Save Logger", false);
   }
 
   @Override
   public void disabledPeriodic() {
+    //drive.refreshDashboard();
     setSide(SmartDashboard.getBoolean("StartCargoSide", true));
     controllers.setDriveToggle();
     drive.showDashboard();

@@ -34,6 +34,7 @@ public class Drive {
     private SensorCollection rightSensors;
 
     private Encoders encoders;
+    private double count;
 
     /**
      *  hello
@@ -90,7 +91,7 @@ public class Drive {
         rightSensors = midRightMotor.getSensorCollection();
 
         encoders = new Encoders(this);
-
+        count = 0;
         initalize();
     }
 
@@ -109,14 +110,16 @@ public class Drive {
     }
 
     public void robotDrive(double driveSpeedAxis, double driveTurnAxis, double leftHatchUltrasonic, double rightHatchUltrasonic) {
-        if(SmartDashboard.getBoolean("PowerFactor", false)) {
-            driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.75;
-            driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.75;
-        } else {
-            driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
-            driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
-        }
-  
+        // if(SmartDashboard.getBoolean("PowerFactor", false)) {
+        //     driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.75;
+        //     driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.75;
+        // } else {
+        //     driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
+        //     driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
+        // }
+        driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
+        driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
+
         switch (driveMode) {
             case DRIVE_STANDARD:
            // robotDrive.arcadeDrive(-driveSpeedAxis, driveTurnAxis);
@@ -201,6 +204,20 @@ public class Drive {
             driveState = DriveStates.DRIVE_CARGO_SIDE;
         } else {
             driveState = DriveStates.DRIVE_HATCH_SIDE;
+        }
+    }
+
+    public void refreshDashboard() {
+        if(SmartDashboard.getBoolean("Refresh", false)) {
+            SmartDashboard.putBoolean("StartCargoSide", false);
+            SmartDashboard.putBoolean("PowerFactor", false);
+            SmartDashboard.putBoolean("Save Logger", false);
+        }
+
+        count++;
+        if(count >= 50) {
+            SmartDashboard.putBoolean("Refresh", false);
+            count = 0;
         }
     }
 
