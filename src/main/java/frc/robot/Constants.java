@@ -28,7 +28,7 @@ public class Constants {
     static final double HATCH_ARM_MOVE_SPEED = 0.2;
 	static final double HATCH_ARM_GRAB_SPEED = 0.4;
 	static final double CARGO_ARM_MOTOR_SPEED = 0.01; //
-	static final double CARGO_ARM_INTAKE_SPEED = 0.2; //
+	static final double CARGO_ARM_INTAKE_SPEED = 0.7; //
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.8;
 	static final double HATCH_ARM_GRAB_AXIS_THRESHHOLD = 0.8;
@@ -68,6 +68,7 @@ public class Constants {
 
 	static final double DRIVE_SPEED = 0.95;
 	static final double DRIVE_TURN_SPEED = 0.75;
+	static final double RAMP_TIME = 0.5;
 	static final double DRIVE_DEADZONE = 0.15;
 
 	static final double DETECTING_DRIVE_SPEED = .4;

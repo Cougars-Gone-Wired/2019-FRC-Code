@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class CargoManip {
 
@@ -48,6 +49,9 @@ public class CargoManip {
     public CargoManip() {
         armMotor = new WPI_TalonSRX(Constants.CARGO_ARM_MOTOR_ID);
         intakeMotor = new WPI_TalonSRX(Constants.CARGO_INTAKE_MOTOR_ID);
+        armMotor.setNeutralMode(NeutralMode.Brake);
+        intakeMotor.setNeutralMode(NeutralMode.Brake);
+
         armSensors = new SensorCollection(armMotor);
         //limitSwitchCargoShip = new DigitalInput(Constants.CARGO_SHIP_LIMIT_SWITCH_ID);
         //limitSwitchRocket = new DigitalInput(Constants.ROCKET_LIMIT_SWITCH_ID);

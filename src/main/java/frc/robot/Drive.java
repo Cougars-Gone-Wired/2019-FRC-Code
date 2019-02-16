@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 public class Drive {
@@ -45,19 +47,37 @@ public class Drive {
      */
     public Drive() {
         midLeftMotor = new WPI_TalonSRX(Constants.MID_LEFT_MOTOR_ID);
+        midLeftMotor.setNeutralMode(NeutralMode.Brake);
+        midLeftMotor.configOpenloopRamp(Constants.RAMP_TIME);
+
         frontLeftMotor = new WPI_TalonSRX(Constants.FRONT_LEFT_MOTOR_ID);
+        frontLeftMotor.setNeutralMode(NeutralMode.Brake);
+        frontLeftMotor.configOpenloopRamp(Constants.RAMP_TIME);
+
         backLeftMotor = new WPI_TalonSRX(Constants.BACK_LEFT_MOTOR_ID);
-        //midLeftMotor.follow(frontLeftMotor);
+        backLeftMotor.setNeutralMode(NeutralMode.Brake);
+        backLeftMotor.configOpenloopRamp(Constants.RAMP_TIME);
+        
         midLeftMotor.setInverted(true);
         frontLeftMotor.follow(midLeftMotor);
         backLeftMotor.follow(frontLeftMotor);
 
+
         midRightMotor = new WPI_TalonSRX(Constants.MID_RIGHT_MOTOR_ID);
+        midRightMotor.setNeutralMode(NeutralMode.Brake);
+        midRightMotor.configOpenloopRamp(Constants.RAMP_TIME);
+
         frontRightMotor = new WPI_TalonSRX(Constants.FRONT_RIGHT_MOTOR_ID);
+        frontRightMotor.setNeutralMode(NeutralMode.Brake);
+        frontRightMotor.configOpenloopRamp(Constants.RAMP_TIME);
+
         backRightMotor =  new WPI_TalonSRX(Constants.BACK_RIGHT_MOTOR_ID);
-        //midRightMotor.follow(frontRightMotor);
+        backRightMotor.setNeutralMode(NeutralMode.Brake);
+        backRightMotor.configOpenloopRamp(Constants.RAMP_TIME);
+
         frontRightMotor.follow(midRightMotor);
         backRightMotor.follow(frontRightMotor);
+        
 
         robotDrive = new DifferentialDrive(midLeftMotor, midRightMotor);
         robotDrive.setDeadband(Constants.DRIVE_DEADZONE);

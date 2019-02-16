@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.Drive.DriveModes;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class Lift {
     public enum LiftStates {
@@ -29,6 +30,9 @@ public class Lift {
     public Lift(){
         frontLiftMotor = new WPI_TalonSRX(Constants.FRONT_LIFT_MOTOR_ID);
         backLiftMotor = new WPI_TalonSRX(Constants.BACK_LIFT_MOTOR_ID);
+        frontLiftMotor.setNeutralMode(NeutralMode.Brake);
+        backLiftMotor.setNeutralMode(NeutralMode.Brake);
+
         limits = new SensorCollection(frontLiftMotor);
 
         //ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);

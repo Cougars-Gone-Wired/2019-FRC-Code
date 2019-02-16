@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class HatchArm {
     private enum HatchArmManualMoveStates {
@@ -31,6 +32,9 @@ public class HatchArm {
     public HatchArm() {
         hatchArmMoveMotor = new WPI_TalonSRX(Constants.HATCH_ARM_MOVE_MOTOR_ID);
         hatchArmGrabMotor = new WPI_TalonSRX(Constants.HATCH_ARM_GRAB_MOTOR_ID);
+        hatchArmMoveMotor.setNeutralMode(NeutralMode.Brake);
+        hatchArmGrabMotor.setNeutralMode(NeutralMode.Brake);
+        
         moveLimitSwitches = new SensorCollection(hatchArmMoveMotor);
         grabLimitSwitch = new DigitalInput(Constants.GRAB_SWITCH_PORT);
         moveMidSwitch = new DigitalInput(Constants.MID_SWITCH_PORT);
