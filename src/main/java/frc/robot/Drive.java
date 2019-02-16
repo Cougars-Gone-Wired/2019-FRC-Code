@@ -77,7 +77,7 @@ public class Drive {
 
         frontRightMotor.follow(midRightMotor);
         backRightMotor.follow(frontRightMotor);
-        
+
 
         robotDrive = new DifferentialDrive(midLeftMotor, midRightMotor);
         robotDrive.setDeadband(Constants.DRIVE_DEADZONE);
@@ -96,6 +96,7 @@ public class Drive {
 
     public void initalize() {
         SmartDashboard.putBoolean("StartCargoSide", false);
+        SmartDashboard.putBoolean("PowerFactor", false);
 
         // frontLeftMotor.set(0);
         midLeftMotor.set(0);
@@ -110,9 +111,14 @@ public class Drive {
     }
 
     public void robotDrive(double driveSpeedAxis, double driveTurnAxis, double leftHatchUltrasonic, double rightHatchUltrasonic) {
-        driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
-        driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
-        
+        if(SmartDashboard.getBoolean("PowerFactor", false)) {
+            driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.6;
+            driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.6;
+        } else {
+            driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
+            driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
+        }
+  
         switch (driveMode) {
             case DRIVE_STANDARD:
            // robotDrive.arcadeDrive(-driveSpeedAxis, driveTurnAxis);
