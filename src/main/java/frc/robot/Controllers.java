@@ -115,10 +115,6 @@ public class Controllers {
 		ultrasonicToggle.initialize();
 	}
 
-	public void rumble(Joystick controller, RumbleType side, double intensity) {
-		controller.setRumble(side, intensity);
-	}
-
 	//Manipulator
 	public int getDPad() {
         return dPad;
