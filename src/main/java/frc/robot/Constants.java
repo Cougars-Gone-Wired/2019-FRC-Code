@@ -11,9 +11,9 @@ public class Constants {
 	//static final int ROCKET_SWITCH_PORT = 2; //
 
 	//static final int CARGO_ARM_AXIS = 1; //
-	static final int HATCH_ARM_AXIS = 1;
+	static final int HATCH_ARM_AXIS = 1; // Controlls the second and manual controll schemes.  In case you're wondering, the three "buttons" that control the first control scheme are actually mapped to the DPad in the controllers class.
 	static final int HATCH_ARM_GRAB_BUTTON = 5;
-    static final int HATCH_ARM_SCHEME_BUTTON = 8;
+    static final int HATCH_ARM_SCHEME_BUTTON = 8; // Activates a toggle that switches between two controll schemes
 	static final int CARGO_INTAKE_AXIS = 2; //
     static final int CARGO_OUTTAKE_AXIS = 3; //
     static final int CARGO_ARM_TOP_BUTTON = 4; //
