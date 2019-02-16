@@ -1,13 +1,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Controllers {
-	enum ControllerNames {
-		
-	}
 
 	//Manipulator
 	private Joystick manipulatorStick;

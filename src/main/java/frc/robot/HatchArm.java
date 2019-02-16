@@ -102,7 +102,7 @@ public class HatchArm {
                 }
                 break;
             case MOVING_TOWARDS_FLOOR:
-                if (!lowerHatchArmButton && !raiseHatchArmButton) {
+                if (!lowerHatchArmButton && !raiseHatchArmButton || moveLimitSwitches.isFwdLimitSwitchClosed() && moveLimitSwitches.isRevLimitSwitchClosed()) {
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
                 } else if (raiseHatchArmButton) {
@@ -111,7 +111,7 @@ public class HatchArm {
                 }
                 break;
             case MOVING_TOWARDS_INITIAL:
-                if (!lowerHatchArmButton && !raiseHatchArmButton) {
+                if (!lowerHatchArmButton && !raiseHatchArmButton || moveLimitSwitches.isFwdLimitSwitchClosed() && moveLimitSwitches.isRevLimitSwitchClosed()) {
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
                 } else if (lowerHatchArmButton) {
@@ -199,7 +199,7 @@ public class HatchArm {
                     }
                     break;
                 case VERT_TO_FLOOR:
-                    if (moveLimitSwitches.isFwdLimitSwitchClosed()) {
+                    if (moveLimitSwitches.isFwdLimitSwitchClosed() && moveLimitSwitches.isRevLimitSwitchClosed()) {
                         hatchArmMoveMotor.set(0);
                         hatchArmMoveState = HatchArmMoveStates.FLOOR;
                     } else if (hatchArmInsideButton) {
@@ -211,7 +211,7 @@ public class HatchArm {
                     }
                     break;
                 case VERT_TO_INSIDE:
-                    if (moveLimitSwitches.isRevLimitSwitchClosed()) {
+                    if (moveLimitSwitches.isFwdLimitSwitchClosed() && moveLimitSwitches.isRevLimitSwitchClosed()) {
                         hatchArmMoveMotor.set(0);
                         hatchArmMoveState = HatchArmMoveStates.INSIDE;
                     } else if (hatchArmVertButton) {
