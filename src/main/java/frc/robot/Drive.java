@@ -95,8 +95,6 @@ public class Drive {
     }
 
     public void initalize() {
-        SmartDashboard.putBoolean("StartCargoSide", false);
-        SmartDashboard.putBoolean("PowerFactor", false);
 
         // frontLeftMotor.set(0);
         midLeftMotor.set(0);

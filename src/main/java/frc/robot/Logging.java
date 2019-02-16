@@ -48,7 +48,6 @@ public class Logging extends Object{
     }
 
     public void activeInitialize() {
-        SmartDashboard.putBoolean("Save Logger", loggingSave);
 
         logger = Logger.getLogger(Logging.class.getName());
         logLength = 1000;
@@ -60,6 +59,7 @@ public class Logging extends Object{
     }
 
     public void disabledInitialize() {
+        loggingSave = SmartDashboard.getBoolean("Save Logger", false);
         if(loggingStart) {
             loggingStart = false;
         }

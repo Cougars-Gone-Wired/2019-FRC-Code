@@ -86,6 +86,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     controllers.initialize();
+    
 
     controllers.setDriveToggle();
     cargoManip.initialize();
@@ -209,6 +210,9 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     drive.initalize();
     logging.disabledInitialize();
+    SmartDashboard.putBoolean("StartCargoSide", false);
+    SmartDashboard.putBoolean("PowerFactor", false);
+    SmartDashboard.putBoolean("Save Logger", false);
   }
 
   @Override
