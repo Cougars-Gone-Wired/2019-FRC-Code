@@ -8,8 +8,8 @@ public class Constants {
 	//static final int CARGO_SHIP_SWITCH_PORT = 1; //
 	//static final int ROCKET_SWITCH_PORT = 2; //
 
-	//static final int CARGO_ARM_AXIS = 1; //
-	static final int HATCH_ARM_AXIS = 1; // Controlls the second and manual controll schemes.  In case you're wondering, the three "buttons" that control the first control scheme are actually mapped to the DPad in the controllers class.
+	static final int CARGO_ARM_AXIS = 5; //
+	static final int HATCH_ARM_AXIS = 1;
 	static final int HATCH_ARM_GRAB_BUTTON = 5;
     static final int HATCH_ARM_SCHEME_BUTTON = 8; // Activates a toggle that switches between two controll schemes
 	static final int CARGO_INTAKE_AXIS = 2; //
@@ -40,17 +40,8 @@ public class Constants {
 
 	static final int DRIVE_SPEED_AXIS = 1;
 	static final int DRIVE_TURN_AXIS = 4;
-
-	  //Lift
-	static final int LIFT_DEPLOY_BUTTON = 3;
-	static final int LIFT_STOP_BUTTON = 2;
-	static final int LIFT_WITHDRAW_FROM_STAIR_BUTTON = 4;
-
 	static final int DRIVE_TOGGLE_BUTTON = 1;
 	static final int ULTRASONIC_TOGGLE_BUTTON = 4;
-
-	static final int FRONT_LIFT_MOTOR_ID = 0;
-	static final int BACK_LIFT_MOTOR_ID = 1;
 
 	static final int FRONT_LEFT_MOTOR_ID = 7; //Based off Hatch Side
 	static final int MID_LEFT_MOTOR_ID = 3;
@@ -59,6 +50,14 @@ public class Constants {
 	static final int FRONT_RIGHT_MOTOR_ID = 5;
 	static final int MID_RIGHT_MOTOR_ID = 2;
 	static final int BACK_RIGHT_MOTOR_ID = 4;
+
+	//Lift
+	static final int LIFT_DEPLOY_BUTTON = 3;
+	static final int LIFT_STOP_BUTTON = 2;
+	static final int LIFT_WITHDRAW_FROM_STAIR_BUTTON = 4;
+
+	static final int FRONT_LIFT_MOTOR_ID = 0;
+	static final int BACK_LIFT_MOTOR_ID = 1;
 
 	static final double LIFT_SPEED = 1; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
 	//static final int ULTRASONIC_HATCH_LEFT_PORT = 1; //SET PORTS!!!
