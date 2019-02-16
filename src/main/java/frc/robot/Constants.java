@@ -43,6 +43,7 @@ public class Constants {
 	static final int DRIVE_TURN_AXIS = 4;
 	static final int DRIVE_TOGGLE_BUTTON = 1;
 	static final int ULTRASONIC_TOGGLE_BUTTON = 4;
+	static final int DRIVE_FINE_BUTTON = 3;
 
 	static final int FRONT_LEFT_MOTOR_ID = 7; //Based off Hatch Side
 	static final int MID_LEFT_MOTOR_ID = 3;
@@ -67,7 +68,7 @@ public class Constants {
 	static final double ULTRASONIC_THRESHOLD = 11; //Inches
 
 	static final double DRIVE_SPEED = 0.95;
-	static final double DRIVE_TURN_SPEED = 0.75;
+	static final double DRIVE_TURN_SPEED = 0.65;
 	static final double RAMP_TIME = 0.5;
 	static final double DRIVE_DEADZONE = 0.15;
 

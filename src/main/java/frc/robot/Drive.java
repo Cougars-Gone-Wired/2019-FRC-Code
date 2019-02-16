@@ -13,12 +13,16 @@ public class Drive {
     public enum DriveModes {
         DRIVE_STANDARD, DRIVE_TO_STAIRS, BACKING_UP
     }
+    public enum FineModes {
+        DRIVE_NORMAL, DRIVE_FINE
+    }
     public enum DriveStates {
         DRIVE_CARGO_SIDE, DRIVE_HATCH_SIDE
     }
     
     public DriveModes driveMode;
     private DriveStates driveState;
+    public FineModes fineMode;
 
     private WPI_TalonSRX frontLeftMotor; //Based off Hatch Side
     private WPI_TalonSRX midLeftMotor;
@@ -86,6 +90,7 @@ public class Drive {
 
         driveState = DriveStates.DRIVE_HATCH_SIDE;
         driveMode = DriveModes.DRIVE_STANDARD;
+        fineMode = FineModes.DRIVE_NORMAL;
 
         leftSensors = midLeftMotor.getSensorCollection();
         rightSensors = midRightMotor.getSensorCollection();
@@ -117,6 +122,14 @@ public class Drive {
         //     driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
         //     driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
         // }
+        switch(fineMode) {
+            case DRIVE_FINE:
+            
+            break;
+            case DRIVE_NORMAL:
+
+            break;
+        }
         driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
         driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
 
@@ -189,6 +202,14 @@ public class Drive {
             driveState = DriveStates.DRIVE_CARGO_SIDE;
         } else {
             driveState = DriveStates.DRIVE_HATCH_SIDE;
+        }
+    }
+
+    public void setFine(boolean fine) {
+        if(fine) {
+            fineMode = FineModes.DRIVE_FINE;
+        } else {
+            fineMode = FineModes.DRIVE_NORMAL;
         }
     }
     // public void setMode(boolean switchMode) {

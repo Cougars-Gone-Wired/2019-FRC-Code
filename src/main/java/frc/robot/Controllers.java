@@ -44,6 +44,7 @@ public class Controllers {
 
 	private Toggle driveToggle;
 	private Toggle ultrasonicToggle;
+	private Toggle driveFineToggle;
 
 	//Lift
 	private boolean liftDeployButton;
@@ -58,6 +59,7 @@ public class Controllers {
         hatchArmSchemeToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_SCHEME_BUTTON);
 		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
+		driveFineToggle = new Toggle(mobilityStick, Constants.DRIVE_FINE_BUTTON);
 	}
 
 	public void setControllerValues() {
@@ -196,6 +198,14 @@ public class Controllers {
 
 	public Toggle getUltrasonicToggle() {
 		return ultrasonicToggle;
+	}
+
+	public boolean getDriveFineToggleValue() {
+		return driveFineToggle.toggle();
+	}
+
+	public Toggle getDriveFineToggle() {
+		return driveFineToggle;
 	}
 
 	public void setDriveToggle() {
