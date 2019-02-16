@@ -167,7 +167,7 @@ public class CargoManip {
             break;
             case TO_TOP:
             //check if reached top
-            if (topLimitSwitch) {
+            if (topLimitSwitch || bottomLimitSwitch) {
                 armMotor.set(0);
                 armSensors.setQuadraturePosition(0, 0);
                 armState = ArmStates.TOP;
@@ -265,7 +265,7 @@ public class CargoManip {
             }
             break;
             case TO_BOTTOM:
-            if (bottomLimitSwitch) {
+            if (topLimitSwitch || bottomLimitSwitch) {
                 armMotor.set(0);
                 armState = ArmStates.BOTTOM;
             }
@@ -323,12 +323,12 @@ public class CargoManip {
         //useless switch statement. kept it just in case
         /*switch (limitSwitchState) {
             case TOP_LIMIT:
-            if (!topLimitSwitch) {
+            if (!topLimitSwitch && !bottomLimitSwitch) {
                 limitSwitchState = LimitSwitchStates.NO_SWITCH;
             }
             break;
             case BOTTOM_LIMIT:
-            if (!bottomLimitSwitch) {
+            if (!topLimitSwitch && !bottomLimitSwitch) {
                 limitSwitchState = LimitSwitchStates.NO_SWITCH;
             }
             break;
@@ -349,10 +349,10 @@ public class CargoManip {
             if (!rocketLimitSwitch) {
                 limitSwitchState = LimitSwitchStates.ROCKET;
             }
-            if (topLimitSwitch) {
+            if (topLimitSwitch || bottomLimitSwitch) {
                 limitSwitchState = LimitSwitchStates.TOP_LIMIT;
             }
-            if (bottomLimitSwitch) {
+            if (topLimitSwitch || bottomLimitSwitch) {
                 limitSwitchState = LimitSwitchStates.BOTTOM_LIMIT;
             }
             break;
