@@ -112,8 +112,8 @@ public class Drive {
 
     public void robotDrive(double driveSpeedAxis, double driveTurnAxis, double leftHatchUltrasonic, double rightHatchUltrasonic) {
         if(SmartDashboard.getBoolean("PowerFactor", false)) {
-            driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.6;
-            driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.6;
+            driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.75;
+            driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.75;
         } else {
             driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
             driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
