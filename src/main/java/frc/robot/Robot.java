@@ -174,7 +174,7 @@ public class Robot extends TimedRobot {
     //cargoManip.armMove(controllers.getCargoArmTopButton(), controllers.getCargoArmBottomButton(), controllers.getCargoArmCargoShipButton(), controllers.getCargoArmRocketButton());
     cargoManip.armMoveManual(controllers.getCargoArmAxis());
     cargoManip.intakeMove(controllers.getCargoArmIntakeAxis(), controllers.getCargoArmOuttakeAxis());
-    cargoManip.sensorLight();
+    //cargoManip.sensorLight();
 
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
@@ -189,8 +189,8 @@ public class Robot extends TimedRobot {
     
     leftHatchUltrasonic.setUltrasonicValues();
     rightHatchUltrasonic.setUltrasonicValues();
-    leftHatchUltrasonic.displayValues("Left Ultrasonic");
-    rightHatchUltrasonic.displayValues("Right Ultrasonic");
+    //leftHatchUltrasonic.displayValues("Left Ultrasonic");
+    //rightHatchUltrasonic.displayValues("Right Ultrasonic");
 
     //The Loggers chopping down trees
     logging.collectData();

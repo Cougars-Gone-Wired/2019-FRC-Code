@@ -218,26 +218,26 @@ public class Drive {
         SmartDashboard.putString("Side Facing", driveState.toString());
         SmartDashboard.putString("Drive Mode", driveMode.toString());
         SmartDashboard.putNumber("RoboRIO Voltage", getBatteryVoltage());
-        SmartDashboard.putNumber("Left Encoder", -leftSensors.getQuadraturePosition());
-        SmartDashboard.putNumber("Right Encoder", rightSensors.getQuadraturePosition());
+        //SmartDashboard.putNumber("Left Encoder", -leftSensors.getQuadraturePosition());
+        //SmartDashboard.putNumber("Right Encoder", rightSensors.getQuadraturePosition());
 
         ///Front Left Motor
         //SmartDashboard.putNumber("FLVoltage", getFrontLeftMotorVoltage());
-        SmartDashboard.putNumber("FLCurrent", getFrontLeftMotorCurrent());
+        //SmartDashboard.putNumber("FLCurrent", getFrontLeftMotorCurrent());
         //Front Right Motor
         //SmartDashboard.putNumber("FRVoltage", getFrontRightMotorVoltage());
-        SmartDashboard.putNumber("FRCurrent", getFrontRightMotorCurrent());
+        //SmartDashboard.putNumber("FRCurrent", getFrontRightMotorCurrent());
 
-        SmartDashboard.putNumber("MLCurrent", getMidLeftMotorCurrent());
+        //SmartDashboard.putNumber("MLCurrent", getMidLeftMotorCurrent());
         
-        SmartDashboard.putNumber("MRCurrent", getMidRightMotorCurrent());
+        //SmartDashboard.putNumber("MRCurrent", getMidRightMotorCurrent());
         // //Back Left Motor
         // SmartDashboard.putNumber("BLVoltage", getBackLeftMotorVoltage());
-        SmartDashboard.putNumber("BLCurrent", getBackLeftMotorCurrent());
+        //SmartDashboard.putNumber("BLCurrent", getBackLeftMotorCurrent());
 
         // //Back Right Motor
         // SmartDashboard.putNumber("BRVoltage", getBackRightMotorVoltage());
-        SmartDashboard.putNumber("BRCurrent", getBackRightMotorCurrent());
+        //SmartDashboard.putNumber("BRCurrent", getBackRightMotorCurrent());
     }
 
     //RoboRIO Battery Voltage
