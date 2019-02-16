@@ -10,7 +10,7 @@ public class Constants {
 	//static final int CARGO_SHIP_SWITCH_PORT = 1; //
 	//static final int ROCKET_SWITCH_PORT = 2; //
 
-	//static final int CARGO_ARM_AXIS = 1; //
+	static final int CARGO_ARM_AXIS = 5; //
 	static final int HATCH_ARM_AXIS = 1;
 	static final int HATCH_ARM_GRAB_BUTTON = 5;
     static final int HATCH_ARM_SCHEME_BUTTON = 8;
