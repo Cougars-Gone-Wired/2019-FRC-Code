@@ -44,19 +44,21 @@ public class Drive {
      * 
      */
     public Drive() {
-        frontLeftMotor = new WPI_TalonSRX(Constants.FRONT_LEFT_MOTOR_ID);
         midLeftMotor = new WPI_TalonSRX(Constants.MID_LEFT_MOTOR_ID);
+        frontLeftMotor = new WPI_TalonSRX(Constants.FRONT_LEFT_MOTOR_ID);
         backLeftMotor = new WPI_TalonSRX(Constants.BACK_LEFT_MOTOR_ID);
-        midLeftMotor.follow(frontLeftMotor);
+        //midLeftMotor.follow(frontLeftMotor);
+        frontLeftMotor.follow(midLeftMotor);
         backLeftMotor.follow(frontLeftMotor);
 
-        frontRightMotor = new WPI_TalonSRX(Constants.FRONT_RIGHT_MOTOR_ID);
         midRightMotor = new WPI_TalonSRX(Constants.MID_RIGHT_MOTOR_ID);
+        frontRightMotor = new WPI_TalonSRX(Constants.FRONT_RIGHT_MOTOR_ID);
         backRightMotor =  new WPI_TalonSRX(Constants.BACK_RIGHT_MOTOR_ID);
-        midRightMotor.follow(frontRightMotor);
+        //midRightMotor.follow(frontRightMotor);
+        frontLeftMotor.follow(midRightMotor);
         backRightMotor.follow(frontRightMotor);
 
-        robotDrive = new DifferentialDrive(frontLeftMotor, frontRightMotor);
+        robotDrive = new DifferentialDrive(midLeftMotor, midRightMotor);
         robotDrive.setDeadband(Constants.DRIVE_DEADZONE);
         robotDrive.setSafetyEnabled(false);
 
@@ -74,13 +76,14 @@ public class Drive {
     public void initalize() {
         SmartDashboard.putBoolean("StartCargoSide", false);
 
-        frontLeftMotor.set(0);
+        // frontLeftMotor.set(0);
         midLeftMotor.set(0);
-        backLeftMotor.set(0);
+        // backLeftMotor.set(0);
 
+        // 
         frontRightMotor.set(0);
         midLeftMotor.set(0);
-        backRightMotor.set(0);
+        // backRightMotor.set(0);
 
         leftSensors.setQuadraturePosition(0, 0);
         rightSensors.setQuadraturePosition(0, 0);
@@ -189,7 +192,7 @@ public class Drive {
         SmartDashboard.putString("Side Facing", driveState.toString());
         SmartDashboard.putString("Drive Mode", driveMode.toString());
         SmartDashboard.putNumber("RoboRIO Voltage", getBatteryVoltage());
-        SmartDashboard.putNumber("Left Encoder", leftSensors.getQuadraturePosition());
+        SmartDashboard.putNumber("Left Encoder", -leftSensors.getQuadraturePosition());
         SmartDashboard.putNumber("Right Encoder", rightSensors.getQuadraturePosition());
 
         ///Front Left Motor
