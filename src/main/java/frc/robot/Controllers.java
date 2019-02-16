@@ -115,9 +115,8 @@ public class Controllers {
 		ultrasonicToggle.initialize();
 	}
 
-	public void rumble(Joystick controller, double intensity) {
-		controller.setRumble(RumbleType.kLeftRumble, intensity);
-		controller.setRumble(RumbleType.kRightRumble, intensity);
+	public void rumble(Joystick controller, RumbleType side, double intensity) {
+		controller.setRumble(side, intensity);
 	}
 
 	//Manipulator
@@ -183,6 +182,10 @@ public class Controllers {
     }
 
 	//Mobility
+	public Joystick getMobilityStick() {
+		return mobilityStick;
+	}
+
 	public double getDriveSpeedAxis() {
 		return driveSpeedAxis;
 	}
