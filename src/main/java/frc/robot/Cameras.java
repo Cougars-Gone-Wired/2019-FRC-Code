@@ -1,6 +1,7 @@
 package frc.robot;
 
 import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -22,6 +23,7 @@ public class Cameras {
     CvSource cvSource;
 
     Mat image;
+    Mat output;
 
     public Cameras() {
         hatchCamera = new UsbCamera("USB Camera 0", 0);
@@ -33,6 +35,7 @@ public class Cameras {
         cvSource = CameraServer.getInstance().putVideo("Current View", 320, 240);
 
         image = new Mat();
+        output = new Mat();
     }
 
     public void cameraVideo() {
@@ -49,7 +52,8 @@ public class Cameras {
                     currentCameraSide = CameraStates.HATCH_CAMERA;
                     break;
             }
-            cvSource.putFrame(image);
+            Imgproc.cvtColor(image, output, Imgproc.COLOR_BGR2GRAY);
+            cvSource.putFrame(output);
         }
     }
 
