@@ -141,7 +141,7 @@ public class Lift {
     }
     */
 
-    public void lift(Boolean liftDeployButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive, Joystick mobilityStick){
+    public void lift(Boolean liftDeployButton, Boolean liftRetractButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive, Joystick mobilityStick){
         
         switch(liftState){
             case LOCK:
@@ -179,20 +179,18 @@ public class Lift {
                 break;
 
             case STOP:
-                if(liftDeployButton){
-                    mobilityStick.setRumble(RumbleType.kLeftRumble, 0);
-                    mobilityStick.setRumble(RumbleType.kRightRumble, 0);
-                    if(!limits.isFwdLimitSwitchClosed()){
-                    //State: STOP -> EN
-                        frontLiftMotor.set(Constants.LIFT_SPEED);
-                        backLiftMotor.set( -Constants.LIFT_SPEED );
-                        liftState = LiftStates.EN;
-                    } else {
-                    //State: STOP -> EC
-                        frontLiftMotor.set(-Constants.LIFT_SPEED);
-                        backLiftMotor.set(Constants.LIFT_SPEED);
-                        liftState = LiftStates.EC;
-                    }
+                mobilityStick.setRumble(RumbleType.kLeftRumble, 0);
+                mobilityStick.setRumble(RumbleType.kRightRumble, 0);
+                if(liftDeployButton && !limits.isFwdLimitSwitchClosed()){
+                //State: STOP -> EN
+                    frontLiftMotor.set(Constants.LIFT_SPEED);
+                    backLiftMotor.set( -Constants.LIFT_SPEED );
+                    liftState = LiftStates.EN;
+                } else if(liftRetractButton && !limits.isRevLimitSwitchClosed()){
+                //State: STOP -> EC
+                    frontLiftMotor.set(-Constants.LIFT_SPEED);
+                    backLiftMotor.set(Constants.LIFT_SPEED);
+                    liftState = LiftStates.EC;
                 }
 
                 break;

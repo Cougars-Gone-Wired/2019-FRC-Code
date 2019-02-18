@@ -54,7 +54,8 @@ public class Constants {
 	static final int BACK_RIGHT_MOTOR_ID = 4;
 
 	//Lift
-	static final int LIFT_DEPLOY_BUTTON = 3;
+	static final int LIFT_DEPLOY_BUTTON = 5;
+	static final int LIFT_RETRACT_BUTTON = 6;
 	static final int LIFT_STOP_BUTTON = 2;
 	static final int LIFT_WITHDRAW_FROM_STAIR_BUTTON = 4;
 

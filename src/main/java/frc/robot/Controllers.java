@@ -48,6 +48,7 @@ public class Controllers {
 
 	//Lift
 	private boolean liftDeployButton;
+	private boolean liftRetractButton;
 	private boolean liftStopButton;
 	private boolean liftWithdrawFromStairButton;
 	
@@ -97,6 +98,7 @@ public class Controllers {
 			liftToggleDeployer.toggle();
 		}*/
 		liftDeployButton = mobilityStick.getRawButton(Constants.LIFT_DEPLOY_BUTTON);
+		liftRetractButton = mobilityStick.getRawButton(Constants.LIFT_RETRACT_BUTTON);
 		liftStopButton = mobilityStick.getRawButton(Constants.LIFT_STOP_BUTTON);
 		liftWithdrawFromStairButton = mobilityStick.getRawButton(Constants.LIFT_WITHDRAW_FROM_STAIR_BUTTON);
 
@@ -214,6 +216,10 @@ public class Controllers {
 
 	public boolean isLiftDeployButton() {
 		return liftDeployButton;
+	}
+
+	public boolean isLiftRetractButton() {
+		return liftRetractButton;
 	}
 
 	public boolean isLiftStopButton() {
