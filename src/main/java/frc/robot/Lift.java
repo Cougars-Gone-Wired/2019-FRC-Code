@@ -32,6 +32,8 @@ public class Lift {
         backLiftMotor = new WPI_TalonSRX(Constants.BACK_LIFT_MOTOR_ID);
         frontLiftMotor.setNeutralMode(NeutralMode.Brake);
         backLiftMotor.setNeutralMode(NeutralMode.Brake);
+        frontLiftMotor.configOpenloopRamp(Constants.RAMP_TIME);
+        backLiftMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
         limits = new SensorCollection(frontLiftMotor);
 
