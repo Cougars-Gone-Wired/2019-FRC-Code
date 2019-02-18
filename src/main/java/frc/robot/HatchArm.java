@@ -25,7 +25,7 @@ public class HatchArm {
     private WPI_TalonSRX hatchArmMoveMotor;
     private WPI_TalonSRX hatchArmGrabMotor;
     private SensorCollection moveLimitSwitches;
-    private SensorCollection grabLimitSwitch;
+    private DigitalInput grabLimitSwitch;
     private DigitalInput moveMidSwitch;
     private boolean moveMidSwitchValue;
 
@@ -38,7 +38,7 @@ public class HatchArm {
         //hatchArmGrabMotor.configOpenloopRamp(Constants.RAMP_TIME);
         
         moveLimitSwitches = new SensorCollection(hatchArmMoveMotor);
-        grabLimitSwitch = new SensorCollection(hatchArmGrabMotor);
+        grabLimitSwitch = new DigitalInput(Constants.GRAB_SWITCH_PORT);
         moveMidSwitch = new DigitalInput(Constants.MID_SWITCH_PORT);
         initialize();
     }
@@ -66,7 +66,7 @@ public class HatchArm {
                 }
                 break;
             case TO_IN:
-                if (grabLimitSwitch.isFwdLimitSwitchClosed()) {
+                if (grabLimitSwitch.get()) {
                     hatchArmGrabMotor.set(0);
                     hatchArmGrabState = HatchArmGrabStates.IN;
                 } else if (!hatchArmGrabToggle) {
@@ -75,7 +75,7 @@ public class HatchArm {
                 }
                 break;
             case TO_OUT:
-                if (grabLimitSwitch.isFwdLimitSwitchClosed()) {
+                if (grabLimitSwitch.get()) {
                     hatchArmGrabMotor.set(0);
                     hatchArmGrabState = HatchArmGrabStates.OUT;
                 } else if (hatchArmGrabToggle) {
@@ -84,12 +84,12 @@ public class HatchArm {
                 }
                 break;
             case TO_IN_INTER:
-                if (!grabLimitSwitch.isFwdLimitSwitchClosed()) {
+                if (!grabLimitSwitch.get()) {
                     hatchArmGrabState = HatchArmGrabStates.TO_IN;
                 }
                 break;
             case TO_OUT_INTER:
-                if (!grabLimitSwitch.isFwdLimitSwitchClosed()) {
+                if (!grabLimitSwitch.get()) {
                     hatchArmGrabState = HatchArmGrabStates.TO_OUT;
                 }
                 break;
