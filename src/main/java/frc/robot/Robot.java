@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   private HatchArm hatchArm;
 
   //Lift code
-  //private Lift lift;
+  private Lift lift;
 
   private Ultrasonic leftHatchUltrasonic;
   private Ultrasonic rightHatchUltrasonic;
@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
     drive = new Drive();
     hatchArm = new HatchArm();
 
-    //lift = new Lift();
+    lift = new Lift();
 
     leftHatchUltrasonic = new Ultrasonic(Constants.LEFT_HATCH_ULTRASONIC_SENSOR_PORT);
     rightHatchUltrasonic = new Ultrasonic(Constants.RIGHT_HATCH_ULTRASONIC_SENSOR_PORT);
@@ -125,8 +125,6 @@ public class Robot extends TimedRobot {
     hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     // hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     
-    //Lift
-    //lift.lift(controllers.isLiftDeployButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive);
     
     leftHatchUltrasonic.setUltrasonicValues();
     rightHatchUltrasonic.setUltrasonicValues();
@@ -153,7 +151,7 @@ public class Robot extends TimedRobot {
     drive.initalize();
     hatchArm.initialize();
 
-    //lift.initialize();
+    lift.initialize();
 
     leftHatchUltrasonic.initialize();
     rightHatchUltrasonic.initialize();
@@ -186,7 +184,7 @@ public class Robot extends TimedRobot {
     // hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     
     //Lift
-    //lift.lift(controllers.isLiftDeployButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive, controllers.getMobilityStick());
+    lift.lift(controllers.isLiftDeployButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive, controllers.getMobilityStick());
     
     leftHatchUltrasonic.setUltrasonicValues();
     rightHatchUltrasonic.setUltrasonicValues();
@@ -254,9 +252,9 @@ public class Robot extends TimedRobot {
     return rightHatchUltrasonic.getImperialUltrasonicValue();
   }
 
-  // public Lift getLift() {
-  //   return lift;
-  // }
+  public Lift getLift() {
+    return lift;
+  }
 }
 
 

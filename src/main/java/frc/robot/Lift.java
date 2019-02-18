@@ -23,8 +23,8 @@ public class Lift {
     //private Ultrasonic ultraRight;
 
     //private boolean aligned;
-    boolean alignedDistance;
-    boolean alignedAngle;
+    //boolean alignedDistance;
+    //boolean alignedAngle;
     //private double distanceAtLift;
     
     public Lift(){
@@ -39,15 +39,16 @@ public class Lift {
         //ultraRight = new Ultrasonic(Constants.ULTRASONIC_HATCH_RIGHT_PORT);
 
         //aligned = false;
-        alignedDistance = false;
-        alignedAngle = false;
+        //alignedDistance = false;
+        //alignedAngle = false;
         //distanceAtLift = Constants.DISTANCE_AT_LIFT;
     }
 
     public void initialize() {
         frontLiftMotor.set(0);
         backLiftMotor.set(0);
-        liftState = LiftStates.LOCK;
+        liftState = LiftStates.STOP;
+        //liftState = LiftStates.LOCK;
     }
 
     // __    ___    ___   _____
