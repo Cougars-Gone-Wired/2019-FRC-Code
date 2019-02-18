@@ -393,4 +393,20 @@ public class CargoManip {
             break;
         }
     }
+
+    public double getIntakeMotorVoltage() {
+        return intakeMotor.getMotorOutputVoltage();
+    }
+
+    public double getIntakeMotorCurrent() {
+        return intakeMotor.getOutputCurrent();
+    }
+
+    public double getArmMotorVoltage() {
+        return armMotor.getMotorOutputVoltage();
+    }
+
+    public double getArmMotorCurrent() {
+        return armMotor.getOutputCurrent();
+    }
 }

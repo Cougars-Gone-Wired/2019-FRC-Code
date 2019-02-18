@@ -71,15 +71,15 @@ public class Controllers {
         
         hatchArmSchemeButton = hatchArmSchemeToggle.toggle();
 
-        raiseHatchArmButton = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
-        lowerHatchArmButton = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
+        raiseHatchArmButton = -manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
+        lowerHatchArmButton = -manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
 
         hatchArmFloorButton = manipulatorStick.getPOV() == 270;
         hatchArmVertButton = manipulatorStick.getPOV() == 0;
 		hatchArmInsideButton = manipulatorStick.getPOV() == 90;
 
 		//Cargo
-		cargoArmAxis = manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
+		cargoArmAxis = -manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
 		cargoArmIntakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_INTAKE_AXIS);
 		cargoArmOuttakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_OUTTAKE_AXIS);
 		cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);

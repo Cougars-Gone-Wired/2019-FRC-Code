@@ -124,14 +124,15 @@ public class Drive {
         // }
         switch(fineMode) {
             case DRIVE_FINE:
-            
+                driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.75;
+                driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.75;
             break;
             case DRIVE_NORMAL:
-
+                driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
+                driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
             break;
         }
-        driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
-        driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
+
 
         switch (driveMode) {
             case DRIVE_STANDARD:
@@ -253,6 +254,8 @@ public class Drive {
     public void showDashboard() {
         SmartDashboard.putString("Side Facing", driveState.toString());
         SmartDashboard.putString("Drive Mode", driveMode.toString());
+        SmartDashboard.putString("Fine Mode", fineMode.toString());
+
         SmartDashboard.putNumber("RoboRIO Voltage", getBatteryVoltage());
         //SmartDashboard.putNumber("Left Encoder", -leftSensors.getQuadraturePosition());
         //SmartDashboard.putNumber("Right Encoder", rightSensors.getQuadraturePosition());

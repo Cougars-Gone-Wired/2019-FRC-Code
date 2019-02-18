@@ -52,6 +52,7 @@ public class HatchArm {
     }
 
     public void hatchArmGrab(boolean hatchArmGrabToggle) {
+        SmartDashboard.putBoolean("hatchlimit", grabLimitSwitch.get());
         switch (hatchArmGrabState) {
             case IN:
                 if (!hatchArmGrabToggle) {
@@ -66,7 +67,7 @@ public class HatchArm {
                 }
                 break;
             case TO_IN:
-                if (grabLimitSwitch.get()) {
+                if (!grabLimitSwitch.get()) {
                     hatchArmGrabMotor.set(0);
                     hatchArmGrabState = HatchArmGrabStates.IN;
                 } else if (!hatchArmGrabToggle) {
@@ -75,7 +76,7 @@ public class HatchArm {
                 }
                 break;
             case TO_OUT:
-                if (grabLimitSwitch.get()) {
+                if (!grabLimitSwitch.get()) {
                     hatchArmGrabMotor.set(0);
                     hatchArmGrabState = HatchArmGrabStates.OUT;
                 } else if (hatchArmGrabToggle) {
@@ -84,12 +85,12 @@ public class HatchArm {
                 }
                 break;
             case TO_IN_INTER:
-                if (!grabLimitSwitch.get()) {
+                if (grabLimitSwitch.get()) {
                     hatchArmGrabState = HatchArmGrabStates.TO_IN;
                 }
                 break;
             case TO_OUT_INTER:
-                if (!grabLimitSwitch.get()) {
+                if (grabLimitSwitch.get()) {
                     hatchArmGrabState = HatchArmGrabStates.TO_OUT;
                 }
                 break;
@@ -296,5 +297,21 @@ public class HatchArm {
                     break;
             }
         }
+    }
+
+    public double getHatchArmMoveMotorVoltage() {
+        return hatchArmMoveMotor.getMotorOutputVoltage();
+    }
+
+    public double getHatchArmMoveMotorCurrent() {
+        return hatchArmMoveMotor.getOutputCurrent();
+    }
+
+    public double getHatchArmGrabMotorVoltage() {
+        return hatchArmGrabMotor.getMotorOutputVoltage();
+    }
+
+    public double getHatchArmGrabMotorCurrent() {
+        return hatchArmGrabMotor.getOutputCurrent();
     }
 }

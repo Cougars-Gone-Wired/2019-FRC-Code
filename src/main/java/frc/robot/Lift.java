@@ -215,4 +215,20 @@ public class Lift {
     public LiftStates getLiftState() {
         return liftState;
     }
+
+    public double getFrontLiftMotorVoltage() {
+        return frontLiftMotor.getMotorOutputVoltage();
+    }
+
+    public double getFrontLiftMotorCurrent() {
+        return frontLiftMotor.getOutputCurrent();
+    }
+
+    public double getBackLiftMotorVoltage() {
+        return backLiftMotor.getMotorOutputVoltage();
+    }
+
+    public double getBackLiftMotorCurrent() {
+        return backLiftMotor.getOutputCurrent();
+    }
 }

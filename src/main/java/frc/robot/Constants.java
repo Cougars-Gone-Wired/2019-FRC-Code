@@ -62,15 +62,15 @@ public class Constants {
 	static final int FRONT_LIFT_MOTOR_ID = 0; //Right Lift Motor
 	static final int BACK_LIFT_MOTOR_ID = 1; //Left Lift Motor
 
-	static final double LIFT_SPEED = 1; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
+	static final double LIFT_SPEED = 0.6; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
 	//static final int ULTRASONIC_HATCH_LEFT_PORT = 1; //SET PORTS!!!
 	//static final int ULTRASONIC_HATCH_RIGHT_PORT = 0; //SET PORTS!!!
 	static final double DISTANCE_AT_LIFT = 12; //Inches
 	static final double ULTRASONIC_THRESHOLD = 11; //Inches
 
 	static final double DRIVE_SPEED = 0.95;
-	static final double DRIVE_TURN_SPEED = 0.85;
-	static final double RAMP_TIME = 0.05;
+	static final double DRIVE_TURN_SPEED = .9;
+	static final double RAMP_TIME = 0.0;
 	static final double DRIVE_DEADZONE = 0.15;
 
 	static final double DETECTING_DRIVE_SPEED = .4;

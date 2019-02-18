@@ -34,6 +34,9 @@ public class Logging extends Object{
     //private Robot xrobot;
     private Drive drive;
     private Controllers controllers;
+    private HatchArm hatchArm;
+    private CargoManip cargoManip;
+    private Lift lift;
     //private Ultrasonic leftHatchUltrasonic;
     //private Ultrasonic rightHatchUltrasonic;
     //private Ultrasonic hatchUltrasonic;    
@@ -42,6 +45,9 @@ public class Logging extends Object{
         //xrobot = robot;
         drive = robot.getDrive();
         controllers = robot.getControllers();
+        hatchArm = robot.getHatchArm();
+        cargoManip = robot.getCargoManip();
+        lift = robot.getLift();
         //leftHatchUltrasonic = robot.getLeftHatchUltrasonic();
         //rightHatchUltrasonic = robot.getRightHatchUltrasonic();
         //hatchUltrasonic = robot.getHatchUltrasonic();        
@@ -143,6 +149,27 @@ public class Logging extends Object{
             logValues.append(d).append("RightHatchUltrasonic");
             //logValues.append(d).append("HatchUltrasonicDistance");
 
+            //HatchArm
+            logValues.append(d).append("HatchArmMoveMotorVoltage");
+            logValues.append(d).append("HatchArmMoveMotorCurrent");
+
+            logValues.append(d).append("HatchArmGrabMotorVoltage");
+            logValues.append(d).append("HatchArmGrabMotorCurrent");
+
+            //CargoManip
+            logValues.append(d).append("CargoManipIntakeMotorVoltage");
+            logValues.append(d).append("CargoManipIntakeMotorCurrent");
+
+            logValues.append(d).append("CargoManipArmMotorVoltage");
+            logValues.append(d).append("CargoManipArmMotorVoltage");
+
+            //Lift
+            logValues.append(d).append("FrontLiftMotorVoltage");
+            logValues.append(d).append("FrontLiftMotorCurrent");
+
+            logValues.append(d).append("BackLiftMotorVoltage");
+            logValues.append(d).append("BackLiftMotorCurrent");
+
             logArray[0] = logValues.toString();
             place = 1;
         }
@@ -195,7 +222,28 @@ public class Logging extends Object{
             // logValues.append(d).append(leftHatchUltrasonic.getImperialUltrasonicValue());
             // logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
             // //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
+            
+            //HatchArm
+            logValues.append(d).append(hatchArm.getHatchArmMoveMotorVoltage());
+            logValues.append(d).append(hatchArm.getHatchArmMoveMotorCurrent());
 
+            logValues.append(d).append(hatchArm.getHatchArmGrabMotorVoltage());
+            logValues.append(d).append(hatchArm.getHatchArmGrabMotorCurrent());
+
+            //CargoManip
+            logValues.append(d).append(cargoManip.getIntakeMotorVoltage());
+            logValues.append(d).append(cargoManip.getIntakeMotorCurrent());
+
+            logValues.append(d).append(cargoManip.getArmMotorVoltage());
+            logValues.append(d).append(cargoManip.getArmMotorCurrent());
+            
+            //Lift
+            logValues.append(d).append(lift.getFrontLiftMotorVoltage());
+            logValues.append(d).append(lift.getFrontLiftMotorCurrent());
+
+            logValues.append(d).append(lift.getBackLiftMotorVoltage());
+            logValues.append(d).append(lift.getBackLiftMotorCurrent());
+            
             if(place < logLength) {
                 logArray[place] = logValues.toString();
                 place++;
