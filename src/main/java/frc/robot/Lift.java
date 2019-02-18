@@ -53,6 +53,77 @@ public class Lift {
         //liftState = LiftStates.LOCK;
     }
 
+    public void lift(Boolean liftDeployButton, Boolean liftRetractButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive, Joystick mobilityStick){
+        
+        switch(liftState){
+            case LOCK:
+                //State: LOCK -> EN || STOP (@ 20sec. left in match)
+                if(Timer.getMatchTime() <= 20){
+                    liftState = LiftStates.BACKINGUPFROMSTAIR;
+                    
+                }
+                break;
+
+            case READYTOBACKUPFROMSTAIR:
+                if(liftWithdrawFromStairButton){
+                    drive.backUpFromStairs();
+                    liftState = LiftStates.BACKINGUPFROMSTAIR;
+                }
+                break;
+
+            case BACKINGUPFROMSTAIR:
+                if(drive.driveMode != DriveModes.BACKING_UP){
+                    //Rumble controller when ready to deploy lift. (Fully backed up.)
+                    mobilityStick.setRumble(RumbleType.kLeftRumble, 0.8);
+                    mobilityStick.setRumble(RumbleType.kRightRumble, 0.8);
+                    liftState = LiftStates.STOP;
+                }
+
+                break;
+
+            case EN:
+                //State: EN -> STOP
+                if(!liftDeployButton || liftStopButton || limits.isFwdLimitSwitchClosed()){
+                    backLiftMotor.set(0);
+                    frontLiftMotor.set(0);
+                    liftState = LiftStates.STOP;
+                }
+                break;
+
+            case STOP:
+                mobilityStick.setRumble(RumbleType.kLeftRumble, 0);
+                mobilityStick.setRumble(RumbleType.kRightRumble, 0);
+                if(liftDeployButton && !limits.isFwdLimitSwitchClosed() && !liftStopButton){
+                //State: STOP -> EN
+                    frontLiftMotor.set(Constants.LIFT_SPEED);
+                    backLiftMotor.set( -Constants.LIFT_SPEED );
+                    liftState = LiftStates.EN;
+                } else if(liftRetractButton && !limits.isRevLimitSwitchClosed() && !liftStopButton){
+                //State: STOP -> EC
+                    frontLiftMotor.set(-Constants.LIFT_SPEED);
+                    backLiftMotor.set(Constants.LIFT_SPEED);
+                    liftState = LiftStates.EC;
+                }
+
+                break;
+
+            case EC:
+                //State: EC -> STOP
+                if(!liftRetractButton || liftStopButton || limits.isRevLimitSwitchClosed()){
+                    frontLiftMotor.set(0);
+                    backLiftMotor.set(0);
+                    liftState = LiftStates.STOP;
+                }
+                break;
+
+            default:
+                //State: Emergency -> EN
+                frontLiftMotor.set(Constants.LIFT_SPEED);
+                liftState = LiftStates.EN;
+                break;
+        }
+    }
+
     // __    ___    ___   _____
     // | \    |    /        |  
     // |  |   |     ---     |  
@@ -140,77 +211,6 @@ public class Lift {
         
     }
     */
-
-    public void lift(Boolean liftDeployButton, Boolean liftRetractButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive, Joystick mobilityStick){
-        
-        switch(liftState){
-            case LOCK:
-                //State: LOCK -> EN || STOP (@ 20sec. left in match)
-                if(Timer.getMatchTime() <= 20){
-                    liftState = LiftStates.BACKINGUPFROMSTAIR;
-                    
-                }
-                break;
-
-            case READYTOBACKUPFROMSTAIR:
-                if(liftWithdrawFromStairButton){
-                    drive.backUpFromStairs();
-                    liftState = LiftStates.BACKINGUPFROMSTAIR;
-                }
-                break;
-
-            case BACKINGUPFROMSTAIR:
-                if(drive.driveMode != DriveModes.BACKING_UP){
-                    //Rumble controller when ready to deploy lift. (Fully backed up.)
-                    mobilityStick.setRumble(RumbleType.kLeftRumble, 0.8);
-                    mobilityStick.setRumble(RumbleType.kRightRumble, 0.8);
-                    liftState = LiftStates.STOP;
-                }
-
-                break;
-
-            case EN:
-                //State: EN -> STOP
-                if(liftStopButton || limits.isFwdLimitSwitchClosed()){
-                    backLiftMotor.set(0);
-                    frontLiftMotor.set(0);
-                    liftState = LiftStates.STOP;
-                }
-                break;
-
-            case STOP:
-                mobilityStick.setRumble(RumbleType.kLeftRumble, 0);
-                mobilityStick.setRumble(RumbleType.kRightRumble, 0);
-                if(liftDeployButton && !limits.isFwdLimitSwitchClosed()){
-                //State: STOP -> EN
-                    frontLiftMotor.set(Constants.LIFT_SPEED);
-                    backLiftMotor.set( -Constants.LIFT_SPEED );
-                    liftState = LiftStates.EN;
-                } else if(liftRetractButton && !limits.isRevLimitSwitchClosed()){
-                //State: STOP -> EC
-                    frontLiftMotor.set(-Constants.LIFT_SPEED);
-                    backLiftMotor.set(Constants.LIFT_SPEED);
-                    liftState = LiftStates.EC;
-                }
-
-                break;
-
-            case EC:
-                //State: EC -> STOP
-                if(liftStopButton || limits.isRevLimitSwitchClosed()){
-                    frontLiftMotor.set(0);
-                    backLiftMotor.set(0);
-                    liftState = LiftStates.STOP;
-                }
-                break;
-
-            default:
-                //State: Emergency -> EN
-                frontLiftMotor.set(Constants.LIFT_SPEED);
-                liftState = LiftStates.EN;
-                break;
-        }
-    }
 
     public LiftStates getLiftState() {
         return liftState;
