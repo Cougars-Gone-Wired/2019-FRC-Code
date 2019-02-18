@@ -106,7 +106,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    cameras.cameraVideo();
+    //cameras.cameraVideo();
 
     controllers.setControllerValues();
     setSide(controllers.getDriveToggleValue());
@@ -164,7 +164,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    cameras.cameraVideo();
+    //cameras.cameraVideo();
 
     controllers.setControllerValues();
     setSide(controllers.getDriveToggleValue());
@@ -223,7 +223,7 @@ public class Robot extends TimedRobot {
 
   public void setSide(boolean sideToggle) {
     drive.setSide(sideToggle);
-    cameras.setSide(sideToggle);
+    //cameras.setSide(sideToggle);
     Sides.setSide(sideToggle);
   }
 

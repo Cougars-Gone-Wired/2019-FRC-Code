@@ -8,6 +8,7 @@ import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Joystick;
 
 public class Cameras {
 
@@ -26,16 +27,49 @@ public class Cameras {
     Mat output;
 
     public Cameras() {
-        hatchCamera = new UsbCamera("USB Camera 0", 0);
-        hatchCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
-        cargoCamera = new UsbCamera("USB Camera 1", 1);
-        cargoCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
+        // hatchCamera = new UsbCamera("USB Camera 0", 0);
+        // hatchCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
+        // cargoCamera = new UsbCamera("USB Camera 1", 1);
+        // cargoCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
 
-        cvSink = CameraServer.getInstance().getVideo(hatchCamera);
-        cvSource = CameraServer.getInstance().putVideo("Current View", 320, 240);
+        // cvSink = CameraServer.getInstance().getVideo(hatchCamera);
+        // cvSource = CameraServer.getInstance().putVideo("Current View", 320, 240);
 
-        image = new Mat();
-        output = new Mat();
+        // image = new Mat();
+        // output = new Mat();
+
+        Thread t = new Thread(() -> {
+            UsbCamera hatchCamera = new UsbCamera("USB Camera 0", 0);
+            hatchCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
+            UsbCamera cargoCamera = new UsbCamera("USB Camera 1", 1);
+            cargoCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
+
+            CvSink cvSink = CameraServer.getInstance().getVideo(hatchCamera);
+            CvSource cvSource = CameraServer.getInstance().putVideo("Current View", 320, 240);
+
+            Mat image = new Mat();
+            Mat output = new Mat();
+
+            Joystick mobilityStick = new Joystick(Constants.MOBILITY_CONTROLLER_PORT);
+            Toggle switchButton = new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
+
+            while(!Thread.interrupted()) {
+                if (cvSink.grabFrame(image) == 0) {
+                    cvSource.notifyError(cvSink.getError());
+                    continue;
+                }
+
+                if(switchButton.toggle()) {
+                    cvSink.setSource(cargoCamera);
+                } else {
+                    cvSink.setSource(hatchCamera);
+                }
+                Imgproc.cvtColor(image, output, Imgproc.COLOR_BGR2GRAY);
+                cvSource.putFrame(output);
+            }
+        });
+        t.setDaemon(true);
+        t.start();
     }
 
     public void cameraVideo() {
@@ -55,6 +89,10 @@ public class Cameras {
             Imgproc.cvtColor(image, output, Imgproc.COLOR_BGR2GRAY);
             cvSource.putFrame(output);
         }
+    }
+
+    public void init() {
+        
     }
 
     public void setSide(boolean sideToggle) {
