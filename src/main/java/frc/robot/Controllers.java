@@ -45,7 +45,7 @@ public class Controllers {
 	private double driveTurnAxis;
 
 	private Toggle driveToggle;
-	private Toggle ultrasonicToggle;
+	// private Toggle ultrasonicToggle;
 	private Toggle driveFineToggle;
 
 	//Lift
@@ -61,7 +61,7 @@ public class Controllers {
         hatchArmGrabToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_GRAB_BUTTON);
         hatchArmSchemeToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_SCHEME_BUTTON);
 		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
-		ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
+		// ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
 		driveFineToggle = new Toggle(mobilityStick, Constants.DRIVE_FINE_BUTTON);
 	}
 
@@ -112,7 +112,7 @@ public class Controllers {
 		hatchArmGrabToggle.initialize();
 		hatchArmSchemeToggle.initialize();
 		driveToggle.initialize();
-		ultrasonicToggle.initialize();
+		// ultrasonicToggle.initialize();
 	}
 
 	//Manipulator
@@ -206,13 +206,13 @@ public class Controllers {
 		return driveToggle;
 	}
 
-	public boolean getUltrasonicToggleValue() {
-		return ultrasonicToggle.toggle();
-	}
+	// public boolean getUltrasonicToggleValue() {
+	// 	return ultrasonicToggle.toggle();
+	// }
 
-	public Toggle getUltrasonicToggle() {
-		return ultrasonicToggle;
-	}
+	// public Toggle getUltrasonicToggle() {
+	// 	return ultrasonicToggle;
+	// }
 
 	public boolean getDriveFineToggleValue() {
 		return driveFineToggle.toggle();
