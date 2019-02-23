@@ -205,7 +205,7 @@ public class HatchArm {
                 }
                 break;
             case VERT_TO_FLOOR:
-                if (moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
+                if (moveLimitSwitches.isRevLimitSwitchClosed()) {
                     hatchArmMoveMotor.set(0);
                     hatchArmMoveState = HatchArmMoveStates.FLOOR;
                 } else if (raiseHatchArmButton) {
@@ -214,7 +214,7 @@ public class HatchArm {
                 }
                 break;
             case VERT_TO_INSIDE:
-                if (moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
+                if (moveLimitSwitches.isFwdLimitSwitchClosed()) {
                     hatchArmMoveMotor.set(0);
                     hatchArmMoveState = HatchArmMoveStates.INSIDE;
                 } else if (lowerHatchArmButton) {
