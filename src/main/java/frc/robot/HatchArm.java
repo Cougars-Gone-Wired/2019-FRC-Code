@@ -146,7 +146,7 @@ public class HatchArm {
                 }
                 break;
             case MOVING_TOWARDS_FLOOR:
-                if (!lowerHatchArmButton && !raiseHatchArmButton || moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
+                if ((!lowerHatchArmButton && !raiseHatchArmButton) || moveLimitSwitches.isRevLimitSwitchClosed()) {
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
                 } else if (raiseHatchArmButton) {
@@ -155,7 +155,7 @@ public class HatchArm {
                 }
                 break;
             case MOVING_TOWARDS_INITIAL:
-                if (!lowerHatchArmButton && !raiseHatchArmButton || moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
+                if ((!lowerHatchArmButton && !raiseHatchArmButton) || moveLimitSwitches.isFwdLimitSwitchClosed()) {
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
                 } else if (lowerHatchArmButton) {
@@ -166,7 +166,7 @@ public class HatchArm {
         }
     }
 
-    // This is the main move function.  It requires that 
+    // This is the main move function.  It requires that the hatch arm starts in between
     public void hatchArmMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) {
         moveMidSwitchValue = !moveMidSwitch.get();
         SmartDashboard.putString("State", hatchArmMoveState.toString());
