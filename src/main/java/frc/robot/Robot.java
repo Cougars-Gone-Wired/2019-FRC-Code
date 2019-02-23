@@ -29,8 +29,8 @@ public class Robot extends TimedRobot {
   //Lift code
   private Lift lift;
 
-  private Ultrasonic leftHatchUltrasonic;
-  private Ultrasonic rightHatchUltrasonic;
+  // private Ultrasonic leftHatchUltrasonic;
+  // private Ultrasonic rightHatchUltrasonic;
 
   private Logging logging;
 
@@ -50,8 +50,8 @@ public class Robot extends TimedRobot {
 
     lift = new Lift();
 
-    leftHatchUltrasonic = new Ultrasonic(Constants.LEFT_HATCH_ULTRASONIC_SENSOR_PORT);
-    rightHatchUltrasonic = new Ultrasonic(Constants.RIGHT_HATCH_ULTRASONIC_SENSOR_PORT);
+    // leftHatchUltrasonic = new Ultrasonic(Constants.LEFT_HATCH_ULTRASONIC_SENSOR_PORT);
+    // rightHatchUltrasonic = new Ultrasonic(Constants.RIGHT_HATCH_ULTRASONIC_SENSOR_PORT);
 
     logging = new Logging(this);  
     logging.activeInitialize();
@@ -93,8 +93,8 @@ public class Robot extends TimedRobot {
     drive.initalize();
     hatchArm.initialize();
 
-    leftHatchUltrasonic.initialize();
-    rightHatchUltrasonic.initialize();
+    // leftHatchUltrasonic.initialize();
+    // rightHatchUltrasonic.initialize();
     
     logging.activeInitialize();
 
@@ -119,15 +119,16 @@ public class Robot extends TimedRobot {
     //drive.setSide(controllers.getDriveToggleValue());
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.setFine(controllers.getDriveFineToggleValue());
-    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
+    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
+    // drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
     drive.showDashboard();
 
     hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
     hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     // hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     
-    leftHatchUltrasonic.setUltrasonicValues();
-    rightHatchUltrasonic.setUltrasonicValues();
+    // leftHatchUltrasonic.setUltrasonicValues();
+    // rightHatchUltrasonic.setUltrasonicValues();
     //leftHatchUltrasonic.displayValues("Left Ultrasonic");
     //rightHatchUltrasonic.displayValues("Right Ultrasonic");
 
@@ -153,8 +154,8 @@ public class Robot extends TimedRobot {
 
     lift.initialize();
 
-    leftHatchUltrasonic.initialize();
-    rightHatchUltrasonic.initialize();
+    // leftHatchUltrasonic.initialize();
+    // rightHatchUltrasonic.initialize();
 
     logging.activeInitialize();
   }
@@ -177,7 +178,8 @@ public class Robot extends TimedRobot {
 
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.setFine(controllers.getDriveFineToggleValue());
-    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
+    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
+    // drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
     drive.showDashboard();
 
     //hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
@@ -189,8 +191,8 @@ public class Robot extends TimedRobot {
     // lift.lift(controllers.isLiftDeployButton(), controllers.isLiftRetractButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive, controllers.getMobilityStick());
     lift.lift2(controllers.isLiftDeployButton(), controllers.isLiftRetractButton());
     
-    leftHatchUltrasonic.setUltrasonicValues();
-    rightHatchUltrasonic.setUltrasonicValues();
+    // leftHatchUltrasonic.setUltrasonicValues();
+    // rightHatchUltrasonic.setUltrasonicValues();
     //leftHatchUltrasonic.displayValues("Left Ultrasonic");
     //rightHatchUltrasonic.displayValues("Right Ultrasonic");
 
@@ -239,13 +241,13 @@ public class Robot extends TimedRobot {
     return controllers;
   }
 
-  public Ultrasonic getLeftHatchUltrasonic() {
-    return leftHatchUltrasonic;
-  }
+  // public Ultrasonic getLeftHatchUltrasonic() {
+  //   return leftHatchUltrasonic;
+  // }
 
-  public Ultrasonic getRightHatchUltrasonic() {
-    return rightHatchUltrasonic;
-  }
+  // public Ultrasonic getRightHatchUltrasonic() {
+  //   return rightHatchUltrasonic;
+  // }
 
   public HatchArm getHatchArm() {
     return hatchArm;
@@ -255,13 +257,13 @@ public class Robot extends TimedRobot {
     return cargoManip;
   }
 
-  public double getLeftHatchUltrasonicImperialValue() {
-    return leftHatchUltrasonic.getImperialUltrasonicValue();
-  }
+  // public double getLeftHatchUltrasonicImperialValue() {
+  //   return leftHatchUltrasonic.getImperialUltrasonicValue();
+  // }
 
-  public double getRightHatchUltrasonicImperialValue() {
-    return rightHatchUltrasonic.getImperialUltrasonicValue();
-  }
+  // public double getRightHatchUltrasonicImperialValue() {
+  //   return rightHatchUltrasonic.getImperialUltrasonicValue();
+  // }
 
   public Lift getLift() {
     return lift;
