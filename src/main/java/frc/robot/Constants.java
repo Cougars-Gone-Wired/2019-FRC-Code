@@ -26,7 +26,7 @@ public class Constants {
 	static final int CARGO_ARM_MOTOR_ID = 10; //
     static final int CARGO_INTAKE_MOTOR_ID = 11; //
 
-    static final double HATCH_ARM_MOVE_SPEED = 0.5;
+    static final double HATCH_ARM_MOVE_SPEED = 0.2;
 	static final double HATCH_ARM_GRAB_SPEED = 0.4;
 	static final double CARGO_ARM_MOTOR_SPEED = 0.01; //
 	static final double CARGO_ARM_INTAKE_SPEED = 1.00; //
