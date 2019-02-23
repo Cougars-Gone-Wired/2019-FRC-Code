@@ -87,7 +87,6 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     controllers.initialize();
     
-
     controllers.setDriveToggle();
     cargoManip.initialize();
     drive.initalize();
@@ -97,7 +96,6 @@ public class Robot extends TimedRobot {
     rightHatchUltrasonic.initialize();
     
     logging.activeInitialize();
-
   }
 
   /**
@@ -133,10 +131,6 @@ public class Robot extends TimedRobot {
 
     //The Loggers chopping down trees
     logging.collectData();
-
-    // Thread thread = new Thread(logging);
-    // thread.run();
-    // thread.start();
   }
 
   /**
