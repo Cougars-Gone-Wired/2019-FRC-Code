@@ -4,7 +4,7 @@ public class Constants {
 
 	//Manipulator
 	static final int MANIPULATOR_CONTROLLER_PORT = 1;
-	static final int MID_SWITCH_PORT = 0;
+	static final int MID_SWITCH_PORT = 4;
 	static final int GRAB_SWITCH_PORT = 3;
 	//static final int CARGO_SHIP_SWITCH_PORT = 1; //
 	//static final int ROCKET_SWITCH_PORT = 2; //
@@ -16,7 +16,7 @@ public class Constants {
 	static final int HATCH_GRAB_OUT_BUTTON = 6;
 	static final int CARGO_INTAKE_AXIS = 2; //
     static final int CARGO_OUTTAKE_AXIS = 3; //
-    static final int CARGO_ARM_TOP_BUTTON = 4; //
+    static final int CARGO_ARM_TOP_BUTTON = 0; //
     static final int CARGO_ARM_BOTTOM_BUTTON = 1; //
     static final int CARGO_ARM_CARGO_SHIP_BUTTON = 3; //
     static final int CARGO_ARM_ROCKET_BUTTON = 2; //
