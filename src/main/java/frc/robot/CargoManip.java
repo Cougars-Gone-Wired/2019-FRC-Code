@@ -14,8 +14,12 @@ public class CargoManip {
     }
 
     //for using buttons to control the arm
+    // public enum ArmStates {
+    //     TOP, ROCKET, CARGO_SHIP, BOTTOM, TO_TOP, TO_ROCKET, TO_CARGO_SHIP, TO_BOTTOM
+    // }
+    
     public enum ArmStates {
-        TOP, ROCKET, CARGO_SHIP, BOTTOM, TO_TOP, TO_ROCKET, TO_CARGO_SHIP, TO_BOTTOM
+        FLOOR, CARGO_SHIP, ROCKET, TOP, FLOOR_TO_CARGO_SHIP, CARGO_SHIP_TO_ROCKET, ROCKET_TO_TOP, CARGO_SHIP_TO_FLOOR, ROCKET_TO_CARGO_SHIP, TOP_TO_ROCKET
     }
 
     public enum IntakeStates {
@@ -80,248 +84,253 @@ public class CargoManip {
         armAxis = armAxis * 0.5;
         switch (armStateM) {
             case MOVING_UP:
-            if (armAxis < 0.15 || armSensors.isFwdLimitSwitchClosed()) {
-                armMotor.set(0);
-                armStateM = ArmStatesManual.NOT_MOVING;
-            }
-            else {
-                armMotor.set(armAxis);
-            }
-            break;
+                if (armAxis < 0.15 || armSensors.isFwdLimitSwitchClosed()) {
+                    armMotor.set(0);
+                    armStateM = ArmStatesManual.NOT_MOVING;
+                }
+                else {
+                    armMotor.set(armAxis);
+                }
+                break;
             case MOVING_DOWN:
-            if (armAxis > -0.15 || armSensors.isRevLimitSwitchClosed()) {
-                armMotor.set(0);
-                armStateM = ArmStatesManual.NOT_MOVING;
-            }
-            else {
-                armMotor.set(armAxis);
-            }
-            break;
+                if (armAxis > -0.15 || armSensors.isRevLimitSwitchClosed()) {
+                    armMotor.set(0);
+                    armStateM = ArmStatesManual.NOT_MOVING;
+                }
+                else {
+                    armMotor.set(armAxis);
+                }
+                break;
             case NOT_MOVING:
-            if (armAxis > 0.15 && !armSensors.isFwdLimitSwitchClosed()) {
-                armMotor.set(armAxis);
-                armStateM = ArmStatesManual.MOVING_UP;
-            }
-            if (armAxis < -0.15 && !armSensors.isRevLimitSwitchClosed()) {
-                armMotor.set(armAxis);
-                armStateM = ArmStatesManual.MOVING_DOWN;
-            }
-            break;
+                if (armAxis > 0.15) {
+                    armMotor.set(armAxis);
+                    armStateM = ArmStatesManual.MOVING_UP;
+                }
+                if (armAxis < -0.15) {
+                    armMotor.set(armAxis);
+                    armStateM = ArmStatesManual.MOVING_DOWN;
+                }
+                break;
         }
     }
 
-    //move the arm using buttons
-    public void armMove(boolean topButton, boolean bottomButton, boolean cargoShipButton, boolean rocketButton) {
-        topLimitSwitch = armSensors.isFwdLimitSwitchClosed();
-        bottomLimitSwitch = armSensors.isRevLimitSwitchClosed();
-        encoderValue = armSensors.getQuadraturePosition();
-        switch (armState) {
-            case TOP:
-            if (bottomButton) {
-                armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
-            }
-            else if (rocketButton) {
-                armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_ROCKET;
-            }
-            else if (cargoShipButton) {
-                armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_CARGO_SHIP;
-            }
-            break;
-            case ROCKET:
-            if (bottomButton) {
-                armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
-            }
-            else if (topButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
-            }
-            else if (cargoShipButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
-            }
-            break;
-            case CARGO_SHIP:
-            if (bottomButton) {
-                armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
-            }
-            else if (topButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
-            }
-            else if (rocketButton) {
-                armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_ROCKET;
-            }
-            break;
-            case BOTTOM:
-            if (cargoShipButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_CARGO_SHIP;
-            }
-            else if (topButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
-            }
-            else if (rocketButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_ROCKET;
-            }
-            break;
-            case TO_TOP:
-            //check if reached top
-            if (topLimitSwitch) {
-                armMotor.set(0);
-                armSensors.setQuadraturePosition(0, 0);
-                armState = ArmStates.TOP;
-            }
-            //check if a different button has been pressed
-            else if (bottomButton) {
-                armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
-            }
-            else if (cargoShipButton) {
-                //check which side of the cargo ship position the arm is on
-                if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
-                    armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
-                }
-                else if (encoderValue < Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
-                    armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
-                }
-                else {
-                    armMotor.set(0);
-                    armState = ArmStates.CARGO_SHIP;
-                }
-            }
-            else if (rocketButton) {
-                //check which side of the rocket position the arm is on
-                if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
-                    armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
-                }
-                else if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
-                    armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
-                }
-                else {
-                    armMotor.set(0);
-                    armState = ArmStates.ROCKET;
-                }
-            }
-            break;
-            case TO_ROCKET:
-            if (encoderValue == Constants.ROCKET_ENCODER_VALUE_GOAL) {
-                armMotor.set(0);
-                armState = ArmStates.ROCKET;
-            }
-            else if (bottomButton) {
-                armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
-            }
-            else if (cargoShipButton) {
-                if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
-                    armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
-                }
-                else if (encoderValue < Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
-                    armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
-                }
-                else {
-                    armMotor.set(0);
-                    armState = ArmStates.CARGO_SHIP;
-                }
-            }
-            else if (topButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
-            }
-            break;
-            case TO_CARGO_SHIP:
-            if (encoderValue == Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
-                armMotor.set(0);
-                armState = ArmStates.CARGO_SHIP;
-            }
-            else if (bottomButton) {
-                armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
-            }
-            else if (rocketButton) {
-                if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
-                    armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
-                }
-                else if (encoderValue < Constants.ROCKET_ENCODER_VALUE_GOAL) {
-                    armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
-                }
-                else {
-                    armMotor.set(0);
-                    armState = ArmStates.ROCKET;
-                }
-            }
-            else if (topButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
-            }
-            break;
-            case TO_BOTTOM:
-            if (bottomLimitSwitch) {
-                armMotor.set(0);
-                armState = ArmStates.BOTTOM;
-            }
-            else if (topButton) {
-                armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
-            }
+    public void armMove(double armAxis) {
+        armAxis *= Constants.CARGO_ARM_MOVE_SPEED;
+        
+    }
 
-            else if (cargoShipButton) {
-                if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
-                    armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
-                }
-                else if (encoderValue < Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
-                    armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
-                }
-                else {
-                    armMotor.set(0);
-                    armState = ArmStates.CARGO_SHIP;
-                }
-            }
-            else if (rocketButton) {
-                if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
-                    armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
-                }
-                else if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
-                    armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
-                }
-                else {
-                    armMotor.set(0);
-                    armState = ArmStates.ROCKET;
-                }
-            }
-        }
-    } 
+    //move the arm using buttons
+    // public void armMove(boolean topButton, boolean bottomButton, boolean cargoShipButton, boolean rocketButton) {
+    //     topLimitSwitch = armSensors.isFwdLimitSwitchClosed();
+    //     bottomLimitSwitch = armSensors.isRevLimitSwitchClosed();
+    //     encoderValue = armSensors.getQuadraturePosition();
+    //     switch (armState) {
+    //         case TOP:
+    //         if (bottomButton) {
+    //             armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_BOTTOM;
+    //         }
+    //         else if (rocketButton) {
+    //             armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_ROCKET;
+    //         }
+    //         else if (cargoShipButton) {
+    //             armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_CARGO_SHIP;
+    //         }
+    //         break;
+    //         case ROCKET:
+    //         if (bottomButton) {
+    //             armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_BOTTOM;
+    //         }
+    //         else if (topButton) {
+    //             armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_TOP;
+    //         }
+    //         else if (cargoShipButton) {
+    //             armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_TOP;
+    //         }
+    //         break;
+    //         case CARGO_SHIP:
+    //         if (bottomButton) {
+    //             armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_BOTTOM;
+    //         }
+    //         else if (topButton) {
+    //             armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_TOP;
+    //         }
+    //         else if (rocketButton) {
+    //             armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_ROCKET;
+    //         }
+    //         break;
+    //         case BOTTOM:
+    //         if (cargoShipButton) {
+    //             armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_CARGO_SHIP;
+    //         }
+    //         else if (topButton) {
+    //             armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_TOP;
+    //         }
+    //         else if (rocketButton) {
+    //             armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_ROCKET;
+    //         }
+    //         break;
+    //         case TO_TOP:
+    //         //check if reached top
+    //         if (topLimitSwitch) {
+    //             armMotor.set(0);
+    //             armSensors.setQuadraturePosition(0, 0);
+    //             armState = ArmStates.TOP;
+    //         }
+    //         //check if a different button has been pressed
+    //         else if (bottomButton) {
+    //             armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_BOTTOM;
+    //         }
+    //         else if (cargoShipButton) {
+    //             //check which side of the cargo ship position the arm is on
+    //             if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_CARGO_SHIP;
+    //             }
+    //             else if (encoderValue < Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_CARGO_SHIP;
+    //             }
+    //             else {
+    //                 armMotor.set(0);
+    //                 armState = ArmStates.CARGO_SHIP;
+    //             }
+    //         }
+    //         else if (rocketButton) {
+    //             //check which side of the rocket position the arm is on
+    //             if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_ROCKET;
+    //             }
+    //             else if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_ROCKET;
+    //             }
+    //             else {
+    //                 armMotor.set(0);
+    //                 armState = ArmStates.ROCKET;
+    //             }
+    //         }
+    //         break;
+    //         case TO_ROCKET:
+    //         if (encoderValue == Constants.ROCKET_ENCODER_VALUE_GOAL) {
+    //             armMotor.set(0);
+    //             armState = ArmStates.ROCKET;
+    //         }
+    //         else if (bottomButton) {
+    //             armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_BOTTOM;
+    //         }
+    //         else if (cargoShipButton) {
+    //             if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_CARGO_SHIP;
+    //             }
+    //             else if (encoderValue < Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_CARGO_SHIP;
+    //             }
+    //             else {
+    //                 armMotor.set(0);
+    //                 armState = ArmStates.CARGO_SHIP;
+    //             }
+    //         }
+    //         else if (topButton) {
+    //             armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_TOP;
+    //         }
+    //         break;
+    //         case TO_CARGO_SHIP:
+    //         if (encoderValue == Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
+    //             armMotor.set(0);
+    //             armState = ArmStates.CARGO_SHIP;
+    //         }
+    //         else if (bottomButton) {
+    //             armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_BOTTOM;
+    //         }
+    //         else if (rocketButton) {
+    //             if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_ROCKET;
+    //             }
+    //             else if (encoderValue < Constants.ROCKET_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_ROCKET;
+    //             }
+    //             else {
+    //                 armMotor.set(0);
+    //                 armState = ArmStates.ROCKET;
+    //             }
+    //         }
+    //         else if (topButton) {
+    //             armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_TOP;
+    //         }
+    //         break;
+    //         case TO_BOTTOM:
+    //         if (bottomLimitSwitch) {
+    //             armMotor.set(0);
+    //             armState = ArmStates.BOTTOM;
+    //         }
+    //         else if (topButton) {
+    //             armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //             armState = ArmStates.TO_TOP;
+    //         }
+
+    //         else if (cargoShipButton) {
+    //             if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_CARGO_SHIP;
+    //             }
+    //             else if (encoderValue < Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_CARGO_SHIP;
+    //             }
+    //             else {
+    //                 armMotor.set(0);
+    //                 armState = ArmStates.CARGO_SHIP;
+    //             }
+    //         }
+    //         else if (rocketButton) {
+    //             if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_ROCKET;
+    //             }
+    //             else if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
+    //                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
+    //                 armState = ArmStates.TO_ROCKET;
+    //             }
+    //             else {
+    //                 armMotor.set(0);
+    //                 armState = ArmStates.ROCKET;
+    //             }
+    //         }
+    //     }
+    // } 
 
     public void sensorLight() {
         encoderValue = armSensors.getQuadraturePosition();
         //cargoShipLimitSwitch = !limitSwitchCargoShip.get();
         //rocketLimitSwitch = !limitSwitchRocket.get();
         SmartDashboard.putBoolean("Top Position", armState.equals(ArmStates.TOP));
-        SmartDashboard.putBoolean("Bottom Position", armState.equals(ArmStates.BOTTOM));
+        SmartDashboard.putBoolean("Floor Position", armState.equals(ArmStates.FLOOR));
         SmartDashboard.putBoolean("Cargo Ship Position", armState.equals(ArmStates.CARGO_SHIP));
         SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.ROCKET));
         SmartDashboard.putNumber("Arm Encoder Value", encoderValue);
-        if (armState.equals(ArmStates.TO_TOP) || armState.equals(ArmStates.TO_BOTTOM) || armState.equals(ArmStates.TO_CARGO_SHIP) || armState.equals(ArmStates.TO_ROCKET)) {
+        if (armState.toString().contains("TO_")) {
             SmartDashboard.putBoolean("Moving", true);
         }
         else {
