@@ -44,7 +44,7 @@ public class Constants {
 	static final int DRIVE_SPEED_AXIS = 1;
 	static final int DRIVE_TURN_AXIS = 4;
 	static final int DRIVE_TOGGLE_BUTTON = 1;
-	static final int ULTRASONIC_TOGGLE_BUTTON = 4;
+	// static final int ULTRASONIC_TOGGLE_BUTTON = 4;
 	static final int DRIVE_FINE_BUTTON = 3;
 
 	static final int FRONT_LEFT_MOTOR_ID = 7; //Based off Hatch Side
@@ -68,7 +68,7 @@ public class Constants {
 	//static final int ULTRASONIC_HATCH_LEFT_PORT = 1; //SET PORTS!!!
 	//static final int ULTRASONIC_HATCH_RIGHT_PORT = 0; //SET PORTS!!!
 	static final double DISTANCE_AT_LIFT = 12; //Inches
-	static final double ULTRASONIC_THRESHOLD = 11; //Inches
+	// static final double ULTRASONIC_THRESHOLD = 11; //Inches
 
 	static final double DRIVE_SPEED = 0.95;
 	static final double DRIVE_TURN_SPEED = .9;
@@ -81,10 +81,10 @@ public class Constants {
 	static final double SLOW_DISTANCE = 30;
 	static final double STOP_DISTANCE = 12;
 
-	static final int LEFT_HATCH_ULTRASONIC_SENSOR_PORT = 2;
-	static final int RIGHT_HATCH_ULTRASONIC_SENSOR_PORT = 1;
-	static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
+	// static final int LEFT_HATCH_ULTRASONIC_SENSOR_PORT = 2;
+	// static final int RIGHT_HATCH_ULTRASONIC_SENSOR_PORT = 1;
+	// static final double ULTRASONIC_IMPERIAL_CONVERSION_RATIO = 21.3;
 
-	static final int ULTRASONIC_LOG_ELEMENT_COUNT = 6;
+	// static final int ULTRASONIC_LOG_ELEMENT_COUNT = 6;
 
 }
