@@ -8,6 +8,8 @@ public class Constants {
 	static final int GRAB_SWITCH_PORT = 3;
 	//static final int CARGO_SHIP_SWITCH_PORT = 1; //
 	//static final int ROCKET_SWITCH_PORT = 2; //
+	static final int CARGO_SHIP_LIMIT_SWITCH_ID = 6; //
+	static final int ROCKET_LIMIT_SWITCH_ID = 5; //
 
 	static final int CARGO_ARM_AXIS = 5; //
 	static final int HATCH_ARM_AXIS = 1;

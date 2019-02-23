@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
     //cargoManip.armMove(controllers.getCargoArmTopButton(), controllers.getCargoArmBottomButton(), controllers.getCargoArmCargoShipButton(), controllers.getCargoArmRocketButton());
     cargoManip.armMoveManual(controllers.getCargoArmAxis());
     cargoManip.intakeMove(controllers.getCargoArmIntakeAxis(), controllers.getCargoArmOuttakeAxis());
-    //cargoManip.sensorLight();
+    cargoManip.sensorLight();
 
     //drive.setSide(controllers.getDriveToggleValue());
     //drive.setMode(controllers.getUltrasonicToggleValue());
@@ -167,7 +167,7 @@ public class Robot extends TimedRobot {
     //cargoManip.armMove(controllers.getCargoArmTopButton(), controllers.getCargoArmBottomButton(), controllers.getCargoArmCargoShipButton(), controllers.getCargoArmRocketButton());
     cargoManip.armMoveManual(controllers.getCargoArmAxis());
     cargoManip.intakeMove(controllers.getCargoArmIntakeAxis(), controllers.getCargoArmOuttakeAxis());
-    //cargoManip.sensorLight();
+    cargoManip.sensorLight();
 
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.setFine(controllers.getDriveFineToggleValue());
@@ -178,6 +178,7 @@ public class Robot extends TimedRobot {
     hatchArm.grab2(controllers.isHatchGrabInButton(), controllers.isHatchGrabOutButton());
     //hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
+    
     
     //Lift
     // lift.lift(controllers.isLiftDeployButton(), controllers.isLiftRetractButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive, controllers.getMobilityStick());
