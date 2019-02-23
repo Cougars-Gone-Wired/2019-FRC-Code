@@ -160,10 +160,9 @@ public class HatchArm {
         }
     }
 
-    public void hatchArmMove(boolean hatchArmSchemeButton, boolean hatchArmInsideButton, boolean hatchArmVertButton, boolean hatchArmFloorButton, boolean lowerHatchArmButton, boolean raiseHatchArmButton) {
+    public void hatchArmMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) {
         moveMidSwitchValue = !moveMidSwitch.get();
         SmartDashboard.putString("State", hatchArmMoveState.toString());
-        SmartDashboard.putBoolean("Scheme", hatchArmSchemeButton);
         SmartDashboard.putBoolean("MidSwitch", moveMidSwitchValue);
         if (!hatchArmSchemeButton) {
             switch (hatchArmMoveState) {
