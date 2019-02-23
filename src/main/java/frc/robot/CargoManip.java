@@ -2,7 +2,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-//import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
@@ -36,8 +36,8 @@ public class CargoManip {
 
     private SensorCollection armSensors;
 
-    //private DigitalInput limitSwitchCargoShip;
-    //private DigitalInput limitSwitchRocket;
+    private DigitalInput limitSwitchCargoShip;
+    private DigitalInput limitSwitchRocket;
 
     private boolean topLimitSwitch;
     private boolean bottomLimitSwitch;
@@ -55,8 +55,8 @@ public class CargoManip {
         intakeMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
         armSensors = new SensorCollection(armMotor);
-        //limitSwitchCargoShip = new DigitalInput(Constants.CARGO_SHIP_LIMIT_SWITCH_ID);
-        //limitSwitchRocket = new DigitalInput(Constants.ROCKET_LIMIT_SWITCH_ID);
+        limitSwitchCargoShip = new DigitalInput(Constants.CARGO_SHIP_LIMIT_SWITCH_ID);
+        limitSwitchRocket = new DigitalInput(Constants.ROCKET_LIMIT_SWITCH_ID);
         topLimitSwitch = false;
         bottomLimitSwitch = false;
         //cargoShipLimitSwitch = true;
@@ -313,20 +313,22 @@ public class CargoManip {
     } 
 
     public void sensorLight() {
-        encoderValue = armSensors.getQuadraturePosition();
+        // encoderValue = armSensors.getQuadraturePosition();
         //cargoShipLimitSwitch = !limitSwitchCargoShip.get();
         //rocketLimitSwitch = !limitSwitchRocket.get();
-        SmartDashboard.putBoolean("Top Position", armState.equals(ArmStates.TOP));
-        SmartDashboard.putBoolean("Bottom Position", armState.equals(ArmStates.BOTTOM));
-        SmartDashboard.putBoolean("Cargo Ship Position", armState.equals(ArmStates.CARGO_SHIP));
-        SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.ROCKET));
-        SmartDashboard.putNumber("Arm Encoder Value", encoderValue);
-        if (armState.equals(ArmStates.TO_TOP) || armState.equals(ArmStates.TO_BOTTOM) || armState.equals(ArmStates.TO_CARGO_SHIP) || armState.equals(ArmStates.TO_ROCKET)) {
-            SmartDashboard.putBoolean("Moving", true);
-        }
-        else {
-            SmartDashboard.putBoolean("Moving", false);
-        }
+        // SmartDashboard.putBoolean("Top Position", armState.equals(ArmStates.TOP));
+        // SmartDashboard.putBoolean("Bottom Position", armState.equals(ArmStates.BOTTOM));
+        SmartDashboard.putBoolean("Cargo Ship Position", limitSwitchCargoShip.get());
+        SmartDashboard.putBoolean("Rocket Position", limitSwitchRocket.get());
+        // SmartDashboard.putBoolean("Cargo Ship Position", armState.equals(ArmStates.CARGO_SHIP));
+        // SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.ROCKET));
+        // SmartDashboard.putNumber("Arm Encoder Value", encoderValue);
+        // if (armState.equals(ArmStates.TO_TOP) || armState.equals(ArmStates.TO_BOTTOM) || armState.equals(ArmStates.TO_CARGO_SHIP) || armState.equals(ArmStates.TO_ROCKET)) {
+        //     SmartDashboard.putBoolean("Moving", true);
+        // }
+        // else {
+        //     SmartDashboard.putBoolean("Moving", false);
+        // }
         //useless switch statement. kept it just in case
         // From Jake: I kinda messed up the switches, don't be angry pls.
         /*switch (limitSwitchState) {

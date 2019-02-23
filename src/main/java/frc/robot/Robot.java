@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
     //cargoManip.armMove(controllers.getCargoArmTopButton(), controllers.getCargoArmBottomButton(), controllers.getCargoArmCargoShipButton(), controllers.getCargoArmRocketButton());
     cargoManip.armMoveManual(controllers.getCargoArmAxis());
     cargoManip.intakeMove(controllers.getCargoArmIntakeAxis(), controllers.getCargoArmOuttakeAxis());
-    //cargoManip.sensorLight();
+    cargoManip.sensorLight();
 
     //drive.setSide(controllers.getDriveToggleValue());
     //drive.setMode(controllers.getUltrasonicToggleValue());
