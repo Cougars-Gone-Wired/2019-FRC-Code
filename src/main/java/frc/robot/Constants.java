@@ -14,7 +14,6 @@ public class Constants {
 	static final int HATCH_ARM_GRAB_BUTTON = 5;
 	static final int HATCH_GRAB_IN_BUTTON = 5;
 	static final int HATCH_GRAB_OUT_BUTTON = 6;
-    static final int HATCH_ARM_SCHEME_BUTTON = 8; // Activates a toggle that switches between two controll schemes
 	static final int CARGO_INTAKE_AXIS = 2; //
     static final int CARGO_OUTTAKE_AXIS = 3; //
     static final int CARGO_ARM_TOP_BUTTON = 4; //

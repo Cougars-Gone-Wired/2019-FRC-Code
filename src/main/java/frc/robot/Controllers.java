@@ -10,7 +10,6 @@ public class Controllers {
 	
 	//Hatch
     private Toggle hatchArmGrabToggle;
-	private Toggle hatchArmSchemeToggle;
 
 	private int dPad;
 
@@ -22,10 +21,7 @@ public class Controllers {
 	
     private boolean lowerHatchArmButton;
 	private boolean raiseHatchArmButton; 
-	
-    private boolean hatchArmFloorButton;
-    private boolean hatchArmVertButton;
-    private boolean hatchArmInsideButton;
+
 
 	//Cargo
 	private double cargoArmAxis;
@@ -59,7 +55,6 @@ public class Controllers {
 		mobilityStick = new Joystick(Constants.MOBILITY_CONTROLLER_PORT);
 
         hatchArmGrabToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_GRAB_BUTTON);
-        hatchArmSchemeToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_SCHEME_BUTTON);
 		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		// ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
 		driveFineToggle = new Toggle(mobilityStick, Constants.DRIVE_FINE_BUTTON);
@@ -72,15 +67,9 @@ public class Controllers {
 		dPad = manipulatorStick.getPOV();
 		hatchGrabInButton = manipulatorStick.getRawButton(Constants.HATCH_GRAB_IN_BUTTON);
 		hatchGrabOutButton = manipulatorStick.getRawButton(Constants.HATCH_GRAB_OUT_BUTTON);
-        
-        hatchArmSchemeButton = hatchArmSchemeToggle.toggle();
 
         raiseHatchArmButton = -manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
         lowerHatchArmButton = -manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
-
-        hatchArmFloorButton = manipulatorStick.getPOV() == 270;
-        hatchArmVertButton = manipulatorStick.getPOV() == 0;
-		hatchArmInsideButton = manipulatorStick.getPOV() == 90;
 
 		//Cargo
 		cargoArmAxis = -manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
@@ -110,7 +99,6 @@ public class Controllers {
 
 	public void initialize() {
 		hatchArmGrabToggle.initialize();
-		hatchArmSchemeToggle.initialize();
 		driveToggle.initialize();
 		// ultrasonicToggle.initialize();
 	}
@@ -144,18 +132,6 @@ public class Controllers {
         return raiseHatchArmButton;
     }
 
-    public boolean getHatchArmFloorButton() {
-        return hatchArmFloorButton;
-    }
-
-    public boolean getHatchArmVertButton() {
-        return hatchArmVertButton;
-    }
-
-    public boolean getHatchArmInsideButton() {
-        return hatchArmInsideButton;
-	}
-	
 		//Cargo
 	public double getCargoArmAxis() {
         return cargoArmAxis;
