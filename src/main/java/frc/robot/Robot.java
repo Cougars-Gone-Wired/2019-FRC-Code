@@ -117,7 +117,7 @@ public class Robot extends TimedRobot {
     //drive.setSide(controllers.getDriveToggleValue());
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.setFine(controllers.getDriveFineToggleValue());
-    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
+    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
     drive.showDashboard();
 
     hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
@@ -171,7 +171,7 @@ public class Robot extends TimedRobot {
 
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.setFine(controllers.getDriveFineToggleValue());
-    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
+    drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
     drive.showDashboard();
 
     //hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
@@ -269,6 +269,6 @@ public class Robot extends TimedRobot {
 // if rygar == 'Y' or rygar = 'Y'
 //     print(Totally, he is very dumb, to an extent the world has never seen the likes of)
 // else:
-//     print(You are wrong, rygar is )
+//     print(You are wrong, rygar is dumb )
 
 //Josh L: What in the life of Pete is this?!? Why are we insulting each other? Or is there an inside joke I'm not in on?

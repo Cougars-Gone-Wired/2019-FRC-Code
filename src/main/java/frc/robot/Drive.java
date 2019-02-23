@@ -114,7 +114,7 @@ public class Drive {
         rightSensors.setQuadraturePosition(0, 0);
     }
 
-    public void robotDrive(double driveSpeedAxis, double driveTurnAxis, double leftHatchUltrasonic, double rightHatchUltrasonic) {
+    public void robotDrive(double driveSpeedAxis, double driveTurnAxis) {
         // if(SmartDashboard.getBoolean("PowerFactor", false)) {
         //     driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.75;
         //     driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.75;

@@ -145,8 +145,8 @@ public class Logging extends Object{
             logValues.append(d).append("BackRightMotorCurrent");
 
             //Ultrasonic 
-            logValues.append(d).append("LeftHatchUltrasonic");
-            logValues.append(d).append("RightHatchUltrasonic");
+            // logValues.append(d).append("LeftHatchUltrasonic");
+            // logValues.append(d).append("RightHatchUltrasonic");
             //logValues.append(d).append("HatchUltrasonicDistance");
 
             //HatchArm
@@ -216,8 +216,8 @@ public class Logging extends Object{
             // logValues.append(d).append(xrobot.getLeftHatchUltrasonicImperialValue());
             // logValues.append(d).append(xrobot.getRightHatchUltrasonicImperialValue());
 
-            logValues.append(d).append(SmartDashboard.getNumber("Left Ultrasonic Imperial Value", 0));
-            logValues.append(d).append(SmartDashboard.getNumber("Right Ultrasonic Imperial Value", 0));
+            // logValues.append(d).append(SmartDashboard.getNumber("Left Ultrasonic Imperial Value", 0));
+            // logValues.append(d).append(SmartDashboard.getNumber("Right Ultrasonic Imperial Value", 0));
 
             // logValues.append(d).append(leftHatchUltrasonic.getImperialUltrasonicValue());
             // logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
