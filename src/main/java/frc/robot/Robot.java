@@ -271,4 +271,4 @@ public class Robot extends TimedRobot {
 // else:
 //     print(You are wrong, rygar is dumb )
 
-//Josh L: What in the life of Pete is this?!? Why are we insulting each other? Or is there an inside joke I'm not in on?
+//Josh L: What in the life of Pete is this?!? Why are we insulting each other?
