@@ -13,7 +13,7 @@ public class HatchArm {
         NOT_MOVING, MOVING_TOWARDS_FLOOR, MOVING_TOWARDS_INITIAL
     }
     private enum HatchArmMoveStates {
-        INSIDE, VERT, FLOOR, FLOOR_TO_VERT, FLOOR_TO_VERT_TO_INSIDE, INSIDE_TO_VERT, INSIDE_TO_VERT_TO_FLOOR, VERT_TO_FLOOR, VERT_TO_INSIDE
+        INSIDE, VERT, FLOOR, FLOOR_TO_VERT, INSIDE_TO_VERT, VERT_TO_FLOOR, VERT_TO_INSIDE
     }
     private enum HatchArmGrabStates {
         IN, OUT, TO_OUT, TO_IN, TO_OUT_INTER, TO_IN_INTER
@@ -164,168 +164,64 @@ public class HatchArm {
         moveMidSwitchValue = !moveMidSwitch.get();
         SmartDashboard.putString("State", hatchArmMoveState.toString());
         SmartDashboard.putBoolean("MidSwitch", moveMidSwitchValue);
-        if (!hatchArmSchemeButton) {
-            switch (hatchArmMoveState) {
-                case INSIDE:
-                    if (hatchArmVertButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT;
-                    } else if (hatchArmFloorButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT_TO_FLOOR;
-                    }
-                    break;
-                case VERT:
-                    if (hatchArmInsideButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
-                    } else if (hatchArmFloorButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
-                    }
-                    break;
-                case FLOOR:
-                    if (hatchArmInsideButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT_TO_INSIDE;
-                    } else if (hatchArmVertButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT;
-                    }
-                    break;
-                case FLOOR_TO_VERT:
-                    if (moveMidSwitchValue) {
-                        hatchArmMoveMotor.set(0);
-                        hatchArmMoveState = HatchArmMoveStates.VERT;
-                    } else if (hatchArmInsideButton) {
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT_TO_INSIDE;
-                    } else if (hatchArmFloorButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
-                    }
-                    break;
-                case FLOOR_TO_VERT_TO_INSIDE:
-                    if (moveMidSwitchValue) {
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
-                    } else if (hatchArmVertButton) {
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT;
-                    } else if (hatchArmFloorButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
-                    }
-                    break;
-                case INSIDE_TO_VERT:
-                    if (moveMidSwitchValue) {
-                        hatchArmMoveMotor.set(0);
-                        hatchArmMoveState = HatchArmMoveStates.VERT;
-                    } else if (hatchArmInsideButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
-                    } else if (hatchArmFloorButton) {
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT_TO_FLOOR;
-                    }
-                    break;
-                case INSIDE_TO_VERT_TO_FLOOR:
-                    if (moveMidSwitchValue) {
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
-                    } else if (hatchArmInsideButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
-                    } else if (hatchArmVertButton) {
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT;
-                    }
-                    break;
-                case VERT_TO_FLOOR:
-                    if (moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
-                        hatchArmMoveMotor.set(0);
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR;
-                    } else if (hatchArmInsideButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT_TO_INSIDE;
-                    } else if (hatchArmVertButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT;
-                    }
-                    break;
-                case VERT_TO_INSIDE:
-                    if (moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
-                        hatchArmMoveMotor.set(0);
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE;
-                    } else if (hatchArmVertButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT;
-                    } else if (hatchArmFloorButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT_TO_FLOOR;
-                    }
-                    break;
-            }
-        } else {
-            switch (hatchArmMoveState) {
-                case INSIDE:
-                    if (lowerHatchArmButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT;
-                    }
-                    break;
-                case VERT:
-                    if (raiseHatchArmButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
-                    } else if (lowerHatchArmButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
-                    }
-                    break;
-                case FLOOR:
-                    if (raiseHatchArmButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT;
-                    }
-                    break;
-                case FLOOR_TO_VERT:
-                    if (moveMidSwitchValue) {
-                        hatchArmMoveMotor.set(0);
-                        hatchArmMoveState = HatchArmMoveStates.VERT;
-                    } else if (lowerHatchArmButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
-                    }
-                    break;
-                case FLOOR_TO_VERT_TO_INSIDE:
-                    hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT;
-                    break;
-                case INSIDE_TO_VERT:
-                    if (moveMidSwitchValue) {
-                        hatchArmMoveMotor.set(0);
-                        hatchArmMoveState = HatchArmMoveStates.VERT;
-                    } else if (raiseHatchArmButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
-                    }
-                    break;
-                case INSIDE_TO_VERT_TO_FLOOR:
+        switch (hatchArmMoveState) {
+            case INSIDE:
+                if (lowerHatchArmButton) {
+                    hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
                     hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT;
-                    break;
-                case VERT_TO_FLOOR:
-                    if (moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
-                        hatchArmMoveMotor.set(0);
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR;
-                    } else if (raiseHatchArmButton) {
-                        hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT;
-                    }
-                    break;
-                case VERT_TO_INSIDE:
-                    if (moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
-                        hatchArmMoveMotor.set(0);
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE;
-                    } else if (lowerHatchArmButton) {
-                        hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
-                        hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT;
-                    }
-                    break;
-            }
+                }
+                break;
+            case VERT:
+                if (raiseHatchArmButton) {
+                    hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
+                } else if (lowerHatchArmButton) {
+                    hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
+                }
+                break;
+            case FLOOR:
+                if (raiseHatchArmButton) {
+                    hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT;
+                }
+                break;
+            case FLOOR_TO_VERT:
+                if (moveMidSwitchValue) {
+                    hatchArmMoveMotor.set(0);
+                    hatchArmMoveState = HatchArmMoveStates.VERT;
+                } else if (lowerHatchArmButton) {
+                    hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
+                }
+                break;
+            case INSIDE_TO_VERT:
+                if (moveMidSwitchValue) {
+                    hatchArmMoveMotor.set(0);
+                    hatchArmMoveState = HatchArmMoveStates.VERT;
+                } else if (raiseHatchArmButton) {
+                    hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
+                }
+                break;
+            case VERT_TO_FLOOR:
+                if (moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
+                    hatchArmMoveMotor.set(0);
+                    hatchArmMoveState = HatchArmMoveStates.FLOOR;
+                } else if (raiseHatchArmButton) {
+                    hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmMoveState = HatchArmMoveStates.FLOOR_TO_VERT;
+                }
+                break;
+            case VERT_TO_INSIDE:
+                if (moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
+                    hatchArmMoveMotor.set(0);
+                    hatchArmMoveState = HatchArmMoveStates.INSIDE;
+                } else if (lowerHatchArmButton) {
+                    hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
+                    hatchArmMoveState = HatchArmMoveStates.INSIDE_TO_VERT;
+                }
+                break;
         }
     }
 
