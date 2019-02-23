@@ -189,7 +189,7 @@ public class Logging extends Object{
             logValues.append(d).append(controllers.getDriveSpeedAxis());
             logValues.append(d).append(controllers.getDriveTurnAxis());
             logValues.append(d).append(controllers.getDriveToggleValue());
-            logValues.append(d).append(controllers.getUltrasonicToggleValue());
+            //logValues.append(d).append(controllers.getUltrasonicToggleValue());
 
             //Left
             logValues.append(d).append(drive.getFrontLeftMotorVoltage());
