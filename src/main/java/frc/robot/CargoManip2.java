@@ -81,10 +81,10 @@ public class CargoManip2 {
 
     //move the arm using a joystick
     public void armMoveManual(double armAxis) {
-        armAxis = armAxis * 0.5;
+        double speed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
         switch (armStateM) {
             case MOVING_UP:
-                if (armAxis < 0.15 || armLimitSwitches.isFwdLimitSwitchClosed()) {
+                if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isFwdLimitSwitchClosed()) {
                     armMotor.set(0);
                     armStateM = ArmStatesManual.NOT_MOVING;
                 }
@@ -93,21 +93,21 @@ public class CargoManip2 {
                 }
                 break;
             case MOVING_DOWN:
-                if (armAxis > -0.15 || armLimitSwitches.isRevLimitSwitchClosed()) {
+                if (armAxis > -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isRevLimitSwitchClosed()) {
                     armMotor.set(0);
                     armStateM = ArmStatesManual.NOT_MOVING;
                 }
                 else {
-                    armMotor.set(armAxis);
+                    armMotor.set(speed);
                 }
                 break;
             case NOT_MOVING:
-                if (armAxis > 0.15) {
-                    armMotor.set(armAxis);
+                if (armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
+                    armMotor.set(speed);
                     armStateM = ArmStatesManual.MOVING_UP;
                 }
-                if (armAxis < -0.15) {
-                    armMotor.set(armAxis);
+                if (armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
+                    armMotor.set(speed);
                     armStateM = ArmStatesManual.MOVING_DOWN;
                 }
                 break;
@@ -122,7 +122,8 @@ public class CargoManip2 {
         boolean cargoShipSwitch = !limitSwitchRocket.get();
         boolean floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
 
-        boolean raiseButton = 
+        boolean raiseButton = armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD;
+        boolean lowerButton = armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD;
     }
 
     //move the arm using buttons
