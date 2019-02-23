@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 public class Drive {
     public enum DriveModes {
-        DRIVE_STANDARD, DRIVE_TO_STAIRS, BACKING_UP
+        DRIVE_STANDARD, BACKING_UP
     }
     public enum FineModes {
         DRIVE_NORMAL, DRIVE_FINE
@@ -147,44 +147,7 @@ public class Drive {
                         break;
                 }
                 break;
-
-            case DRIVE_TO_STAIRS:
-            if(driveSpeedAxis > Constants.DRIVE_DEADZONE || driveTurnAxis > Constants.DRIVE_DEADZONE) {
-                driveMode = DriveModes.DRIVE_STANDARD;
-            }
-            if(leftHatchUltrasonic <= Constants.STOP_DISTANCE && rightHatchUltrasonic <= Constants.STOP_DISTANCE) {
-                robotDrive.arcadeDrive(0,0);
-
-            } else if (leftHatchUltrasonic <= Constants.SLOW_DISTANCE || rightHatchUltrasonic <= Constants.SLOW_DISTANCE) {
-                if(leftHatchUltrasonic - rightHatchUltrasonic > Constants.DETECTING_DEAD_ZONE) {
-                    frontLeftMotor.set(Constants.DETECTING_SLOW_SPEED);
-                    frontRightMotor.set((leftHatchUltrasonic / rightHatchUltrasonic) * 1.5 * -Constants.DETECTING_SLOW_SPEED);
-                
-                } else if (rightHatchUltrasonic - leftHatchUltrasonic > Constants.DETECTING_DEAD_ZONE) {
-                    frontRightMotor.set(-Constants.DETECTING_SLOW_SPEED);
-                    frontLeftMotor.set((rightHatchUltrasonic / leftHatchUltrasonic) * 1.5 * Constants.DETECTING_SLOW_SPEED);
-                
-                } else {
-                    frontRightMotor.set(-Constants.DETECTING_SLOW_SPEED);
-                    frontLeftMotor.set(Constants.DETECTING_SLOW_SPEED);
-                }
-
-            } else {
-                if(leftHatchUltrasonic - rightHatchUltrasonic > Constants.DETECTING_DEAD_ZONE) {
-                    frontLeftMotor.set(Constants.DETECTING_DRIVE_SPEED);
-                    frontRightMotor.set((leftHatchUltrasonic / rightHatchUltrasonic) * 1.5 * -Constants.DETECTING_DRIVE_SPEED);
-                
-                } else if (rightHatchUltrasonic - leftHatchUltrasonic > Constants.DETECTING_DEAD_ZONE) {
-                    frontRightMotor.set(-Constants.DETECTING_DRIVE_SPEED);
-                    frontLeftMotor.set((rightHatchUltrasonic / leftHatchUltrasonic) * 1.5 * Constants.DETECTING_DRIVE_SPEED);
-                
-                } else {
-                    frontRightMotor.set(-Constants.DETECTING_DRIVE_SPEED);
-                    frontLeftMotor.set(Constants.DETECTING_DRIVE_SPEED);
-                }
-            }
-            break;
-            
+        
             case BACKING_UP:
                 if(encoders.getAverageDistanceInches() < Constants.DISTANCE_AT_LIFT) {
                     robotDrive.curvatureDrive(1, 0, false);
@@ -241,10 +204,6 @@ public class Drive {
             SmartDashboard.putBoolean("Refresh", false);
             count = 0;
         }
-    }
-
-    public void driveToStairs() {
-        driveMode = DriveModes.DRIVE_TO_STAIRS;
     }
 
     public void backUpFromStairs() {
