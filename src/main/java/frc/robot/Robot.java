@@ -198,6 +198,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+    controllers.setControllerValues();
+    hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
     drive.initialSide();
   }
 

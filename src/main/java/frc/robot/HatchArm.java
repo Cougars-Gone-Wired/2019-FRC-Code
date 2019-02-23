@@ -193,9 +193,6 @@ public class HatchArm {
                 } else if (lowerHatchArmButton) {
                     hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
                     hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
-                } else if (moveLimitSwitches.isFwdLimitSwitchClosed()) {
-                    hatchArmMoveMotor.set(0);
-                    hatchArmMoveState = HatchArmMoveStates.INSIDE;
                 }
                 break;
             case INSIDE_TO_VERT:
@@ -205,7 +202,7 @@ public class HatchArm {
                 } else if (raiseHatchArmButton) {
                     hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
                     hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
-                } else if (moveLimitSwitches.isRevLimitSwitchClosed()) {
+                } else if (moveLimitSwitches.isFwdLimitSwitchClosed()) {
                     hatchArmMoveMotor.set(0);
                     hatchArmMoveState = HatchArmMoveStates.FLOOR;
                 }
