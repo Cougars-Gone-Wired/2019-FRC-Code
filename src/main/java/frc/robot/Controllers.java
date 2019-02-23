@@ -9,13 +9,7 @@ public class Controllers {
 	private Joystick manipulatorStick;
 	
 	//Hatch
-    private Toggle hatchArmGrabToggle;
-
 	private int dPad;
-
-	private boolean hatchArmGrabButton;
-	private boolean hatchGrabInButton;
-	private boolean hatchGrabOutButton;
 	
 	private boolean hatchArmSchemeButton;
 	
@@ -54,7 +48,6 @@ public class Controllers {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
 		mobilityStick = new Joystick(Constants.MOBILITY_CONTROLLER_PORT);
 
-        hatchArmGrabToggle = new Toggle(manipulatorStick, Constants.HATCH_ARM_GRAB_BUTTON);
 		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		// ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
 		driveFineToggle = new Toggle(mobilityStick, Constants.DRIVE_FINE_BUTTON);
@@ -63,10 +56,7 @@ public class Controllers {
 	public void setControllerValues() {
 
 		//Hatch Arm
-		hatchArmGrabButton = hatchArmGrabToggle.toggle();
 		dPad = manipulatorStick.getPOV();
-		hatchGrabInButton = manipulatorStick.getRawButton(Constants.HATCH_GRAB_IN_BUTTON);
-		hatchGrabOutButton = manipulatorStick.getRawButton(Constants.HATCH_GRAB_OUT_BUTTON);
 
         raiseHatchArmButton = -manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
         lowerHatchArmButton = -manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
@@ -98,7 +88,6 @@ public class Controllers {
 	}
 
 	public void initialize() {
-		hatchArmGrabToggle.initialize();
 		driveToggle.initialize();
 		// ultrasonicToggle.initialize();
 	}
@@ -111,18 +100,6 @@ public class Controllers {
     public boolean getHatchArmSchemeButton() {
         return hatchArmSchemeButton;
     }
-    
-    public boolean getHatchArmGrabButton() {
-        return hatchArmGrabButton;
-    }
-	
-	public boolean isHatchGrabInButton() {
-		return hatchGrabInButton;
-	}
-
-	public boolean isHatchGrabOutButton() {
-		return hatchGrabOutButton;
-	}
 
     public boolean getLowerHatchArmButton() {
         return lowerHatchArmButton;

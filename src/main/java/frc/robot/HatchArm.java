@@ -15,34 +15,20 @@ public class HatchArm {
     private enum HatchArmMoveStates {
         INSIDE, VERT, FLOOR, FLOOR_TO_VERT, INSIDE_TO_VERT, VERT_TO_FLOOR, VERT_TO_INSIDE
     }
-    private enum HatchArmGrabStates {
-        IN, OUT, TO_OUT, TO_IN, TO_OUT_INTER, TO_IN_INTER
-    }
-    public enum Grab2States {
-        NOT_MOVING, GOING_IN, GOING_OUT
-    }
-    
+
     HatchArmManualMoveStates hatchArmManualMoveState;
     HatchArmMoveStates hatchArmMoveState;
-    HatchArmGrabStates hatchArmGrabState;
-    Grab2States currentGrab2State;
     private WPI_TalonSRX hatchArmMoveMotor;
-    private WPI_TalonSRX hatchArmGrabMotor;
     private SensorCollection moveLimitSwitches;
-    private DigitalInput grabLimitSwitch;
     private DigitalInput moveMidSwitch;
     private boolean moveMidSwitchValue;
 
     public HatchArm() {
         hatchArmMoveMotor = new WPI_TalonSRX(Constants.HATCH_ARM_MOVE_MOTOR_ID);
-        hatchArmGrabMotor = new WPI_TalonSRX(Constants.HATCH_ARM_GRAB_MOTOR_ID);
         hatchArmMoveMotor.setNeutralMode(NeutralMode.Brake);
         hatchArmMoveMotor.configOpenloopRamp(Constants.RAMP_TIME);
-        hatchArmGrabMotor.setNeutralMode(NeutralMode.Brake);
-        //hatchArmGrabMotor.configOpenloopRamp(Constants.RAMP_TIME);
         
         moveLimitSwitches = new SensorCollection(hatchArmMoveMotor);
-        grabLimitSwitch = new DigitalInput(Constants.GRAB_SWITCH_PORT);
         moveMidSwitch = new DigitalInput(Constants.MID_SWITCH_PORT);
         initialize();
     }
@@ -51,81 +37,6 @@ public class HatchArm {
         hatchArmMoveMotor.set(0);
         hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
         hatchArmMoveState = HatchArmMoveStates.INSIDE;
-        hatchArmGrabMotor.set(0);
-        hatchArmGrabState = HatchArmGrabStates.OUT;
-        currentGrab2State = Grab2States.NOT_MOVING;
-    }
-
-    public void hatchArmGrab(boolean hatchArmGrabToggle) {
-        SmartDashboard.putBoolean("hatchlimit", grabLimitSwitch.get());
-        switch (hatchArmGrabState) {
-            case IN:
-                if (!hatchArmGrabToggle) {
-                    hatchArmGrabMotor.set(Constants.HATCH_ARM_GRAB_SPEED);
-                    hatchArmGrabState = HatchArmGrabStates.TO_OUT_INTER;
-                }
-                break;
-            case OUT:
-                if (hatchArmGrabToggle) {
-                    hatchArmGrabMotor.set(Constants.HATCH_ARM_GRAB_SPEED);
-                    hatchArmGrabState = HatchArmGrabStates.TO_IN_INTER;
-                }
-                break;
-            case TO_IN:
-                if (!grabLimitSwitch.get()) {
-                    hatchArmGrabMotor.set(0);
-                    hatchArmGrabState = HatchArmGrabStates.IN;
-                } else if (!hatchArmGrabToggle) {
-                    hatchArmGrabMotor.set(-hatchArmGrabMotor.get());
-                    hatchArmGrabState = HatchArmGrabStates.TO_OUT;
-                }
-                break;
-            case TO_OUT:
-                if (!grabLimitSwitch.get()) {
-                    hatchArmGrabMotor.set(0);
-                    hatchArmGrabState = HatchArmGrabStates.OUT;
-                } else if (hatchArmGrabToggle) {
-                    hatchArmGrabMotor.set(-hatchArmGrabMotor.get());
-                    hatchArmGrabState = HatchArmGrabStates.TO_IN;
-                }
-                break;
-            case TO_IN_INTER:
-                if (grabLimitSwitch.get()) {
-                    hatchArmGrabState = HatchArmGrabStates.TO_IN;
-                }
-                break;
-            case TO_OUT_INTER:
-                if (grabLimitSwitch.get()) {
-                    hatchArmGrabState = HatchArmGrabStates.TO_OUT;
-                }
-                break;
-        }
-    }
-
-    public void grab2(boolean inButton, boolean outButton) {
-        switch(currentGrab2State) {
-            case NOT_MOVING:
-                if (inButton && !outButton) {
-                    hatchArmGrabMotor.set(Constants.HATCH_ARM_GRAB_SPEED);
-                    currentGrab2State = Grab2States.GOING_IN;
-                } else if (outButton && !inButton) {
-                    hatchArmGrabMotor.set(-Constants.HATCH_ARM_GRAB_SPEED);
-                    currentGrab2State = Grab2States.GOING_OUT;
-                }
-                break;
-            case GOING_IN:
-                if (!inButton || outButton) {
-                    hatchArmGrabMotor.set(0);
-                    currentGrab2State = Grab2States.NOT_MOVING;
-                }
-                break;
-            case GOING_OUT:
-                if (!outButton || inButton) {
-                    hatchArmGrabMotor.set(0);
-                    currentGrab2State = Grab2States.NOT_MOVING;
-                }
-                break;
-        }
     }
 
     public void hatchArmManualMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) { // This is for testing and for setting the hatch arm to the inside state before match
@@ -240,13 +151,5 @@ public class HatchArm {
 
     public double getHatchArmMoveMotorCurrent() {
         return hatchArmMoveMotor.getOutputCurrent();
-    }
-
-    public double getHatchArmGrabMotorVoltage() {
-        return hatchArmGrabMotor.getMotorOutputVoltage();
-    }
-
-    public double getHatchArmGrabMotorCurrent() {
-        return hatchArmGrabMotor.getOutputCurrent();
     }
 }

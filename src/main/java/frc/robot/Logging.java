@@ -227,9 +227,6 @@ public class Logging extends Object{
             logValues.append(d).append(hatchArm.getHatchArmMoveMotorVoltage());
             logValues.append(d).append(hatchArm.getHatchArmMoveMotorCurrent());
 
-            logValues.append(d).append(hatchArm.getHatchArmGrabMotorVoltage());
-            logValues.append(d).append(hatchArm.getHatchArmGrabMotorCurrent());
-
             //CargoManip
             logValues.append(d).append(cargoManip.getIntakeMotorVoltage());
             logValues.append(d).append(cargoManip.getIntakeMotorCurrent());

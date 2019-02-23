@@ -120,7 +120,6 @@ public class Robot extends TimedRobot {
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
     drive.showDashboard();
 
-    hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
     //hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
     
@@ -174,8 +173,6 @@ public class Robot extends TimedRobot {
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
     drive.showDashboard();
 
-    //hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
-    hatchArm.grab2(controllers.isHatchGrabInButton(), controllers.isHatchGrabOutButton());
     //hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
     
