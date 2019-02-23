@@ -12,6 +12,8 @@ public class Constants {
 	static final int CARGO_ARM_AXIS = 5; //
 	static final int HATCH_ARM_AXIS = 1;
 	static final int HATCH_ARM_GRAB_BUTTON = 5;
+	static final int HATCH_GRAB_IN_BUTTON = 5;
+	static final int HATCH_GRAB_OUT_BUTTON = 6;
     static final int HATCH_ARM_SCHEME_BUTTON = 8; // Activates a toggle that switches between two controll schemes
 	static final int CARGO_INTAKE_AXIS = 2; //
     static final int CARGO_OUTTAKE_AXIS = 3; //
@@ -62,7 +64,7 @@ public class Constants {
 	static final int FRONT_LIFT_MOTOR_ID = 0; //Right Lift Motor
 	static final int BACK_LIFT_MOTOR_ID = 1; //Left Lift Motor
 
-	static final double LIFT_SPEED = 0.6; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
+	static final double LIFT_SPEED = 0.5; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
 	//static final int ULTRASONIC_HATCH_LEFT_PORT = 1; //SET PORTS!!!
 	//static final int ULTRASONIC_HATCH_RIGHT_PORT = 0; //SET PORTS!!!
 	static final double DISTANCE_AT_LIFT = 12; //Inches

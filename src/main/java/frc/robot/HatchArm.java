@@ -97,6 +97,37 @@ public class HatchArm {
         }
     }
 
+    public enum Grab2States {
+        NOT_MOVING, GOING_IN, GOING_OUT
+    }
+    Grab2States currentGrab2State = Grab2States.NOT_MOVING;
+
+    public void grab2(boolean inButton, boolean outButton) {
+        switch(currentGrab2State) {
+            case NOT_MOVING:
+                if (inButton && !outButton) {
+                    hatchArmGrabMotor.set(Constants.HATCH_ARM_GRAB_SPEED);
+                    currentGrab2State = Grab2States.GOING_IN;
+                } else if (outButton && !inButton) {
+                    hatchArmGrabMotor.set(-Constants.HATCH_ARM_GRAB_SPEED);
+                    currentGrab2State = Grab2States.GOING_OUT;
+                }
+                break;
+            case GOING_IN:
+                if (!inButton || outButton) {
+                    hatchArmGrabMotor.set(0);
+                    currentGrab2State = Grab2States.NOT_MOVING;
+                }
+                break;
+            case GOING_OUT:
+                if (!outButton || inButton) {
+                    hatchArmGrabMotor.set(0);
+                    currentGrab2State = Grab2States.NOT_MOVING;
+                }
+                break;
+        }
+    }
+
     public void hatchArmManualMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) {
         switch(hatchArmManualMoveState) {
             case NOT_MOVING:

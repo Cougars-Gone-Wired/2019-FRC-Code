@@ -180,12 +180,14 @@ public class Robot extends TimedRobot {
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis(), leftHatchUltrasonic.getImperialUltrasonicValue(), rightHatchUltrasonic.getImperialUltrasonicValue());
     drive.showDashboard();
 
-    hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
+    //hatchArm.hatchArmGrab(controllers.getHatchArmGrabButton());
+    hatchArm.grab2(controllers.isHatchGrabInButton(), controllers.isHatchGrabOutButton());
     hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     // hatchArm.hatchArmMove(controllers.getHatchArmSchemeButton(), controllers.getHatchArmInsideButton(), controllers.getHatchArmVertButton(), controllers.getHatchArmFloorButton(), controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     
     //Lift
     // lift.lift(controllers.isLiftDeployButton(), controllers.isLiftRetractButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive, controllers.getMobilityStick());
+    lift.lift2(controllers.isLiftDeployButton(), controllers.isLiftRetractButton());
     
     leftHatchUltrasonic.setUltrasonicValues();
     rightHatchUltrasonic.setUltrasonicValues();

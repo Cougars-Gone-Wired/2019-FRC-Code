@@ -15,6 +15,8 @@ public class Controllers {
 	private int dPad;
 
 	private boolean hatchArmGrabButton;
+	private boolean hatchGrabInButton;
+	private boolean hatchGrabOutButton;
 	
 	private boolean hatchArmSchemeButton;
 	
@@ -67,7 +69,9 @@ public class Controllers {
 
 		//Hatch Arm
 		hatchArmGrabButton = hatchArmGrabToggle.toggle();
-        dPad = manipulatorStick.getPOV();
+		dPad = manipulatorStick.getPOV();
+		hatchGrabInButton = manipulatorStick.getRawButton(Constants.HATCH_GRAB_IN_BUTTON);
+		hatchGrabOutButton = manipulatorStick.getRawButton(Constants.HATCH_GRAB_OUT_BUTTON);
         
         hatchArmSchemeButton = hatchArmSchemeToggle.toggle();
 
@@ -123,7 +127,15 @@ public class Controllers {
     public boolean getHatchArmGrabButton() {
         return hatchArmGrabButton;
     }
-    
+	
+	public boolean isHatchGrabInButton() {
+		return hatchGrabInButton;
+	}
+
+	public boolean isHatchGrabOutButton() {
+		return hatchGrabOutButton;
+	}
+
     public boolean getLowerHatchArmButton() {
         return lowerHatchArmButton;
     }

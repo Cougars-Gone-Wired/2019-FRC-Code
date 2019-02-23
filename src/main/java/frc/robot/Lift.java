@@ -124,6 +124,42 @@ public class Lift {
         }
     }
 
+    
+    public enum Lift2States {
+        NOT_MOVING, GOING_DOWN, GOING_UP
+    }
+    Lift2States currentLift2State = Lift2States.NOT_MOVING;
+
+    public void lift2(boolean downButton, boolean upButton) {
+        switch(currentLift2State) {
+            case NOT_MOVING:
+                if (downButton && !upButton) {
+                    frontLiftMotor.set(-Constants.LIFT_SPEED);
+                    backLiftMotor.set(Constants.LIFT_SPEED);
+                    currentLift2State = Lift2States.GOING_DOWN;
+                } else if (upButton && !downButton) {
+                    frontLiftMotor.set(Constants.LIFT_SPEED);
+                    backLiftMotor.set(-Constants.LIFT_SPEED);
+                    currentLift2State = Lift2States.GOING_UP;
+                }
+                break;
+            case GOING_DOWN:
+                if (!downButton || upButton) {
+                    frontLiftMotor.set(0);
+                    backLiftMotor.set(0);
+                    currentLift2State = Lift2States.NOT_MOVING;
+                }
+                break;
+            case GOING_UP:
+                if (!upButton || downButton) {
+                    frontLiftMotor.set(0);
+                    backLiftMotor.set(0);
+                    currentLift2State = Lift2States.NOT_MOVING;
+                }
+                break;
+        }
+    }
+
     // __    ___    ___   _____
     // | \    |    /        |  
     // |  |   |     ---     |  
