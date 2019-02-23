@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 public class Drive {
     public enum DriveModes {
-        DRIVE_STANDARD, BACKING_UP
+        DRIVE_STANDARD, BACKING_UP, CAMERA_MODE
     }
     public enum FineModes {
         DRIVE_NORMAL, DRIVE_FINE
@@ -21,6 +21,7 @@ public class Drive {
     }
     
     public DriveModes driveMode;
+    private DriveModes lastSide;
     private DriveStates driveState;
     public FineModes fineMode;
 
@@ -39,6 +40,7 @@ public class Drive {
 
     private Encoders encoders;
     private double count;
+
 
     /**
      *  hello
@@ -146,7 +148,7 @@ public class Drive {
                         robotDrive.arcadeDrive(-driveSpeedAxis, -driveTurnAxis);
                         break;
                 }
-                break;
+            break;
         
             case BACKING_UP:
                 if(encoders.getAverageDistanceInches() < Constants.DISTANCE_AT_LIFT) {
@@ -157,6 +159,10 @@ public class Drive {
                     robotDrive.curvatureDrive(0, 0, false);
                     driveMode = DriveModes.DRIVE_STANDARD;
                 }
+            break;
+
+            case CAMERA_MODE:
+
             break;
         }
     }
@@ -174,6 +180,15 @@ public class Drive {
             fineMode = FineModes.DRIVE_FINE;
         } else {
             fineMode = FineModes.DRIVE_NORMAL;
+        }
+    }
+
+    public void setCamera(boolean camera) {
+        if(camera) {
+            lastSide = driveMode;
+            driveMode = DriveModes.CAMERA_MODE;
+        } else if (!camera && driveMode == DriveModes.CAMERA_MODE) {
+            driveMode = lastSide;
         }
     }
     // public void setMode(boolean switchMode) {

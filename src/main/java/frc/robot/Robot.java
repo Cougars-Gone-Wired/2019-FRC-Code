@@ -179,6 +179,7 @@ public class Robot extends TimedRobot {
     //hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
     hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
     
+    
     //Lift
     // lift.lift(controllers.isLiftDeployButton(), controllers.isLiftRetractButton(), controllers.isLiftStopButton(), controllers.isLiftWithdrawFromStairButton(), drive, controllers.getMobilityStick());
     lift.lift2(controllers.isLiftDeployButton(), controllers.isLiftRetractButton());
