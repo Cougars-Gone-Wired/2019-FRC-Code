@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class HatchArm {
+    // Enums
     private enum HatchArmManualMoveStates {
         NOT_MOVING, MOVING_TOWARDS_FLOOR, MOVING_TOWARDS_INITIAL
     }
@@ -18,10 +19,15 @@ public class HatchArm {
     private enum HatchArmGrabStates {
         IN, OUT, TO_OUT, TO_IN, TO_OUT_INTER, TO_IN_INTER
     }
-    
+    public enum Grab2States {
+        NOT_MOVING, GOING_IN, GOING_OUT
+    }
+
+    // Private Instance Variables
     HatchArmManualMoveStates hatchArmManualMoveState;
     HatchArmMoveStates hatchArmMoveState;
     HatchArmGrabStates hatchArmGrabState;
+    Grab2States currentGrab2State;
     private WPI_TalonSRX hatchArmMoveMotor;
     private WPI_TalonSRX hatchArmGrabMotor;
     private SensorCollection moveLimitSwitches;
@@ -29,6 +35,7 @@ public class HatchArm {
     private DigitalInput moveMidSwitch;
     private boolean moveMidSwitchValue;
 
+    // Constructor
     public HatchArm() {
         hatchArmMoveMotor = new WPI_TalonSRX(Constants.HATCH_ARM_MOVE_MOTOR_ID);
         hatchArmGrabMotor = new WPI_TalonSRX(Constants.HATCH_ARM_GRAB_MOTOR_ID);
@@ -43,12 +50,15 @@ public class HatchArm {
         initialize();
     }
 
+    // Methods
+    // I don't really need to explain this
     public void initialize() {
         hatchArmMoveMotor.set(0);
         hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
         hatchArmMoveState = HatchArmMoveStates.INSIDE;
         hatchArmGrabMotor.set(0);
         hatchArmGrabState = HatchArmGrabStates.OUT;
+        currentGrab2State = Grab2States.NOT_MOVING;
     }
 
     public void hatchArmGrab(boolean hatchArmGrabToggle) {
@@ -97,11 +107,6 @@ public class HatchArm {
         }
     }
 
-    public enum Grab2States {
-        NOT_MOVING, GOING_IN, GOING_OUT
-    }
-    Grab2States currentGrab2State = Grab2States.NOT_MOVING;
-
     public void grab2(boolean inButton, boolean outButton) {
         switch(currentGrab2State) {
             case NOT_MOVING:
@@ -128,6 +133,7 @@ public class HatchArm {
         }
     }
 
+    // This is for testing and resetting the hatch arm
     public void hatchArmManualMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) {
         switch(hatchArmManualMoveState) {
             case NOT_MOVING:
@@ -140,7 +146,7 @@ public class HatchArm {
                 }
                 break;
             case MOVING_TOWARDS_FLOOR:
-                if ((!lowerHatchArmButton && !raiseHatchArmButton) || moveLimitSwitches.isRevLimitSwitchClosed()) {
+                if (!lowerHatchArmButton && !raiseHatchArmButton || moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
                 } else if (raiseHatchArmButton) {
@@ -149,7 +155,7 @@ public class HatchArm {
                 }
                 break;
             case MOVING_TOWARDS_INITIAL:
-                if ((!lowerHatchArmButton && !raiseHatchArmButton) || moveLimitSwitches.isFwdLimitSwitchClosed()) {
+                if (!lowerHatchArmButton && !raiseHatchArmButton || moveLimitSwitches.isFwdLimitSwitchClosed() || moveLimitSwitches.isRevLimitSwitchClosed()) {
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
                 } else if (lowerHatchArmButton) {
@@ -160,6 +166,7 @@ public class HatchArm {
         }
     }
 
+    // This is the main move function.  It requires that 
     public void hatchArmMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) {
         moveMidSwitchValue = !moveMidSwitch.get();
         SmartDashboard.putString("State", hatchArmMoveState.toString());
@@ -202,9 +209,6 @@ public class HatchArm {
                 } else if (raiseHatchArmButton) {
                     hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
                     hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
-                } else if (moveLimitSwitches.isFwdLimitSwitchClosed()) {
-                    hatchArmMoveMotor.set(0);
-                    hatchArmMoveState = HatchArmMoveStates.FLOOR;
                 }
                 break;
             case VERT_TO_FLOOR:
