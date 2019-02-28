@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-public class CargoManip {
+public class CargoManip2 {
 
     //for using a joystick to control the arm
     public enum ArmStatesManual {
@@ -19,7 +19,7 @@ public class CargoManip {
     // }
     
     public enum ArmStates {
-        FLOOR, CARGO_SHIP, ROCKET, TOP, FLOOR_TO_CARGO_SHIP, CARGO_SHIP_TO_ROCKET, ROCKET_TO_TOP, CARGO_SHIP_TO_FLOOR, ROCKET_TO_CARGO_SHIP, TOP_TO_ROCKET
+        FLOOR, CARGO_SHIP, ROCKET, TOP, FLOOR_TO_CARGO_SHIP, CARGO_SHIP_TO_ROCKET, VERT_TO_TOP, CARGO_SHIP_TO_FLOOR, ROCKET_TO_CARGO_SHIP, TOP_TO_ROCKET
     }
 
     public enum IntakeStates {
@@ -50,7 +50,7 @@ public class CargoManip {
 
     private int encoderValue;
 
-    public CargoManip() {
+    public CargoManip2() {
         armMotor = new WPI_TalonSRX(Constants.CARGO_ARM_MOTOR_ID);
         intakeMotor = new WPI_TalonSRX(Constants.CARGO_INTAKE_MOTOR_ID);
         armMotor.setNeutralMode(NeutralMode.Brake);
@@ -85,7 +85,7 @@ public class CargoManip {
         switch (armStateM) {
             case MOVING_UP:
                 if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isFwdLimitSwitchClosed()) {
-                    armMotor.set(speed);
+                    armMotor.set(0);
                     armStateM = ArmStatesManual.NOT_MOVING;
                 }
                 else {
@@ -94,7 +94,7 @@ public class CargoManip {
                 break;
             case MOVING_DOWN:
                 if (armAxis > -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isRevLimitSwitchClosed()) {
-                    armMotor.set(speed);
+                    armMotor.set(0);
                     armStateM = ArmStatesManual.NOT_MOVING;
                 }
                 else {
@@ -128,9 +128,9 @@ public class CargoManip {
 
     //move the arm using buttons
     // public void armMove(boolean topButton, boolean bottomButton, boolean cargoShipButton, boolean rocketButton) {
-    //     topLimitSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
-    //     bottomLimitSwitch = armLimitSwitches.isRevLimitSwitchClosed();
-    //     encoderValue = armLimitSwitches.getQuadraturePosition();
+    //     topLimitSwitch = armSensors.isFwdLimitSwitchClosed();
+    //     bottomLimitSwitch = armSensors.isRevLimitSwitchClosed();
+    //     encoderValue = armSensors.getQuadraturePosition();
     //     switch (armState) {
     //         case TOP:
     //         if (bottomButton) {
@@ -192,7 +192,7 @@ public class CargoManip {
     //         //check if reached top
     //         if (topLimitSwitch) {
     //             armMotor.set(0);
-    //             armLimitSwitches.setQuadraturePosition(0, 0);
+    //             armSensors.setQuadraturePosition(0, 0);
     //             armState = ArmStates.TOP;
     //         }
     //         //check if a different button has been pressed
@@ -329,7 +329,7 @@ public class CargoManip {
     // } 
 
     public void sensorLight() {
-        // encoderValue = armLimitSwitches.getQuadraturePosition();
+        // encoderValue = armSensors.getQuadraturePosition();
         //cargoShipLimitSwitch = !limitSwitchCargoShip.get();
         //rocketLimitSwitch = !limitSwitchRocket.get();
         // SmartDashboard.putBoolean("Top Position", armState.equals(ArmStates.TOP));
