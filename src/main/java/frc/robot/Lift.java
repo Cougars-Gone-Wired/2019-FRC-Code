@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class Lift {
     public enum LiftStates {
-        LOCK, READYTOBACKUPFROMSTAIR, BACKINGUPFROMSTAIR, STOP, EN, EC
+        LOCK, READY_TO_BACK_UP_FROM_STAIR, BACKING_UP_FROM_STAIR, STOP, MOVING_IN, MOVING_OUT
     }
     
     LiftStates liftState;
@@ -57,21 +57,21 @@ public class Lift {
         
         switch(liftState){
             case LOCK:
-                //State: LOCK -> EN || STOP (@ 20sec. left in match)
+                //State: LOCK -> MOVING_IN || STOP (@ 20sec. left in match)
                 if(Timer.getMatchTime() <= 20){
-                    liftState = LiftStates.BACKINGUPFROMSTAIR;
+                    liftState = LiftStates.READY_TO_BACK_UP_FROM_STAIR;
                     
                 }
                 break;
 
-            case READYTOBACKUPFROMSTAIR:
+            case READY_TO_BACK_UP_FROM_STAIR:
                 if(liftWithdrawFromStairButton){
                     drive.backUpFromStairs();
-                    liftState = LiftStates.BACKINGUPFROMSTAIR;
+                    liftState = LiftStates.BACKING_UP_FROM_STAIR;
                 }
                 break;
 
-            case BACKINGUPFROMSTAIR:
+            case BACKING_UP_FROM_STAIR:
                 if(drive.driveMode != DriveModes.BACKING_UP){
                     //Rumble controller when ready to deploy lift. (Fully backed up.)
                     mobilityStick.setRumble(RumbleType.kLeftRumble, 0.8);
@@ -81,8 +81,8 @@ public class Lift {
 
                 break;
 
-            case EN:
-                //State: EN -> STOP
+            case MOVING_IN:
+                //State: MOVING_IN -> STOP
                 if(!liftDeployButton || liftStopButton || limits.isFwdLimitSwitchClosed()){
                     backLiftMotor.set(0);
                     frontLiftMotor.set(0);
@@ -94,21 +94,21 @@ public class Lift {
                 mobilityStick.setRumble(RumbleType.kLeftRumble, 0);
                 mobilityStick.setRumble(RumbleType.kRightRumble, 0);
                 if(liftDeployButton && !limits.isFwdLimitSwitchClosed() && !liftStopButton){
-                //State: STOP -> EN
+                //State: STOP -> MOVING_IN
                     frontLiftMotor.set(Constants.LIFT_SPEED);
                     backLiftMotor.set( -Constants.LIFT_SPEED );
-                    liftState = LiftStates.EN;
+                    liftState = LiftStates.MOVING_IN;
                 } else if(liftRetractButton && !limits.isRevLimitSwitchClosed() && !liftStopButton){
-                //State: STOP -> EC
+                //State: STOP -> MOVING_OUT
                     frontLiftMotor.set(-Constants.LIFT_SPEED);
                     backLiftMotor.set(Constants.LIFT_SPEED);
-                    liftState = LiftStates.EC;
+                    liftState = LiftStates.MOVING_OUT;
                 }
 
                 break;
 
-            case EC:
-                //State: EC -> STOP
+            case MOVING_OUT:
+                //State: MOVING_OUT -> STOP
                 if(!liftRetractButton || liftStopButton || limits.isRevLimitSwitchClosed()){
                     frontLiftMotor.set(0);
                     backLiftMotor.set(0);
@@ -117,9 +117,9 @@ public class Lift {
                 break;
 
             default:
-                //State: Emergency -> EN
+                //State: Emergency -> MOVING_IN
                 frontLiftMotor.set(Constants.LIFT_SPEED);
-                liftState = LiftStates.EN;
+                liftState = LiftStates.MOVING_IN;
                 break;
         }
     }
