@@ -18,6 +18,7 @@ public class HatchArm {
 
     HatchArmManualMoveStates hatchArmManualMoveState;
     HatchArmMoveStates hatchArmMoveState;
+    
     private WPI_TalonSRX hatchArmMoveMotor;
     private SensorCollection moveLimitSwitches;
     private DigitalInput moveMidSwitch;

@@ -43,10 +43,15 @@ public class CargoManip {
     private DigitalInput limitSwitchCargoShip;
     private DigitalInput limitSwitchRocket;
 
-    private boolean topLimitSwitch;
-    private boolean bottomLimitSwitch;
-    //private boolean cargoShipLimitSwitch;
-    //private boolean rocketLimitSwitch;
+    private double speed; // To be used and is explained in the armMove() method
+
+    // A bunch of variables that make very complicated boolean logic easier to call upon in the armMove() method
+    private boolean topSwitch; 
+    private boolean rocketSwitch;
+    private boolean cargoShipSwitch;
+    private boolean floorSwitch;
+    private boolean isAxisUp;
+    private boolean isAxisDown;
 
     private int encoderValue;
 
@@ -61,8 +66,6 @@ public class CargoManip {
         armLimitSwitches = new SensorCollection(armMotor);
         limitSwitchCargoShip = new DigitalInput(Constants.CARGO_SHIP_LIMIT_SWITCH_ID);
         limitSwitchRocket = new DigitalInput(Constants.ROCKET_LIMIT_SWITCH_ID);
-        topLimitSwitch = false;
-        bottomLimitSwitch = false;
         //cargoShipLimitSwitch = true;
         //rocketLimitSwitch = true;
         armLimitSwitches.setQuadraturePosition(0, 0);
@@ -115,15 +118,114 @@ public class CargoManip {
     }
 
     public void armMove(double armAxis) {
-        double speed = armAxis * Constants.CARGO_ARM_MOVE_SPEED; // Sets speed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
+        speed = armAxis * Constants.CARGO_ARM_MOVE_SPEED; // Sets speed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
 
-        boolean topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
-        boolean rocketShipSwitch = !limitSwitchCargoShip.get();
-        boolean cargoShipSwitch = !limitSwitchRocket.get();
-        boolean floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
+        topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
+        rocketSwitch = !limitSwitchCargoShip.get();
+        cargoShipSwitch = !limitSwitchRocket.get();
+        floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
 
-        boolean raiseButton = armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD;
-        boolean lowerButton = armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD;
+        isAxisUp = armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD;
+        isAxisDown = armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD;
+
+        switch (armState) {
+            case FLOOR:
+                if (isAxisUp) {
+                    armMotor.set(speed);
+                    armState = ArmStates.FLOOR_TO_CARGO_SHIP;
+                }
+                break;
+            case CARGO_SHIP:
+                if (isAxisUp && !isAxisDown) {
+                    armMotor.set(speed);
+                    armState = ArmStates.CARGO_SHIP_TO_ROCKET;
+                } else if (isAxisDown && !isAxisUp) {
+                    armMotor.set(speed);
+                    armState = ArmStates.CARGO_SHIP_TO_FLOOR;
+                }
+                break;
+            case ROCKET:
+                if (isAxisUp && !isAxisDown) {
+                    armMotor.set(speed);
+                    armState = ArmStates.ROCKET_TO_TOP;
+                } else if (isAxisDown && !isAxisUp) {
+                    armMotor.set(speed);
+                    armState = ArmStates.ROCKET_TO_CARGO_SHIP;
+                }
+                break;
+            case TOP:
+                if (isAxisDown) {
+                    armMotor.set(speed);
+                    armState = ArmStates.TOP_TO_ROCKET;
+                }
+                break;
+            case FLOOR_TO_CARGO_SHIP:
+                if (topSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.TOP;
+                } else if (isAxisDown && !isAxisUp) {
+                    armMotor.set(speed);
+                    armState = ArmStates.CARGO_SHIP_TO_FLOOR;
+                } else if (cargoShipSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.CARGO_SHIP;
+                }
+                break;
+            case CARGO_SHIP_TO_ROCKET:
+                if (topSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.TOP;
+                } else if (isAxisDown && !isAxisUp) {
+                    armMotor.set(speed);
+                    armState = ArmStates.ROCKET_TO_CARGO_SHIP;
+                } else if (rocketSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.ROCKET;
+                }
+                break;
+            case ROCKET_TO_TOP:
+                if (topSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.TOP;
+                } else if (isAxisDown && !isAxisUp) {
+                    armMotor.set(speed);
+                    armState = ArmStates.TOP_TO_ROCKET;
+                }
+                break;
+            case CARGO_SHIP_TO_FLOOR:
+                if (floorSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.FLOOR;
+                } else if (isAxisUp && !isAxisDown) {
+                    armMotor.set(speed);
+                    armState = ArmStates.FLOOR_TO_CARGO_SHIP;
+                }
+                break;
+            case ROCKET_TO_CARGO_SHIP:
+                if (floorSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.FLOOR;
+                } else if (isAxisUp && !isAxisDown) {
+                    armMotor.set(speed);
+                    armState = ArmStates.CARGO_SHIP_TO_ROCKET;
+                } else if (cargoShipSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.CARGO_SHIP;
+                }
+                break;
+            case TOP_TO_ROCKET:
+                if (floorSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.FLOOR;
+                } else if (isAxisUp && !isAxisDown) {
+                    armMotor.set(speed);
+                    armState = ArmStates.ROCKET_TO_TOP;
+                } else if (rocketSwitch) {
+                    armMotor.set(0);
+                    armState = ArmStates.ROCKET;
+                }
+                break;
+        }
     }
 
     //move the arm using buttons
@@ -388,27 +490,27 @@ public class CargoManip {
     public void intakeMove(double intakeAxis, double outtakeAxis) {
         switch (intakeState) {
             case INTAKING:
-            if (intakeAxis < 0.15 || outtakeAxis > 0.15) {
-                intakeMotor.set(0);
-                intakeState = IntakeStates.NOT_MOVING;
-            }
-            break;
+                if (intakeAxis < 0.15 || outtakeAxis > 0.15) {
+                    intakeMotor.set(0);
+                    intakeState = IntakeStates.NOT_MOVING;
+                }
+                break;
             case OUTTAKING:
-            if (outtakeAxis < 0.15 || intakeAxis > 0.15) {
-                intakeMotor.set(0);
-                intakeState = IntakeStates.NOT_MOVING;
-            }
-            break;
+                if (outtakeAxis < 0.15 || intakeAxis > 0.15) {
+                    intakeMotor.set(0);
+                    intakeState = IntakeStates.NOT_MOVING;
+                }
+                break;
             case NOT_MOVING:
-            if (intakeAxis > 0.15 && outtakeAxis < 0.15) {
-                intakeMotor.set(Constants.CARGO_ARM_INTAKE_SPEED);
-                intakeState = IntakeStates.INTAKING;
-            }
-            if (outtakeAxis > 0.15 && intakeAxis < 0.15) {
-                intakeMotor.set(-Constants.CARGO_ARM_INTAKE_SPEED);
-                intakeState = IntakeStates.OUTTAKING;
-            }
-            break;
+                if (intakeAxis > 0.15 && outtakeAxis < 0.15) {
+                    intakeMotor.set(Constants.CARGO_ARM_INTAKE_SPEED);
+                    intakeState = IntakeStates.INTAKING;
+                }
+                if (outtakeAxis > 0.15 && intakeAxis < 0.15) {
+                    intakeMotor.set(-Constants.CARGO_ARM_INTAKE_SPEED);
+                    intakeState = IntakeStates.OUTTAKING;
+                }
+                break;
         }
     }
 
