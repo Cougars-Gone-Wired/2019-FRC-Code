@@ -54,7 +54,6 @@ public class Logging extends Object{
     }
 
     public void activeInitialize() {
-
         logger = Logger.getLogger(Logging.class.getName());
         logLength = 1000;
         logArray = new String[logLength];

@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    drive.refreshDashboard();
+    //drive.refreshDashboard();
   }
 
   /**
@@ -118,7 +118,7 @@ public class Robot extends TimedRobot {
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.setFine(controllers.getDriveFineToggleValue());
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
-    drive.showDashboard();
+    //drive.showDashboard();
 
     hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
     // hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
@@ -171,7 +171,7 @@ public class Robot extends TimedRobot {
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.setFine(controllers.getDriveFineToggleValue());
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
-    drive.showDashboard();
+    //drive.showDashboard();
 
     hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
     // hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());

@@ -152,9 +152,9 @@ public class Drive {
         
             case BACKING_UP:
                 if(encoders.getAverageDistanceInches() < Constants.DISTANCE_AT_LIFT) {
-                    robotDrive.curvatureDrive(1, 0, false);
+                    robotDrive.curvatureDrive(0.3, 0, false);
                 } else if (encoders.getAverageDistanceInches() > Constants.DISTANCE_AT_LIFT + 1) {
-                    robotDrive.curvatureDrive(-1, 0, false);
+                    robotDrive.curvatureDrive(-0.3, 0, false);
                 } else {
                     robotDrive.curvatureDrive(0, 0, false);
                     driveMode = DriveModes.DRIVE_STANDARD;
