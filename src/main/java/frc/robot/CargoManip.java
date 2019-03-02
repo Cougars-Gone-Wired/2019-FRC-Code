@@ -14,9 +14,9 @@ public class CargoManip {
     }
 
     //for using buttons to control the arm
-    // public enum ArmStates {
-    //     TOP, ROCKET, CARGO_SHIP, BOTTOM, TO_TOP, TO_ROCKET, TO_CARGO_SHIP, TO_BOTTOM
-    // }
+    /*public enum ArmStates {
+        TOP, ROCKET, CARGO_SHIP, BOTTOM, TO_TOP, TO_ROCKET, TO_CARGO_SHIP, TO_BOTTOM
+    }*/
     
     public enum ArmStates {
         FLOOR, CARGO_SHIP, ROCKET, TOP, FLOOR_TO_CARGO_SHIP, CARGO_SHIP_TO_ROCKET, ROCKET_TO_TOP, CARGO_SHIP_TO_FLOOR, ROCKET_TO_CARGO_SHIP, TOP_TO_ROCKET
@@ -362,13 +362,13 @@ public class CargoManip {
         // SmartDashboard.putBoolean("Cargo Ship Position", armState.equals(ArmStates.CARGO_SHIP));
         // SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.ROCKET));
         // SmartDashboard.putNumber("Arm Encoder Value", encoderValue);
-        // if (armState.equals(ArmStates.TO_TOP) || armState.equals(ArmStates.TO_BOTTOM) || armState.equals(ArmStates.TO_CARGO_SHIP) || armState.equals(ArmStates.TO_ROCKET)) {
-        //     SmartDashboard.putBoolean("Moving", true);
-        // }
-        // else {
-        //     SmartDashboard.putBoolean("Moving", false);
-        // }
-        //useless switch statement. kept it just in case
+        /*if (armState.equals(ArmStates.TO_TOP) || armState.equals(ArmStates.TO_BOTTOM) || armState.equals(ArmStates.TO_CARGO_SHIP) || armState.equals(ArmStates.TO_ROCKET)) {
+            SmartDashboard.putBoolean("Moving", true);
+        }
+        else {
+            SmartDashboard.putBoolean("Moving", false);
+        }*/
+        //This is a useless switch statement. I kept it just in case
         // From Jake: I kinda messed up the switches, don't be angry pls.
         /*switch (limitSwitchState) {
             case TOP_LIMIT:

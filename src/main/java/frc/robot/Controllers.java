@@ -152,13 +152,13 @@ public class Controllers {
 		return driveToggle;
 	}
 
-	// public boolean getUltrasonicToggleValue() {
-	// 	return ultrasonicToggle.toggle();
-	// }
+	/*public boolean getUltrasonicToggleValue() {
+		return ultrasonicToggle.toggle();
+	}*/
 
-	// public Toggle getUltrasonicToggle() {
-	// 	return ultrasonicToggle;
-	// }
+	/*public Toggle getUltrasonicToggle() {
+		return ultrasonicToggle;
+	}*/
 
 	public boolean getDriveFineToggleValue() {
 		return driveFineToggle.toggle();
