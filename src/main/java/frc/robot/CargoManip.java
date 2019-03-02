@@ -86,7 +86,7 @@ public class CargoManip {
     //move the arm using a joystick
 
     public void armMove(double armAxis, boolean topButton, boolean rocketButton, boolean cargoShipButton, boolean floorButton) {
-        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED; // Sets manualSpeed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
+        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
         buttonSpeed = Constants.CARGO_ARM_MOVE_SPEED;
 
         trackLocation();
@@ -104,12 +104,34 @@ public class CargoManip {
             } else if (topButton && !floorButton && !cargoShipButton && !rocketButton) {
                 destinationState = DestinationStates.TO_TOP;
             }
+            
             switch (movementState) {
                 case NOT_MOVING:
+                    if (destinationState.ordinal() > locationState.ordinal()) {
+                        armMotor.set(buttonSpeed);
+                        movementState = MovementStates.MOVING_TOWARDS_TOP;
+                    } else if (destinationState.ordinal() < locationState.ordinal()) {
+                        armMotor.set(-buttonSpeed);
+                        movementState = MovementStates.MOVING_TOWARDS_FLOOR;
+                    }
                     break;
                 case MOVING_TOWARDS_FLOOR:
+                    if (destinationState.ordinal() == locationState.ordinal()) {
+                        armMotor.set(0);
+                        movementState = MovementStates.NOT_MOVING;
+                    } else if (destinationState.ordinal() > locationState.ordinal()) {
+                        armMotor.set(buttonSpeed);
+                        movementState = MovementStates.MOVING_TOWARDS_TOP;
+                    }
                     break;
                 case MOVING_TOWARDS_TOP:
+                    if (destinationState.ordinal() == locationState.ordinal()) {
+                        armMotor.set(0);
+                        movementState = MovementStates.NOT_MOVING;
+                    } else if (destinationState.ordinal() < locationState.ordinal()) {
+                        armMotor.set(-buttonSpeed);
+                        movementState = MovementStates.MOVING_TOWARDS_FLOOR;
+                    }
                     break;
             }
         }
