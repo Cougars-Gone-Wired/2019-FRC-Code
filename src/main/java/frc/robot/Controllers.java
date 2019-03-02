@@ -22,7 +22,7 @@ public class Controllers {
 	private double cargoArmOuttakeAxis;
 	
 	private boolean cargoArmTopButton;
-	private boolean cargoArmBottomButton;
+	private boolean cargoArmFloorButton;
 	private boolean cargoArmCargoShipButton;
 	private boolean cargoArmRocketButton;
 	
@@ -45,8 +45,7 @@ public class Controllers {
 	public Controllers() {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
 		mobilityStick = new Joystick(Constants.MOBILITY_CONTROLLER_PORT);
-
-		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
+		driveToggle = new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		// ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
 		driveFineToggle = new Toggle(mobilityStick, Constants.DRIVE_FINE_BUTTON);
 	}
@@ -59,11 +58,14 @@ public class Controllers {
         hatchArmAxis = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS);
 
 		//Cargo
+
 		cargoArmAxis = -manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
+
 		cargoArmIntakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_INTAKE_AXIS);
 		cargoArmOuttakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_OUTTAKE_AXIS);
+
 		cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
-		cargoArmBottomButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_BOTTOM_BUTTON);
+		cargoArmFloorButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_FLOOR_BUTTON);
 		cargoArmCargoShipButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_CARGO_SHIP_BUTTON);
 		cargoArmRocketButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_ROCKET_BUTTON);
 		
@@ -119,8 +121,8 @@ public class Controllers {
         return cargoArmTopButton;
     }
 
-    public boolean getCargoArmBottomButton() {
-        return cargoArmBottomButton;
+    public boolean getCargoArmFloorButton() {
+        return cargoArmFloorButton;
     }
 
     public boolean getCargoArmCargoShipButton() {
@@ -152,13 +154,13 @@ public class Controllers {
 		return driveToggle;
 	}
 
-	// public boolean getUltrasonicToggleValue() {
-	// 	return ultrasonicToggle.toggle();
-	// }
+	/*public boolean getUltrasonicToggleValue() {
+		return ultrasonicToggle.toggle();
+	}*/
 
-	// public Toggle getUltrasonicToggle() {
-	// 	return ultrasonicToggle;
-	// }
+	/*public Toggle getUltrasonicToggle() {
+		return ultrasonicToggle;
+	}*/
 
 	public boolean getDriveFineToggleValue() {
 		return driveFineToggle.toggle();

@@ -22,8 +22,11 @@ public class HatchArm {
     private WPI_TalonSRX hatchArmMoveMotor;
     private SensorCollection moveLimitSwitches;
     private DigitalInput moveMidSwitch;
-    private boolean moveMidSwitchValue;
     private double speed;
+
+    private boolean floorSwitch;
+    private boolean verticalSwitch;
+    private boolean initialSwitch;
 
     public HatchArm() {
         hatchArmMoveMotor = new WPI_TalonSRX(Constants.HATCH_ARM_MOVE_MOTOR_ID);
@@ -43,6 +46,17 @@ public class HatchArm {
 
     public void hatchArmManualMove(double armAxis) { // This is for testing and for setting the hatch arm to the inside state before match
         speed = armAxis * Constants.HATCH_ARM_MOVE_SPEED;
+
+        floorSwitch = moveLimitSwitches.isFwdLimitSwitchClosed();
+        verticalSwitch = !moveMidSwitch.get();
+        initialSwitch = moveLimitSwitches.isRevLimitSwitchClosed();
+
+        // Trouble-shooting stuff
+        SmartDashboard.putString("Hatch Arm State", hatchArmMoveState.toString());
+        SmartDashboard.putBoolean("Hatch Arm Floor Position", floorSwitch);
+        SmartDashboard.putBoolean("Hatch Arm Vertical Position", verticalSwitch);
+        SmartDashboard.putBoolean("Hatch Arm Initial Position", initialSwitch);
+
         switch(hatchArmManualMoveState) {
             case NOT_MOVING:
                 if (armAxis > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Start moving towards the floor state
@@ -54,32 +68,40 @@ public class HatchArm {
                 }
                 break;
             case MOVING_TOWARDS_FLOOR:
-                if (((-Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD < armAxis) && (armAxis < Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD)) || moveLimitSwitches.isRevLimitSwitchClosed()) { // Stop
+                if (((-Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD < armAxis) && (armAxis < Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD)) || floorSwitch) { // Stop
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
                 } else if (armAxis > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Switch Direction
                     hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_INITIAL;
+                } else {
+                    hatchArmMoveMotor.set(speed);
                 }
                 break;
             case MOVING_TOWARDS_INITIAL:
-                if (((-Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD < armAxis) && (armAxis < Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD)) || moveLimitSwitches.isRevLimitSwitchClosed()) { // Stop
+                if (((-Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD < armAxis) && (armAxis < Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD)) || initialSwitch) { // Stop
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
                 } else if (armAxis < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Switch Direction
                     hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_FLOOR;
+                } else {
+                    hatchArmMoveMotor.set(speed);
                 }
                 break;
         }
     }
 
     public void hatchArmMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) { // This is the main movement method.  NOTE: It will act wierd if you don't start the hatch arm in the inside state
-        moveMidSwitchValue = !moveMidSwitch.get(); //For whatever reason the raw values of the digital I/Os are the opposite of what one would expect, so I compensate for that here
+        floorSwitch = moveLimitSwitches.isFwdLimitSwitchClosed();
+        verticalSwitch = !moveMidSwitch.get();
+        initialSwitch = moveLimitSwitches.isRevLimitSwitchClosed();
        
         // Trouble-shooting stuff
-        SmartDashboard.putString("State", hatchArmMoveState.toString());
-        SmartDashboard.putBoolean("MidSwitch", moveMidSwitchValue);
+        SmartDashboard.putString("Hatch Arm State", hatchArmMoveState.toString());
+        SmartDashboard.putBoolean("Hatch Arm Floor Position", floorSwitch);
+        SmartDashboard.putBoolean("Hatch Arm Vertical Position", verticalSwitch);
+        SmartDashboard.putBoolean("Hatch Arm Initial Position", initialSwitch);
 
         switch (hatchArmMoveState) {
             case INSIDE:
@@ -104,31 +126,31 @@ public class HatchArm {
                 }
                 break;
             case FLOOR_TO_VERT:
-                if (moveMidSwitchValue) { // Stop moving when the vertical state has been reached
+                if (verticalSwitch) { // Stop moving when the vertical state has been reached
                     hatchArmMoveMotor.set(0);
                     hatchArmMoveState = HatchArmMoveStates.VERT;
                 } else if (lowerHatchArmButton) { // Switch directions
                     hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
                     hatchArmMoveState = HatchArmMoveStates.VERT_TO_FLOOR;
-                } else if (moveLimitSwitches.isRevLimitSwitchClosed()) { // This is redundant and is only used in case the midswitch fails.  Stop moving when the inside state has been reached
+                } else if (initialSwitch) { // This is redundant and is only used in case the midswitch fails.  Stop moving when the inside state has been reached
                     hatchArmMoveMotor.set(0);
                     hatchArmMoveState = HatchArmMoveStates.INSIDE;
                 }
                 break;
             case INSIDE_TO_VERT:
-                if (moveMidSwitchValue) { // Stop moving when the vertical state has been reached
+                if (verticalSwitch) { // Stop moving when the vertical state has been reached
                     hatchArmMoveMotor.set(0);
                     hatchArmMoveState = HatchArmMoveStates.VERT;
                 } else if (raiseHatchArmButton) { // Switch directions
                     hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
                     hatchArmMoveState = HatchArmMoveStates.VERT_TO_INSIDE;
-                } else if (moveLimitSwitches.isFwdLimitSwitchClosed()) { // This is redundant and is only used in case the midswitch fails or, the more likely possibility, someone forgets to start the robot with the hatch arm in the inside position.  Stop moving when the floor state has been reached
+                } else if (floorSwitch) { // This is redundant and is only used in case the midswitch fails or, the more likely possibility, someone forgets to start the robot with the hatch arm in the inside position.  Stop moving when the floor state has been reached
                     hatchArmMoveMotor.set(0);
                     hatchArmMoveState = HatchArmMoveStates.FLOOR; 
                 }
                 break;
             case VERT_TO_FLOOR:
-                if (moveLimitSwitches.isRevLimitSwitchClosed()) { // Stop moving when the floor state has been reached
+                if (initialSwitch) { // Stop moving when the floor state has been reached
                     hatchArmMoveMotor.set(0);
                     hatchArmMoveState = HatchArmMoveStates.FLOOR;
                 } else if (raiseHatchArmButton) { // Switch directions
@@ -137,7 +159,7 @@ public class HatchArm {
                 }
                 break;
             case VERT_TO_INSIDE:
-                if (moveLimitSwitches.isFwdLimitSwitchClosed()) { // Stop moving when the inside state has been reached
+                if (floorSwitch) { // Stop moving when the inside state has been reached
                     hatchArmMoveMotor.set(0);
                     hatchArmMoveState = HatchArmMoveStates.INSIDE;
                 } else if (lowerHatchArmButton) { // Switch directions

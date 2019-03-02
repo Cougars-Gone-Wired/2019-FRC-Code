@@ -221,7 +221,7 @@ public class Logging extends Object{
 
             // logValues.append(d).append(leftHatchUltrasonic.getImperialUltrasonicValue());
             // logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
-            // //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
+            //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
             
             //HatchArm
             logValues.append(d).append(hatchArm.getHatchArmMoveMotorVoltage());
