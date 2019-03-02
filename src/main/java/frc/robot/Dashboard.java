@@ -3,8 +3,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Dashboard {
-    private Drive drive;
     private Controllers controllers;
+    private Drive drive;
     private HatchArm hatchArm;
     private CargoManip cargoManip;
     private Lift lift;
@@ -12,20 +12,23 @@ public class Dashboard {
     public int refreshCount = 0;
 
     public Dashboard(Robot robot) {
-        drive = robot.getDrive();
         controllers = robot.getControllers();
+        drive = robot.getDrive();
         hatchArm = robot.getHatchArm();
         cargoManip = robot.getCargoManip();
         lift = robot.getLift();
     }
 
-    public void showDisabledValues() {
-        refreshDashboard();
-        
-    }
-
+    
     public void showEnabledValues() {
         drive.showDashboard();
+        hatchArm.displayValues();
+        cargoManip.sensorLight();
+    }
+
+    public void showDisabledValues() {
+        refreshDashboard();
+
     }
 
     public void refreshDashboard() {
