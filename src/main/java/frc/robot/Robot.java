@@ -131,6 +131,8 @@ public class Robot extends TimedRobot {
     //leftHatchUltrasonic.displayValues("Left Ultrasonic");
     //rightHatchUltrasonic.displayValues("Right Ultrasonic");
 
+    dashboard.showEnabledValues();
+
     //The Loggers chopping down trees
     logging.collectData();
   }
@@ -189,6 +191,8 @@ public class Robot extends TimedRobot {
     //leftHatchUltrasonic.displayValues("Left Ultrasonic");
     //rightHatchUltrasonic.displayValues("Right Ultrasonic");
 
+    dashboard.showEnabledValues();
+
     //The Loggers chopping down trees
     logging.collectData();
   }
@@ -216,9 +220,10 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     //drive.refreshDashboard();
+    dashboard.refreshDashboard();
     setSide(SmartDashboard.getBoolean("StartCargoSide", true));
     controllers.setDriveToggle();
-    drive.showDashboard();
+
   }
 
 
