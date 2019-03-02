@@ -95,7 +95,22 @@ public class CargoManip {
             armMoveManual(armAxis);
             destinationState = DestinationStates.INDEXED_DESTINATION_STATES[locationState.ordinal()];
         } else {
-            switch (destinationState) {
+            if (floorButton && !cargoShipButton && !rocketButton && !topButton) {
+                destinationState = DestinationStates.TO_FLOOR;
+            } else if (cargoShipButton && !floorButton && !rocketButton && !topButton) {
+                destinationState = DestinationStates.TO_SHIP;
+            } else if (rocketButton && !floorButton && !cargoShipButton && !topButton) {
+                destinationState = DestinationStates.TO_ROCKET;
+            } else if (topButton && !floorButton && !cargoShipButton && !rocketButton) {
+                destinationState = DestinationStates.TO_TOP;
+            }
+            switch (movementState) {
+                case NOT_MOVING:
+                    break;
+                case MOVING_TOWARDS_FLOOR:
+                    break;
+                case MOVING_TOWARDS_TOP:
+                    break;
             }
         }
     }
