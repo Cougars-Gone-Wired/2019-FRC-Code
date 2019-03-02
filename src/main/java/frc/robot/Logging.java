@@ -65,7 +65,7 @@ public class Logging extends Object{
     }
 
     public void disabledInitialize() {
-        loggingSave = SmartDashboard.getBoolean("Save Logger", false);
+        //loggingSave = SmartDashboard.getBoolean("Save Logger", false);
         if(loggingStart) {
             loggingStart = false;
         }
