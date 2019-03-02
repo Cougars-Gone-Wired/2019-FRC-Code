@@ -14,11 +14,11 @@ public class CargoManip {
     }
     
     public enum LocationStates {
-        AT_TOP, BETWEEN_TOP_AND_ROCKET, AT_ROCKET, BETWEEN_ROCKET_AND_SHIP, AT_SHIP, BETWEEN_SHIP_AND_FLOOR, AT_FLOOR
+        AT_FLOOR, BETWEEN_SHIP_AND_FLOOR, AT_SHIP, BETWEEN_ROCKET_AND_SHIP, AT_ROCKET, BETWEEN_TOP_AND_ROCKET, AT_TOP
     }
 
     public enum DestinationStates {
-        TO_TOP, TO_ROCKET, TO_SHIP, TO_FLOOR
+        TO_FLOOR, TO_BETWEEN_SHIP_AND_FLOOR, TO_SHIP, TO_BETWEEN_ROCKET_AND_SHIP, AT_ROCKET, TO_ROCKET, TO_BETWEEN_TOP_AND_ROCKET, TO_TOP
     }
 
     public enum IntakeStates {
@@ -43,7 +43,7 @@ public class CargoManip {
     private DigitalInput limitSwitchCargoShip;
     private DigitalInput limitSwitchRocket;
 
-    private double speed; // To be used and is explained in the armMove() method
+    private double manualSpeed; // To be used and is explained in the armMove() method
 
     // A bunch of variables that make very complicated boolean logic easier to call upon in the armMove() method
     private boolean topSwitch; 
@@ -83,20 +83,17 @@ public class CargoManip {
 
     //move the arm using a joystick
     public void armMoveManual(double armAxis) {
-        speed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
+        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
 
-        topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
-        rocketSwitch = !limitSwitchCargoShip.get();
-        cargoShipSwitch = !limitSwitchRocket.get();
-        floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
+        trackLocation();
 
         switch (movementState) {
             case MOVING_TOWARDS_TOP:
-                if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isFwdLimitSwitchClosed()) {
+                if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || topSwitch) {
                     armMotor.set(0);
                     movementState = MovementStates.NOT_MOVING;
                 } else {
-                    armMotor.set(speed);
+                    armMotor.set(manualSpeed);
                 }
                 break;
             case MOVING_TOWARDS_FLOOR:
@@ -104,30 +101,32 @@ public class CargoManip {
                     armMotor.set(0);
                     movementState = MovementStates.NOT_MOVING;
                 } else {
-                    armMotor.set(speed);
+                    armMotor.set(manualSpeed);
                 }
                 break;
             case NOT_MOVING:
                 if (armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
-                    armMotor.set(speed);
+                    armMotor.set(manualSpeed);
                     movementState = MovementStates.MOVING_TOWARDS_TOP;
                 } else if (armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
-                    armMotor.set(speed);
+                    armMotor.set(manualSpeed);
                     movementState = MovementStates.MOVING_TOWARDS_FLOOR;
                 }
                 break;
         }
     }
 
-    public void armMove(boolean topButton, boolean rocketButton, boolean cargoShipButton, boolean floorButton) {
-        speed = Constants.CARGO_ARM_MOVE_SPEED; // Sets speed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
+    public void armMove(double armAxis, boolean topButton, boolean rocketButton, boolean cargoShipButton, boolean floorButton) {
+        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED; // Sets manualSpeed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
+        buttonSpeed = Constants.CARGO_ARM_MOVE_SPEED;
 
-        topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
-        rocketSwitch = !limitSwitchCargoShip.get();
-        cargoShipSwitch = !limitSwitchRocket.get();
-        floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
+        trackLocation();
 
-        switch (destinationState) {
+        if (abs) {
+
+        } else {
+            switch (destinationState) {
+            }
         }
     }
 
@@ -138,6 +137,67 @@ public class CargoManip {
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
 
         switch (locationState) {
+            case BETWEEN_TOP_AND_ROCKET:
+            case BETWEEN_SHIP_AND_FLOOR:
+            case BETWEEN_ROCKET_AND_SHIP:
+                if (topSwitch) {
+                    locationState = LocationStates.AT_TOP;
+                } else if (rocketSwitch) {
+                    locationState = LocationStates.AT_ROCKET;
+                } else if (cargoShipSwitch) {
+                    locationState = LocationStates.AT_SHIP;
+                } else if (floorSwitch) {
+                    locationState = LocationStates.AT_FLOOR;
+                }
+                break;
+            case AT_TOP:
+                if (!topSwitch) {
+                    locationState = LocationStates.BETWEEN_TOP_AND_ROCKET;
+                } else if (rocketSwitch) {
+                    locationState = LocationStates.AT_ROCKET;
+                } else if (cargoShipSwitch) {
+                    locationState = LocationStates.AT_SHIP;
+                } else if (floorSwitch) {
+                    locationState = LocationStates.AT_FLOOR;
+                }
+                break;
+            case AT_ROCKET:
+                if (!rocketSwitch && movementState == MovementStates.MOVING_TOWARDS_FLOOR) {
+                    locationState = LocationStates.BETWEEN_ROCKET_AND_SHIP;
+                } if (!rocketSwitch && movementState == MovementStates.MOVING_TOWARDS_TOP) {
+                    locationState = LocationStates.BETWEEN_TOP_AND_ROCKET;
+                } else if (topSwitch) {
+                    locationState = LocationStates.AT_TOP;
+                } else if (cargoShipSwitch) {
+                    locationState = LocationStates.AT_SHIP;
+                } else if (floorSwitch) {
+                    locationState = LocationStates.AT_FLOOR;
+                }
+                break;
+            case AT_SHIP:
+                if (!cargoShipSwitch && movementState == MovementStates.MOVING_TOWARDS_FLOOR) {
+                    locationState = LocationStates.BETWEEN_SHIP_AND_FLOOR;
+                } if (!cargoShipSwitch && movementState == MovementStates.MOVING_TOWARDS_TOP) {
+                    locationState = LocationStates.BETWEEN_ROCKET_AND_SHIP;
+                } else if (topSwitch) {
+                    locationState = LocationStates.AT_TOP;
+                } else if (rocketSwitch) {
+                    locationState = LocationStates.AT_ROCKET;
+                } else if (floorSwitch) {
+                    locationState = LocationStates.AT_FLOOR;
+                }
+                break;
+            case AT_FLOOR:
+                if (!floorSwitch) {
+                    locationState = LocationStates.BETWEEN_ROCKET_AND_SHIP;
+                } else if (topSwitch) {
+                    locationState = LocationStates.AT_TOP;
+                } else if (rocketSwitch) {
+                    locationState = LocationStates.AT_ROCKET;
+                } else if (cargoShipSwitch) {
+                    locationState = LocationStates.AT_SHIP;
+                }
+                break;
         }
     }
 

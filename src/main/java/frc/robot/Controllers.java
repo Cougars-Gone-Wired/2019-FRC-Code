@@ -45,8 +45,7 @@ public class Controllers {
 	public Controllers() {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
 		mobilityStick = new Joystick(Constants.MOBILITY_CONTROLLER_PORT);
-
-		driveToggle= new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
+		driveToggle = new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		// ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
 		driveFineToggle = new Toggle(mobilityStick, Constants.DRIVE_FINE_BUTTON);
 	}
@@ -59,9 +58,12 @@ public class Controllers {
         hatchArmAxis = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS);
 
 		//Cargo
+
 		cargoArmAxis = -manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
+
 		cargoArmIntakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_INTAKE_AXIS);
 		cargoArmOuttakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_OUTTAKE_AXIS);
+
 		cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
 		cargoArmFloorButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_FLOOR_BUTTON);
 		cargoArmCargoShipButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_CARGO_SHIP_BUTTON);
