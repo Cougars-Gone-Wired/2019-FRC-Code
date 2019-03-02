@@ -90,17 +90,15 @@ public class CargoManip {
                 if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isFwdLimitSwitchClosed()) {
                     armMotor.set(0);
                     armStateM = ArmStatesManual.NOT_MOVING;
-                }
-                else {
-                    armMotor.set(armAxis);
+                } else {
+                    armMotor.set(speed);
                 }
                 break;
             case MOVING_DOWN:
                 if (armAxis > -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isRevLimitSwitchClosed()) {
                     armMotor.set(0);
                     armStateM = ArmStatesManual.NOT_MOVING;
-                }
-                else {
+                } else {
                     armMotor.set(speed);
                 }
                 break;
@@ -108,8 +106,7 @@ public class CargoManip {
                 if (armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
                     armMotor.set(speed);
                     armStateM = ArmStatesManual.MOVING_UP;
-                }
-                if (armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
+                } else if (armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
                     armMotor.set(speed);
                     armStateM = ArmStatesManual.MOVING_DOWN;
                 }

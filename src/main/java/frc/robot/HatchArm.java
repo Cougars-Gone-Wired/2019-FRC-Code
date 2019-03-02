@@ -60,6 +60,8 @@ public class HatchArm {
                 } else if (armAxis > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Switch Direction
                     hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_INITIAL;
+                } else {
+                    hatchArmMoveMotor.set(speed);
                 }
                 break;
             case MOVING_TOWARDS_INITIAL:
@@ -69,6 +71,8 @@ public class HatchArm {
                 } else if (armAxis < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Switch Direction
                     hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_FLOOR;
+                } else {
+                    hatchArmMoveMotor.set(speed);
                 }
                 break;
         }
