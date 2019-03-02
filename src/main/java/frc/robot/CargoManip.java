@@ -44,6 +44,7 @@ public class CargoManip {
     private DigitalInput limitSwitchRocket;
 
     private double manualSpeed; // To be used and is explained in the armMove() method
+    private double buttonSpeed;
 
     // A bunch of variables that make very complicated boolean logic easier to call upon in the armMove() method
     private boolean topSwitch; 
@@ -82,39 +83,6 @@ public class CargoManip {
     }
 
     //move the arm using a joystick
-    public void armMoveManual(double armAxis) {
-        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
-
-        trackLocation();
-
-        switch (movementState) {
-            case MOVING_TOWARDS_TOP:
-                if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || topSwitch) {
-                    armMotor.set(0);
-                    movementState = MovementStates.NOT_MOVING;
-                } else {
-                    armMotor.set(manualSpeed);
-                }
-                break;
-            case MOVING_TOWARDS_FLOOR:
-                if (armAxis > -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isRevLimitSwitchClosed()) {
-                    armMotor.set(0);
-                    movementState = MovementStates.NOT_MOVING;
-                } else {
-                    armMotor.set(manualSpeed);
-                }
-                break;
-            case NOT_MOVING:
-                if (armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
-                    armMotor.set(manualSpeed);
-                    movementState = MovementStates.MOVING_TOWARDS_TOP;
-                } else if (armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
-                    armMotor.set(manualSpeed);
-                    movementState = MovementStates.MOVING_TOWARDS_FLOOR;
-                }
-                break;
-        }
-    }
 
     public void armMove(double armAxis, boolean topButton, boolean rocketButton, boolean cargoShipButton, boolean floorButton) {
         manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED; // Sets manualSpeed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
@@ -122,7 +90,7 @@ public class CargoManip {
 
         trackLocation();
 
-        if (abs) {
+        if (Math.abs(armAxis) > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
 
         } else {
             switch (destinationState) {
@@ -196,6 +164,40 @@ public class CargoManip {
                     locationState = LocationStates.AT_ROCKET;
                 } else if (cargoShipSwitch) {
                     locationState = LocationStates.AT_SHIP;
+                }
+                break;
+        }
+    }
+
+    public void armMoveManual(double armAxis) {
+        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
+
+        trackLocation();
+
+        switch (movementState) {
+            case MOVING_TOWARDS_TOP:
+                if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || topSwitch) {
+                    armMotor.set(0);
+                    movementState = MovementStates.NOT_MOVING;
+                } else {
+                    armMotor.set(manualSpeed);
+                }
+                break;
+            case MOVING_TOWARDS_FLOOR:
+                if (armAxis > -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isRevLimitSwitchClosed()) {
+                    armMotor.set(0);
+                    movementState = MovementStates.NOT_MOVING;
+                } else {
+                    armMotor.set(manualSpeed);
+                }
+                break;
+            case NOT_MOVING:
+                if (armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
+                    armMotor.set(manualSpeed);
+                    movementState = MovementStates.MOVING_TOWARDS_TOP;
+                } else if (armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
+                    armMotor.set(manualSpeed);
+                    movementState = MovementStates.MOVING_TOWARDS_FLOOR;
                 }
                 break;
         }
