@@ -241,7 +241,7 @@ public class CargoManip {
         }
     }
 
-    public void sensorLight() {
+    public void showDashboard() {
         // encoderValue = armLimitSwitches.getQuadraturePosition();
         topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
         rocketSwitch = !limitSwitchRocket.get();
