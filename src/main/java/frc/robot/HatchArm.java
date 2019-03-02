@@ -51,12 +51,6 @@ public class HatchArm {
         verticalSwitch = !moveMidSwitch.get();
         initialSwitch = moveLimitSwitches.isRevLimitSwitchClosed();
 
-        // Trouble-shooting stuff
-        SmartDashboard.putString("Hatch Arm State", hatchArmMoveState.toString());
-        SmartDashboard.putBoolean("Hatch Arm Floor Position", floorSwitch);
-        SmartDashboard.putBoolean("Hatch Arm Vertical Position", verticalSwitch);
-        SmartDashboard.putBoolean("Hatch Arm Initial Position", initialSwitch);
-
         switch(hatchArmManualMoveState) {
             case NOT_MOVING:
                 if (armAxis > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Start moving towards the floor state
@@ -96,12 +90,6 @@ public class HatchArm {
         floorSwitch = moveLimitSwitches.isFwdLimitSwitchClosed();
         verticalSwitch = !moveMidSwitch.get();
         initialSwitch = moveLimitSwitches.isRevLimitSwitchClosed();
-       
-        // Trouble-shooting stuff
-        SmartDashboard.putString("Hatch Arm State", hatchArmMoveState.toString());
-        SmartDashboard.putBoolean("Hatch Arm Floor Position", floorSwitch);
-        SmartDashboard.putBoolean("Hatch Arm Vertical Position", verticalSwitch);
-        SmartDashboard.putBoolean("Hatch Arm Initial Position", initialSwitch);
 
         switch (hatchArmMoveState) {
             case INSIDE:
@@ -168,6 +156,12 @@ public class HatchArm {
                 }
                 break;
         }
+    }
+    
+    public void displayValues() {
+        SmartDashboard.putBoolean("Hatch Arm Floor Position", floorSwitch);
+        SmartDashboard.putBoolean("Hatch Arm Vertical Position", verticalSwitch);
+        SmartDashboard.putBoolean("Hatch Arm Initial Position", initialSwitch);
     }
 
     public double getHatchArmMoveMotorVoltage() {
