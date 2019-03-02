@@ -117,13 +117,13 @@ public class Drive {
     }
 
     public void robotDrive(double driveSpeedAxis, double driveTurnAxis) {
-        // if(SmartDashboard.getBoolean("PowerFactor", false)) {
-        //     driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.75;
-        //     driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.75;
-        // } else {
-        //     driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
-        //     driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
-        // }
+        /*if(SmartDashboard.getBoolean("PowerFactor", false)) {
+            driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.75;
+            driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.75;
+        } else {
+            driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
+            driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED;
+        }*/
         switch(fineMode) {
             case DRIVE_FINE:
                 driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.75;
@@ -152,9 +152,9 @@ public class Drive {
         
             case BACKING_UP:
                 if(encoders.getAverageDistanceInches() < Constants.DISTANCE_AT_LIFT) {
-                    robotDrive.curvatureDrive(1, 0, false);
+                    robotDrive.curvatureDrive(0.3, 0, false);
                 } else if (encoders.getAverageDistanceInches() > Constants.DISTANCE_AT_LIFT + 1) {
-                    robotDrive.curvatureDrive(-1, 0, false);
+                    robotDrive.curvatureDrive(-0.3, 0, false);
                 } else {
                     robotDrive.curvatureDrive(0, 0, false);
                     driveMode = DriveModes.DRIVE_STANDARD;
@@ -191,13 +191,13 @@ public class Drive {
             driveMode = lastSide;
         }
     }
-    // public void setMode(boolean switchMode) {
-    //     if(switchMode) {
-    //         driveMode = DriveModes.DRIVE_STANDARD;
-    //     } else {
-    //         driveMode = DriveModes.DRIVE_DETECT;
-    //     }
-    // }
+    /*public void setMode(boolean switchMode) {
+        if(switchMode) {
+            driveMode = DriveModes.DRIVE_STANDARD;
+        } else {
+            driveMode = DriveModes.DRIVE_DETECT;
+        }
+    }*/
 
     public void initialSide() {
         if(SmartDashboard.getBoolean("StartCargoSide", true)) {
@@ -207,19 +207,7 @@ public class Drive {
         }
     }
 
-    public void refreshDashboard() {
-        if(SmartDashboard.getBoolean("Refresh", false)) {
-            SmartDashboard.putBoolean("StartCargoSide", false);
-            SmartDashboard.putBoolean("PowerFactor", false);
-            SmartDashboard.putBoolean("Save Logger", false);
-        }
 
-        count++;
-        if(count >= 50) {
-            SmartDashboard.putBoolean("Refresh", false);
-            count = 0;
-        }
-    }
 
     public void backUpFromStairs() {
         driveMode = DriveModes.BACKING_UP;
@@ -234,7 +222,7 @@ public class Drive {
         //SmartDashboard.putNumber("Left Encoder", -leftSensors.getQuadraturePosition());
         //SmartDashboard.putNumber("Right Encoder", rightSensors.getQuadraturePosition());
 
-        ///Front Left Motor
+        //Front Left Motor
         //SmartDashboard.putNumber("FLVoltage", getFrontLeftMotorVoltage());
         //SmartDashboard.putNumber("FLCurrent", getFrontLeftMotorCurrent());
         //Front Right Motor
@@ -244,11 +232,11 @@ public class Drive {
         //SmartDashboard.putNumber("MLCurrent", getMidLeftMotorCurrent());
         
         //SmartDashboard.putNumber("MRCurrent", getMidRightMotorCurrent());
-        // //Back Left Motor
+        //Back Left Motor
         // SmartDashboard.putNumber("BLVoltage", getBackLeftMotorVoltage());
         //SmartDashboard.putNumber("BLCurrent", getBackLeftMotorCurrent());
 
-        // //Back Right Motor
+        //Back Right Motor
         // SmartDashboard.putNumber("BRVoltage", getBackRightMotorVoltage());
         //SmartDashboard.putNumber("BRCurrent", getBackRightMotorCurrent());
     }

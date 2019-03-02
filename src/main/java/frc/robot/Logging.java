@@ -54,7 +54,6 @@ public class Logging extends Object{
     }
 
     public void activeInitialize() {
-
         logger = Logger.getLogger(Logging.class.getName());
         logLength = 1000;
         logArray = new String[logLength];
@@ -81,6 +80,10 @@ public class Logging extends Object{
                 System.out.println("Failed to Save my Blood Sweat and Tears");
             }
         }
+    }
+
+    public void showDashboard() {
+        SmartDashboard.putBoolean("SaveLogger", false);
     }
 
     public void makeFile() throws IOException {
@@ -221,7 +224,7 @@ public class Logging extends Object{
 
             // logValues.append(d).append(leftHatchUltrasonic.getImperialUltrasonicValue());
             // logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
-            // //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
+            //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
             
             //HatchArm
             logValues.append(d).append(hatchArm.getHatchArmMoveMotorVoltage());

@@ -6,27 +6,27 @@ public class Constants {
 	static final int MANIPULATOR_CONTROLLER_PORT = 1;
 	static final int MID_SWITCH_PORT = 4;
 	static final int GRAB_SWITCH_PORT = 3;
-	//static final int CARGO_SHIP_SWITCH_PORT = 1; //
-	//static final int ROCKET_SWITCH_PORT = 2; //
-	static final int CARGO_SHIP_LIMIT_SWITCH_ID = 6; //
-	static final int ROCKET_LIMIT_SWITCH_ID = 5; //
+	//static final int CARGO_SHIP_SWITCH_PORT = 1;
+	//static final int ROCKET_SWITCH_PORT = 2;
+	static final int CARGO_SHIP_LIMIT_SWITCH_ID = 6;
+	static final int ROCKET_LIMIT_SWITCH_ID = 5;
 
-	static final int CARGO_ARM_AXIS = 5; //
+	static final int CARGO_ARM_AXIS = 5;
 	static final int HATCH_ARM_AXIS = 1;
-	static final int CARGO_INTAKE_AXIS = 2; //
-    static final int CARGO_OUTTAKE_AXIS = 3; //
-    static final int CARGO_ARM_TOP_BUTTON = 0; //
-    static final int CARGO_ARM_BOTTOM_BUTTON = 1; //
-    static final int CARGO_ARM_CARGO_SHIP_BUTTON = 3; //
-    static final int CARGO_ARM_ROCKET_BUTTON = 2; //
+	static final int CARGO_INTAKE_AXIS = 2;
+    static final int CARGO_OUTTAKE_AXIS = 3;
+    static final int CARGO_ARM_TOP_BUTTON = 4;
+	static final int CARGO_ARM_ROCKET_BUTTON = 2;
+	static final int CARGO_ARM_CARGO_SHIP_BUTTON = 3;
+	static final int CARGO_ARM_FLOOR_BUTTON = 1;
 
     static final int HATCH_ARM_MOVE_MOTOR_ID = 8;
-	static final int CARGO_ARM_MOTOR_ID = 10; //
-    static final int CARGO_INTAKE_MOTOR_ID = 11; //
+	static final int CARGO_ARM_MOTOR_ID = 10;
+    static final int CARGO_INTAKE_MOTOR_ID = 11;
 
     static final double HATCH_ARM_MOVE_SPEED = 0.5;
-	static final double CARGO_ARM_MOVE_SPEED = 0.5; //
-	static final double CARGO_ARM_INTAKE_SPEED = 1.00; //
+	static final double CARGO_ARM_MOVE_SPEED = 0.5;
+	static final double CARGO_ARM_INTAKE_SPEED = 1.00;
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.15;
 	static final double CARGO_ARM_MOVE_AXIS_THRESHHOLD = 0.15;

@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
   //private Ultrasonic leftHatchUltrasonic;
   //private Ultrasonic rightHatchUltrasonic;
 
+  private Dashboard dashboard;
   private Logging logging;
 
   /**
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot {
     //leftHatchUltrasonic = new Ultrasonic(Constants.LEFT_HATCH_ULTRASONIC_SENSOR_PORT);
     //rightHatchUltrasonic = new Ultrasonic(Constants.RIGHT_HATCH_ULTRASONIC_SENSOR_PORT);
 
+    dashboard = new Dashboard(this);
     logging = new Logging(this);  
     logging.activeInitialize();
   }
@@ -68,7 +70,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    drive.refreshDashboard();
+    //drive.refreshDashboard();
+    dashboard.refreshDashboard();
   }
 
   /**
@@ -109,7 +112,7 @@ public class Robot extends TimedRobot {
     controllers.setControllerValues();
     setSide(controllers.getDriveToggleValue());
 
-    //cargoManip.armMove(controllers.getCargoArmAxis());
+    //cargoManip.armMove(controllers.getCargoArmAxis(), controllers.getCargoArmTopButton(), controllers.getCargoArmRocketButton(), controllers.getCargoArmCargoShipButton(), controllers.getCargoArmFloorButton());
     cargoManip.armMoveManual(controllers.getCargoArmAxis());
     cargoManip.intakeMove(controllers.getCargoArmIntakeAxis(), controllers.getCargoArmOuttakeAxis());
     cargoManip.sensorLight();
@@ -118,7 +121,7 @@ public class Robot extends TimedRobot {
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.setFine(controllers.getDriveFineToggleValue());
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
-    drive.showDashboard();
+    //drive.showDashboard();
 
     hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
     // hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
@@ -163,7 +166,7 @@ public class Robot extends TimedRobot {
     controllers.setControllerValues();
     setSide(controllers.getDriveToggleValue());
 
-    //cargoManip.armMove(controllers.getCargoArmAxis());
+    //cargoManip.armMove(controllers.getCargoArmAxis(), controllers.getCargoArmTopButton(), controllers.getCargoArmRocketButton(), controllers.getCargoArmCargoShipButton(), controllers.getCargoArmFloorButton());
     cargoManip.armMoveManual(controllers.getCargoArmAxis());
     cargoManip.intakeMove(controllers.getCargoArmIntakeAxis(), controllers.getCargoArmOuttakeAxis());
     cargoManip.sensorLight();
@@ -171,7 +174,7 @@ public class Robot extends TimedRobot {
     //drive.setMode(controllers.getUltrasonicToggleValue());
     drive.setFine(controllers.getDriveFineToggleValue());
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
-    drive.showDashboard();
+    //drive.showDashboard();
 
     hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
     // hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
@@ -241,6 +244,10 @@ public class Robot extends TimedRobot {
     return cargoManip;
   }
 
+
+  public Lift getLift() {
+    return lift;
+
   // public Ultrasonic getLeftHatchUltrasonic() {
   //   return leftHatchUltrasonic;
   // }
@@ -257,7 +264,5 @@ public class Robot extends TimedRobot {
   //   return rightHatchUltrasonic.getImperialUltrasonicValue();
   // }
 
-  public Lift getLift() {
-    return lift;
   }
 }
