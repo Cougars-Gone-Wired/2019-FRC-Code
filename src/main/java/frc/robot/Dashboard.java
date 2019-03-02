@@ -20,7 +20,7 @@ public class Dashboard {
     public void showEnabledValues() {
         drive.showDashboard();
         hatchArm.displayValues();
-        cargoManip.sensorLight();
+        cargoManip.showDashboard();
         lift.isReadyToBackUpFromStairs();
         lift.isTopLimit();
         logging.showDashboard();
