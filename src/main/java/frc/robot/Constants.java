@@ -28,8 +28,8 @@ public class Constants {
 	static final double CARGO_ARM_MOVE_SPEED = 0.5; //
 	static final double CARGO_ARM_INTAKE_SPEED = 1.00; //
 
-	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.8;
-	static final double CARGO_ARM_MOVE_AXIS_THRESHHOLD = 0.3;
+	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.15;
+	static final double CARGO_ARM_MOVE_AXIS_THRESHHOLD = 0.15;
 	static final int CARGO_SHIP_ENCODER_VALUE_GOAL = 60; //In degrees
     static final int ROCKET_ENCODER_VALUE_GOAL = 40; //In degrees
 

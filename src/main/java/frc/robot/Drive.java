@@ -39,7 +39,7 @@ public class Drive {
     private SensorCollection rightSensors;
 
     private Encoders encoders;
-    private double count;
+    public double count;
 
 
     /**

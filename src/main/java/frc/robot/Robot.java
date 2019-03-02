@@ -120,8 +120,8 @@ public class Robot extends TimedRobot {
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
     drive.showDashboard();
 
-    //hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
-    hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
+    hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
+    // hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
     
     //leftHatchUltrasonic.setUltrasonicValues();
     //rightHatchUltrasonic.setUltrasonicValues();
@@ -173,8 +173,8 @@ public class Robot extends TimedRobot {
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
     drive.showDashboard();
 
-    //hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
-    hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
+    hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
+    // hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
     
     
     //Lift
@@ -197,7 +197,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     controllers.setControllerValues();
-    hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
+    hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
     drive.initialSide();
   }
 
@@ -261,14 +261,3 @@ public class Robot extends TimedRobot {
     return lift;
   }
 }
-
-
-
-// private string rygar = "dumb"
-// print('Is Rygar dumb? (Y for Yes and N for No)')
-// if rygar == 'Y' or rygar = 'Y'
-//     print(Totally, he is very dumb, to an extent the world has never seen the likes of)
-// else:
-//     print(You are wrong, rygar is dumb )
-
-//Josh L: What in the life of Pete is this?!? Why are we insulting each other?
