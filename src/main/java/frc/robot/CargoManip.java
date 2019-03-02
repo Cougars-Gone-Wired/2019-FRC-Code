@@ -53,7 +53,7 @@ public class CargoManip {
     private boolean isAxisUp;
     private boolean isAxisDown;
 
-    private int encoderValue;
+    //private int encoderValue;
 
     public CargoManip() {
         armMotor = new WPI_TalonSRX(Constants.CARGO_ARM_MOTOR_ID);
@@ -69,7 +69,7 @@ public class CargoManip {
         //cargoShipLimitSwitch = true;
         //rocketLimitSwitch = true;
         armLimitSwitches.setQuadraturePosition(0, 0);
-        encoderValue = armLimitSwitches.getQuadraturePosition();
+        //encoderValue = armLimitSwitches.getQuadraturePosition();
         initialize();
     }
     
