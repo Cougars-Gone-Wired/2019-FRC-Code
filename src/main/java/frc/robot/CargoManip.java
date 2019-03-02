@@ -138,8 +138,8 @@ public class CargoManip {
 
     public void trackLocation() {
         topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
-        rocketSwitch = !limitSwitchCargoShip.get();
-        cargoShipSwitch = !limitSwitchRocket.get();
+        rocketSwitch = !limitSwitchRocket.get();
+        cargoShipSwitch = !limitSwitchCargoShip.get();
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
 
         switch (locationState) {
@@ -244,8 +244,8 @@ public class CargoManip {
     public void sensorLight() {
         // encoderValue = armLimitSwitches.getQuadraturePosition();
         topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
-        rocketSwitch = !limitSwitchCargoShip.get();
-        cargoShipSwitch = !limitSwitchRocket.get();
+        rocketSwitch = !limitSwitchRocket.get();
+        cargoShipSwitch = !limitSwitchCargoShip.get();
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
         SmartDashboard.putBoolean("Cargo Arm Top Position", topSwitch);
         SmartDashboard.putBoolean("Cargo Arm Floor Position", floorSwitch);
