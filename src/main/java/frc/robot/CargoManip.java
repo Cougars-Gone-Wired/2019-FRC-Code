@@ -50,8 +50,6 @@ public class CargoManip {
     private boolean rocketSwitch;
     private boolean cargoShipSwitch;
     private boolean floorSwitch;
-    private boolean isAxisUp;
-    private boolean isAxisDown;
 
     private int encoderValue;
 
@@ -117,113 +115,34 @@ public class CargoManip {
         }
     }
 
-    public void armMove(double armAxis) {
-        speed = armAxis * Constants.CARGO_ARM_MOVE_SPEED; // Sets speed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
+    public void armMove(boolean topButton, boolean rocketButton, boolean cargoShipButton, boolean floorButton) {
+        speed = Constants.CARGO_ARM_MOVE_SPEED; // Sets speed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
 
         topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
         rocketSwitch = !limitSwitchCargoShip.get();
         cargoShipSwitch = !limitSwitchRocket.get();
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
 
-        isAxisUp = armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD;
-        isAxisDown = armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD;
-
         switch (armState) {
             case FLOOR:
-                if (isAxisUp) {
-                    armMotor.set(speed);
-                    armState = ArmStates.FLOOR_TO_CARGO_SHIP;
-                }
                 break;
             case CARGO_SHIP:
-                if (isAxisUp && !isAxisDown) {
-                    armMotor.set(speed);
-                    armState = ArmStates.CARGO_SHIP_TO_ROCKET;
-                } else if (isAxisDown && !isAxisUp) {
-                    armMotor.set(speed);
-                    armState = ArmStates.CARGO_SHIP_TO_FLOOR;
-                }
                 break;
             case ROCKET:
-                if (isAxisUp && !isAxisDown) {
-                    armMotor.set(speed);
-                    armState = ArmStates.ROCKET_TO_TOP;
-                } else if (isAxisDown && !isAxisUp) {
-                    armMotor.set(speed);
-                    armState = ArmStates.ROCKET_TO_CARGO_SHIP;
-                }
                 break;
             case TOP:
-                if (isAxisDown) {
-                    armMotor.set(speed);
-                    armState = ArmStates.TOP_TO_ROCKET;
-                }
                 break;
             case FLOOR_TO_CARGO_SHIP:
-                if (topSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.TOP;
-                } else if (isAxisDown && !isAxisUp) {
-                    armMotor.set(speed);
-                    armState = ArmStates.CARGO_SHIP_TO_FLOOR;
-                } else if (cargoShipSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.CARGO_SHIP;
-                }
                 break;
             case CARGO_SHIP_TO_ROCKET:
-                if (topSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.TOP;
-                } else if (isAxisDown && !isAxisUp) {
-                    armMotor.set(speed);
-                    armState = ArmStates.ROCKET_TO_CARGO_SHIP;
-                } else if (rocketSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.ROCKET;
-                }
                 break;
             case ROCKET_TO_TOP:
-                if (topSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.TOP;
-                } else if (isAxisDown && !isAxisUp) {
-                    armMotor.set(speed);
-                    armState = ArmStates.TOP_TO_ROCKET;
-                }
                 break;
             case CARGO_SHIP_TO_FLOOR:
-                if (floorSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.FLOOR;
-                } else if (isAxisUp && !isAxisDown) {
-                    armMotor.set(speed);
-                    armState = ArmStates.FLOOR_TO_CARGO_SHIP;
-                }
                 break;
             case ROCKET_TO_CARGO_SHIP:
-                if (floorSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.FLOOR;
-                } else if (isAxisUp && !isAxisDown) {
-                    armMotor.set(speed);
-                    armState = ArmStates.CARGO_SHIP_TO_ROCKET;
-                } else if (cargoShipSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.CARGO_SHIP;
-                }
                 break;
             case TOP_TO_ROCKET:
-                if (floorSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.FLOOR;
-                } else if (isAxisUp && !isAxisDown) {
-                    armMotor.set(speed);
-                    armState = ArmStates.ROCKET_TO_TOP;
-                } else if (rocketSwitch) {
-                    armMotor.set(0);
-                    armState = ArmStates.ROCKET;
-                }
                 break;
         }
     }
