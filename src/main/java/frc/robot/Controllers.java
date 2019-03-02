@@ -13,10 +13,8 @@ public class Controllers {
 	
 	private boolean hatchArmSchemeButton;
 	
-    private boolean lowerHatchArmButton;
-	private boolean raiseHatchArmButton; 
-
-
+	private double hatchArmAxis;
+	
 	//Cargo
 	private double cargoArmAxis;
 
@@ -58,8 +56,7 @@ public class Controllers {
 		//Hatch Arm
 		dPad = manipulatorStick.getPOV();
 
-        raiseHatchArmButton = -manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
-        lowerHatchArmButton = -manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS) < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD;
+        hatchArmAxis = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS);
 
 		//Cargo
 		cargoArmAxis = -manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
@@ -101,12 +98,8 @@ public class Controllers {
         return hatchArmSchemeButton;
     }
 
-    public boolean getLowerHatchArmButton() {
-        return lowerHatchArmButton;
-    }
-    
-    public boolean getRaiseHatchArmButton() {
-        return raiseHatchArmButton;
+    public double getHatchArmAxis() {
+        return hatchArmAxis;
     }
 
 		//Cargo

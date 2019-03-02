@@ -84,11 +84,11 @@ public class CargoManip {
 
     //move the arm using a joystick
     public void armMoveManual(double armAxis) {
-        double speed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
+        speed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
         switch (armStateM) {
             case MOVING_UP:
                 if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isFwdLimitSwitchClosed()) {
-                    armMotor.set(speed);
+                    armMotor.set(0);
                     armStateM = ArmStatesManual.NOT_MOVING;
                 }
                 else {
@@ -97,7 +97,7 @@ public class CargoManip {
                 break;
             case MOVING_DOWN:
                 if (armAxis > -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isRevLimitSwitchClosed()) {
-                    armMotor.set(speed);
+                    armMotor.set(0);
                     armStateM = ArmStatesManual.NOT_MOVING;
                 }
                 else {

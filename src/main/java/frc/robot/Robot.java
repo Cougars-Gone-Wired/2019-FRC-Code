@@ -120,8 +120,8 @@ public class Robot extends TimedRobot {
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
     drive.showDashboard();
 
-    //hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
-    hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
+    hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
+    // hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
     
     //leftHatchUltrasonic.setUltrasonicValues();
     //rightHatchUltrasonic.setUltrasonicValues();
@@ -173,8 +173,8 @@ public class Robot extends TimedRobot {
     drive.robotDrive(controllers.getDriveSpeedAxis(), controllers.getDriveTurnAxis());
     drive.showDashboard();
 
-    //hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers. getRaiseHatchArmButton());
-    hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
+    hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
+    // hatchArm.hatchArmMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
     
     
     //Lift
@@ -197,7 +197,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     controllers.setControllerValues();
-    hatchArm.hatchArmManualMove(controllers.getLowerHatchArmButton(), controllers.getRaiseHatchArmButton());
+    hatchArm.hatchArmManualMove(controllers.getHatchArmAxis());
     drive.initialSide();
   }
 

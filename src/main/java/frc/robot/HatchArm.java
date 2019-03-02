@@ -23,6 +23,7 @@ public class HatchArm {
     private SensorCollection moveLimitSwitches;
     private DigitalInput moveMidSwitch;
     private boolean moveMidSwitchValue;
+    private double speed;
 
     public HatchArm() {
         hatchArmMoveMotor = new WPI_TalonSRX(Constants.HATCH_ARM_MOVE_MOTOR_ID);
@@ -40,32 +41,33 @@ public class HatchArm {
         hatchArmMoveState = HatchArmMoveStates.INSIDE;
     }
 
-    public void hatchArmManualMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) { // This is for testing and for setting the hatch arm to the inside state before match
+    public void hatchArmManualMove(double armAxis) { // This is for testing and for setting the hatch arm to the inside state before match
+        speed = armAxis * Constants.HATCH_ARM_MOVE_SPEED;
         switch(hatchArmManualMoveState) {
             case NOT_MOVING:
-                if (lowerHatchArmButton && !raiseHatchArmButton) { // Start moving towards the floor state
-                    hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
+                if (armAxis > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Start moving towards the floor state
+                    hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_FLOOR;
-                } else if (raiseHatchArmButton && !lowerHatchArmButton) { // Start moving towards the initial state
-                    hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
+                } else if (armAxis < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Start moving towards the initial state
+                    hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_INITIAL;
                 }
                 break;
             case MOVING_TOWARDS_FLOOR:
-                if ((!lowerHatchArmButton && !raiseHatchArmButton) || moveLimitSwitches.isRevLimitSwitchClosed()) { // Stop
+                if (((-Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD < armAxis) && (armAxis < Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD)) || moveLimitSwitches.isRevLimitSwitchClosed()) { // Stop
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
-                } else if (raiseHatchArmButton) { // Switch Direction
-                    hatchArmMoveMotor.set(-Constants.HATCH_ARM_MOVE_SPEED);
+                } else if (armAxis > Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Switch Direction
+                    hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_INITIAL;
                 }
                 break;
             case MOVING_TOWARDS_INITIAL:
-                if ((!lowerHatchArmButton && !raiseHatchArmButton) || moveLimitSwitches.isFwdLimitSwitchClosed()) { // Stop
+                if (((-Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD < armAxis) && (armAxis < Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD)) || moveLimitSwitches.isRevLimitSwitchClosed()) { // Stop
                     hatchArmMoveMotor.set(0);
                     hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
-                } else if (lowerHatchArmButton) { // Switch Direction
-                    hatchArmMoveMotor.set(Constants.HATCH_ARM_MOVE_SPEED);
+                } else if (armAxis < -Constants.HATCH_ARM_MOVE_AXIS_THRESHHOLD) { // Switch Direction
+                    hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_FLOOR;
                 }
                 break;
