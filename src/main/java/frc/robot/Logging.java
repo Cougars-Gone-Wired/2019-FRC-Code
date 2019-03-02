@@ -82,6 +82,10 @@ public class Logging extends Object{
         }
     }
 
+    public void showDashboard() {
+        SmartDashboard.putBoolean("SaveLogger", false);
+    }
+
     public void makeFile() throws IOException {
         file = new File("/home/lvuser/" + "log-" + fileTimeStamp + ".csv");
         file.createNewFile();

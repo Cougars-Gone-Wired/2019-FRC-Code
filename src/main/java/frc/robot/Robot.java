@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
   //private Ultrasonic leftHatchUltrasonic;
   //private Ultrasonic rightHatchUltrasonic;
 
+  private Dashboard dashboard;
   private Logging logging;
 
   /**
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot {
     //leftHatchUltrasonic = new Ultrasonic(Constants.LEFT_HATCH_ULTRASONIC_SENSOR_PORT);
     //rightHatchUltrasonic = new Ultrasonic(Constants.RIGHT_HATCH_ULTRASONIC_SENSOR_PORT);
 
+    dashboard = new Dashboard(this);
     logging = new Logging(this);  
     logging.activeInitialize();
   }
@@ -69,6 +71,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     //drive.refreshDashboard();
+    dashboard.refreshDashboard();
   }
 
   /**
@@ -241,6 +244,10 @@ public class Robot extends TimedRobot {
     return cargoManip;
   }
 
+
+  public Lift getLift() {
+    return lift;
+
   // public Ultrasonic getLeftHatchUltrasonic() {
   //   return leftHatchUltrasonic;
   // }
@@ -257,7 +264,5 @@ public class Robot extends TimedRobot {
   //   return rightHatchUltrasonic.getImperialUltrasonicValue();
   // }
 
-  public Lift getLift() {
-    return lift;
   }
 }

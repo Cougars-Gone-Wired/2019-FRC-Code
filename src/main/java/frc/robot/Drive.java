@@ -207,19 +207,7 @@ public class Drive {
         }
     }
 
-    public void refreshDashboard() {
-        if(SmartDashboard.getBoolean("Refresh", false)) {
-            SmartDashboard.putBoolean("StartCargoSide", false);
-            SmartDashboard.putBoolean("PowerFactor", false);
-            SmartDashboard.putBoolean("Save Logger", false);
-        }
 
-        count++;
-        if(count >= 50) {
-            SmartDashboard.putBoolean("Refresh", false);
-            count = 0;
-        }
-    }
 
     public void backUpFromStairs() {
         driveMode = DriveModes.BACKING_UP;
