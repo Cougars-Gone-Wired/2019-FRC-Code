@@ -369,7 +369,6 @@ public class CargoManip {
             SmartDashboard.putBoolean("Moving", false);
         }*/
         //This is a useless switch statement. I kept it just in case
-        // From Jake: I kinda messed up the switches, don't be angry pls.
         /*switch (limitSwitchState) {
             case TOP_LIMIT:
             if (!topLimitSwitch && !bottomLimitSwitch) {
