@@ -406,8 +406,10 @@ public class CargoManip {
 
     public void sensorLight() {
         // encoderValue = armLimitSwitches.getQuadraturePosition();
-        //cargoShipLimitSwitch = !limitSwitchCargoShip.get();
-        //rocketLimitSwitch = !limitSwitchRocket.get();
+        topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
+        rocketSwitch = !limitSwitchCargoShip.get();
+        cargoShipSwitch = !limitSwitchRocket.get();
+        floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
         SmartDashboard.putBoolean("Cargo Arm Top Position", topSwitch);
         SmartDashboard.putBoolean("Cargo Arm Floor Position", floorSwitch);
         SmartDashboard.putBoolean("Cargo Arm Cargo Ship Position", cargoShipSwitch);
