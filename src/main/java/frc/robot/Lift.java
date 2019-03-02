@@ -18,6 +18,7 @@ public class Lift {
     private WPI_TalonSRX frontLiftMotor;
     private WPI_TalonSRX backLiftMotor;
     private SensorCollection limits;
+    private Boolean readyToBackUpFromStairs;
 
     //private Ultrasonic ultraLeft;
     //private Ultrasonic ultraRight;
@@ -36,6 +37,8 @@ public class Lift {
         backLiftMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
         limits = new SensorCollection(frontLiftMotor);
+
+        readyToBackUpFromStairs = false;
 
         //ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
         //ultraRight = new Ultrasonic(Constants.ULTRASONIC_HATCH_RIGHT_PORT);
@@ -67,6 +70,7 @@ public class Lift {
             case READY_TO_BACK_UP_FROM_STAIR:
                 if(liftWithdrawFromStairButton){
                     drive.backUpFromStairs();
+                    readyToBackUpFromStairs = true;
                     liftState = LiftStates.BACKING_UP_FROM_STAIR;
                 }
                 break;
@@ -84,6 +88,7 @@ public class Lift {
             case MOVING_IN:
                 //State: MOVING_IN -> STOP
                 if(!liftDeployButton || liftStopButton || limits.isFwdLimitSwitchClosed()){
+                    readyToBackUpFromStairs = false;
                     backLiftMotor.set(0);
                     frontLiftMotor.set(0);
                     liftState = LiftStates.STOP;
@@ -91,8 +96,6 @@ public class Lift {
                 break;
 
             case STOP:
-                mobilityStick.setRumble(RumbleType.kLeftRumble, 0);
-                mobilityStick.setRumble(RumbleType.kRightRumble, 0);
                 if(liftDeployButton && !limits.isFwdLimitSwitchClosed() && !liftStopButton){
                 //State: STOP -> MOVING_IN
                     frontLiftMotor.set(Constants.LIFT_SPEED);
@@ -110,6 +113,7 @@ public class Lift {
             case MOVING_OUT:
                 //State: MOVING_OUT -> STOP
                 if(!liftRetractButton || liftStopButton || limits.isRevLimitSwitchClosed()){
+                    readyToBackUpFromStairs = false;
                     frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     liftState = LiftStates.STOP;
@@ -266,5 +270,13 @@ public class Lift {
 
     public double getBackLiftMotorCurrent() {
         return backLiftMotor.getOutputCurrent();
+    }
+
+    public boolean isReadyToBackUpFromStairs(){
+        return readyToBackUpFromStairs;
+    }
+
+    public boolean isTopLimit(){
+        return limits.isRevLimitSwitchClosed();
     }
 }
