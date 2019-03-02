@@ -83,6 +83,12 @@ public class CargoManip {
     //move the arm using a joystick
     public void armMoveManual(double armAxis) {
         speed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
+
+        topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
+        rocketSwitch = !limitSwitchCargoShip.get();
+        cargoShipSwitch = !limitSwitchRocket.get();
+        floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
+
         switch (armStateM) {
             case MOVING_UP:
                 if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isFwdLimitSwitchClosed()) {
@@ -349,10 +355,10 @@ public class CargoManip {
         // encoderValue = armLimitSwitches.getQuadraturePosition();
         //cargoShipLimitSwitch = !limitSwitchCargoShip.get();
         //rocketLimitSwitch = !limitSwitchRocket.get();
-        // SmartDashboard.putBoolean("Top Position", armState.equals(ArmStates.TOP));
-        // SmartDashboard.putBoolean("Bottom Position", armState.equals(ArmStates.BOTTOM));
-        SmartDashboard.putBoolean("Cargo Ship Position", limitSwitchCargoShip.get());
-        SmartDashboard.putBoolean("Rocket Position", limitSwitchRocket.get());
+        SmartDashboard.putBoolean("Cargo Arm Top Position", topSwitch);
+        SmartDashboard.putBoolean("Cargo Arm Floor Position", floorSwitch);
+        SmartDashboard.putBoolean("Cargo Arm Cargo Ship Position", cargoShipSwitch);
+        SmartDashboard.putBoolean("Cargo Arm Rocket Position", rocketSwitch);
         // SmartDashboard.putBoolean("Cargo Ship Position", armState.equals(ArmStates.CARGO_SHIP));
         // SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.ROCKET));
         // SmartDashboard.putNumber("Arm Encoder Value", encoderValue);
