@@ -249,9 +249,13 @@ public class Robot extends TimedRobot {
     return cargoManip;
   }
 
-
   public Lift getLift() {
     return lift;
+  }
+
+  public Logging getLogging() {
+    return logging;
+  }
 
   // public Ultrasonic getLeftHatchUltrasonic() {
   //   return leftHatchUltrasonic;
@@ -269,5 +273,4 @@ public class Robot extends TimedRobot {
   //   return rightHatchUltrasonic.getImperialUltrasonicValue();
   // }
 
-  }
 }
