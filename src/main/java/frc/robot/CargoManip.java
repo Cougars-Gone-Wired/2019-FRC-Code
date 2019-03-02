@@ -18,7 +18,8 @@ public class CargoManip {
     }
 
     public enum DestinationStates {
-        TO_FLOOR, TO_BETWEEN_SHIP_AND_FLOOR, TO_SHIP, TO_BETWEEN_ROCKET_AND_SHIP, AT_ROCKET, TO_ROCKET, TO_BETWEEN_TOP_AND_ROCKET, TO_TOP
+        TO_FLOOR, TO_BETWEEN_SHIP_AND_FLOOR, TO_SHIP, TO_BETWEEN_ROCKET_AND_SHIP, TO_ROCKET, TO_BETWEEN_TOP_AND_ROCKET, TO_TOP;
+        public static DestinationStates[] INDEXED_DESTINATION_STATES = new DestinationStates[] {TO_FLOOR, TO_BETWEEN_SHIP_AND_FLOOR, TO_SHIP, TO_BETWEEN_ROCKET_AND_SHIP, TO_ROCKET, TO_BETWEEN_TOP_AND_ROCKET, TO_TOP};
     }
 
     public enum IntakeStates {
@@ -26,7 +27,7 @@ public class CargoManip {
     }
 
     /*public enum LimitSwitchStates {
-        TOP_LIMIT, BOTTOM_LIMIT, CARGO_SHIP, ROCKET, NO_SWITCH
+        TOP_LIMIT, BOTTOM_LIMIT, CARGO_SHIP, AT_ROCKET, NO_SWITCH
     }*/
 
     private MovementStates movementState;
@@ -85,15 +86,53 @@ public class CargoManip {
     //move the arm using a joystick
 
     public void armMove(double armAxis, boolean topButton, boolean rocketButton, boolean cargoShipButton, boolean floorButton) {
-        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED; // Sets manualSpeed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
+        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
         buttonSpeed = Constants.CARGO_ARM_MOVE_SPEED;
 
         trackLocation();
 
         if (Math.abs(armAxis) > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
-
+            armMoveManual(armAxis);
+            destinationState = DestinationStates.INDEXED_DESTINATION_STATES[locationState.ordinal()];
         } else {
-            switch (destinationState) {
+            if (floorButton && !cargoShipButton && !rocketButton && !topButton) {
+                destinationState = DestinationStates.TO_FLOOR;
+            } else if (cargoShipButton && !floorButton && !rocketButton && !topButton) {
+                destinationState = DestinationStates.TO_SHIP;
+            } else if (rocketButton && !floorButton && !cargoShipButton && !topButton) {
+                destinationState = DestinationStates.TO_ROCKET;
+            } else if (topButton && !floorButton && !cargoShipButton && !rocketButton) {
+                destinationState = DestinationStates.TO_TOP;
+            }
+            
+            switch (movementState) {
+                case NOT_MOVING:
+                    if (destinationState.ordinal() > locationState.ordinal()) {
+                        armMotor.set(buttonSpeed);
+                        movementState = MovementStates.MOVING_TOWARDS_TOP;
+                    } else if (destinationState.ordinal() < locationState.ordinal()) {
+                        armMotor.set(-buttonSpeed);
+                        movementState = MovementStates.MOVING_TOWARDS_FLOOR;
+                    }
+                    break;
+                case MOVING_TOWARDS_FLOOR:
+                    if (destinationState.ordinal() == locationState.ordinal()) {
+                        armMotor.set(0);
+                        movementState = MovementStates.NOT_MOVING;
+                    } else if (destinationState.ordinal() > locationState.ordinal()) {
+                        armMotor.set(buttonSpeed);
+                        movementState = MovementStates.MOVING_TOWARDS_TOP;
+                    }
+                    break;
+                case MOVING_TOWARDS_TOP:
+                    if (destinationState.ordinal() == locationState.ordinal()) {
+                        armMotor.set(0);
+                        movementState = MovementStates.NOT_MOVING;
+                    } else if (destinationState.ordinal() < locationState.ordinal()) {
+                        armMotor.set(-buttonSpeed);
+                        movementState = MovementStates.MOVING_TOWARDS_FLOOR;
+                    }
+                    break;
             }
         }
     }
@@ -209,83 +248,83 @@ public class CargoManip {
         bottomLimitSwitch = armLimitSwitches.isRevLimitSwitchClosed();
         encoderValue = armLimitSwitches.getQuadraturePosition();
         switch (armState) {
-            case TOP:
+            case AT_TOP:
             if (bottomButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
+                armState = ArmStates.BOTTOM;
             }
             else if (rocketButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_ROCKET;
+                armState = ArmStates.AT_ROCKET;
             }
             else if (cargoShipButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_CARGO_SHIP;
+                armState = ArmStates.CARGO_SHIP;
             }
             break;
-            case ROCKET:
+            case AT_ROCKET:
             if (bottomButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
+                armState = ArmStates.BOTTOM;
             }
             else if (topButton) {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
+                armState = ArmStates.AT_TOP;
             }
             else if (cargoShipButton) {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
+                armState = ArmStates.AT_TOP;
             }
             break;
             case CARGO_SHIP:
             if (bottomButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
+                armState = ArmStates.BOTTOM;
             }
             else if (topButton) {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
+                armState = ArmStates.AT_TOP;
             }
             else if (rocketButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_ROCKET;
+                armState = ArmStates.AT_ROCKET;
             }
             break;
             case BOTTOM:
             if (cargoShipButton) {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_CARGO_SHIP;
+                armState = ArmStates.CARGO_SHIP;
             }
             else if (topButton) {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
+                armState = ArmStates.AT_TOP;
             }
             else if (rocketButton) {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_ROCKET;
+                armState = ArmStates.AT_ROCKET;
             }
             break;
-            case TO_TOP:
+            case AT_TOP:
             //check if reached top
             if (topLimitSwitch) {
                 armMotor.set(0);
                 armLimitSwitches.setQuadraturePosition(0, 0);
-                armState = ArmStates.TOP;
+                armState = ArmStates.AT_TOP;
             }
             //check if a different button has been pressed
             else if (bottomButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
+                armState = ArmStates.BOTTOM;
             }
             else if (cargoShipButton) {
                 //check which side of the cargo ship position the arm is on
                 if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
+                    armState = ArmStates.CARGO_SHIP;
                 }
                 else if (encoderValue < Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
+                    armState = ArmStates.CARGO_SHIP;
                 }
                 else {
                     armMotor.set(0);
@@ -296,35 +335,35 @@ public class CargoManip {
                 //check which side of the rocket position the arm is on
                 if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
                     armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
+                    armState = ArmStates.AT_ROCKET;
                 }
                 else if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
+                    armState = ArmStates.AT_ROCKET;
                 }
                 else {
                     armMotor.set(0);
-                    armState = ArmStates.ROCKET;
+                    armState = ArmStates.AT_ROCKET;
                 }
             }
             break;
-            case TO_ROCKET:
+            case AT_ROCKET:
             if (encoderValue == Constants.ROCKET_ENCODER_VALUE_GOAL) {
                 armMotor.set(0);
-                armState = ArmStates.ROCKET;
+                armState = ArmStates.AT_ROCKET;
             }
             else if (bottomButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
+                armState = ArmStates.BOTTOM;
             }
             else if (cargoShipButton) {
                 if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
+                    armState = ArmStates.CARGO_SHIP;
                 }
                 else if (encoderValue < Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
+                    armState = ArmStates.CARGO_SHIP;
                 }
                 else {
                     armMotor.set(0);
@@ -333,54 +372,54 @@ public class CargoManip {
             }
             else if (topButton) {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
+                armState = ArmStates.AT_TOP;
             }
             break;
-            case TO_CARGO_SHIP:
+            case CARGO_SHIP:
             if (encoderValue == Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                 armMotor.set(0);
                 armState = ArmStates.CARGO_SHIP;
             }
             else if (bottomButton) {
                 armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_BOTTOM;
+                armState = ArmStates.BOTTOM;
             }
             else if (rocketButton) {
                 if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
                     armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
+                    armState = ArmStates.AT_ROCKET;
                 }
                 else if (encoderValue < Constants.ROCKET_ENCODER_VALUE_GOAL) {
                     armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
+                    armState = ArmStates.AT_ROCKET;
                 }
                 else {
                     armMotor.set(0);
-                    armState = ArmStates.ROCKET;
+                    armState = ArmStates.AT_ROCKET;
                 }
             }
             else if (topButton) {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
+                armState = ArmStates.AT_TOP;
             }
             break;
-            case TO_BOTTOM:
+            case BOTTOM:
             if (bottomLimitSwitch) {
                 armMotor.set(0);
                 armState = ArmStates.BOTTOM;
             }
             else if (topButton) {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                armState = ArmStates.TO_TOP;
+                armState = ArmStates.AT_TOP;
             }
             else if (cargoShipButton) {
                 if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
+                    armState = ArmStates.CARGO_SHIP;
                 }
                 else if (encoderValue < Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_CARGO_SHIP;
+                    armState = ArmStates.CARGO_SHIP;
                 }
                 else {
                     armMotor.set(0);
@@ -390,15 +429,15 @@ public class CargoManip {
             else if (rocketButton) {
                 if (encoderValue > Constants.ROCKET_ENCODER_VALUE_GOAL) {
                     armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
+                    armState = ArmStates.AT_ROCKET;
                 }
                 else if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(-Constants.CARGO_ARM_MOTOR_SPEED);
-                    armState = ArmStates.TO_ROCKET;
+                    armState = ArmStates.AT_ROCKET;
                 }
                 else {
                     armMotor.set(0);
-                    armState = ArmStates.ROCKET;
+                    armState = ArmStates.AT_ROCKET;
                 }
             }
         }
@@ -415,9 +454,9 @@ public class CargoManip {
         SmartDashboard.putBoolean("Cargo Arm Cargo Ship Position", cargoShipSwitch);
         SmartDashboard.putBoolean("Cargo Arm Rocket Position", rocketSwitch);
         // SmartDashboard.putBoolean("Cargo Ship Position", armState.equals(ArmStates.CARGO_SHIP));
-        // SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.ROCKET));
+        // SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.AT_ROCKET));
         // SmartDashboard.putNumber("Arm Encoder Value", encoderValue);
-        /*if (armState.equals(ArmStates.TO_TOP) || armState.equals(ArmStates.TO_BOTTOM) || armState.equals(ArmStates.TO_CARGO_SHIP) || armState.equals(ArmStates.TO_ROCKET)) {
+        /*if (armState.equals(ArmStates.AT_TOP) || armState.equals(ArmStates.BOTTOM) || armState.equals(ArmStates.CARGO_SHIP) || armState.equals(ArmStates.AT_ROCKET)) {
             SmartDashboard.putBoolean("Moving", true);
         }
         else {
@@ -440,7 +479,7 @@ public class CargoManip {
                 limitSwitchState = LimitSwitchStates.NO_SWITCH;
             }
             break;
-            case ROCKET:
+            case AT_ROCKET:
             if (rocketLimitSwitch) {
                 limitSwitchState = LimitSwitchStates.NO_SWITCH;
             }
@@ -450,7 +489,7 @@ public class CargoManip {
                 limitSwitchState = LimitSwitchStates.CARGO_SHIP;
             }
             if (!rocketLimitSwitch) {
-                limitSwitchState = LimitSwitchStates.ROCKET;
+                limitSwitchState = LimitSwitchStates.AT_ROCKET;
             }
             if (topLimitSwitch || bottomLimitSwitch) {
                 limitSwitchState = LimitSwitchStates.TOP_LIMIT;
