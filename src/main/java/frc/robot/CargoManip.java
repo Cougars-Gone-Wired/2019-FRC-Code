@@ -9,17 +9,16 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 public class CargoManip {
 
     //for using a joystick to control the arm
-    public enum ArmStatesManual {
-        MOVING_UP, MOVING_DOWN, NOT_MOVING
+    public enum MovementStates {
+        MOVING_TOWARDS_TOP, MOVING_TOWARDS_FLOOR, NOT_MOVING
+    }
+    
+    public enum LocationStates {
+        AT_TOP, BETWEEN_TOP_AND_ROCKET, AT_ROCKET, BETWEEN_ROCKET_AND_SHIP, AT_SHIP, BETWEEN_SHIP_AND_FLOOR, AT_FLOOR
     }
 
-    //for using buttons to control the arm
-    // public enum ArmStates {
-    //     TOP, ROCKET, CARGO_SHIP, BOTTOM, TO_TOP, TO_ROCKET, TO_CARGO_SHIP, TO_BOTTOM
-    // }
-    
-    public enum ArmStates {
-        FLOOR, CARGO_SHIP, ROCKET, TOP, FLOOR_TO_CARGO_SHIP, CARGO_SHIP_TO_ROCKET, ROCKET_TO_TOP, CARGO_SHIP_TO_FLOOR, ROCKET_TO_CARGO_SHIP, TOP_TO_ROCKET
+    public enum DestinationStates {
+        TO_TOP, TO_ROCKET, TO_SHIP, TO_FLOOR
     }
 
     public enum IntakeStates {
@@ -30,8 +29,9 @@ public class CargoManip {
         TOP_LIMIT, BOTTOM_LIMIT, CARGO_SHIP, ROCKET, NO_SWITCH
     }*/
 
-    private ArmStates armState;
-    private ArmStatesManual armStateM;
+    private MovementStates movementState;
+    private LocationStates locationState;
+    private DestinationStates destinationState;
     private IntakeStates intakeState;
     //private LimitSwitchStates limitSwitchState;
     
@@ -72,8 +72,9 @@ public class CargoManip {
     }
     
     public void initialize() {
-        armState = ArmStates.TOP;
-        armStateM = ArmStatesManual.NOT_MOVING;
+        movementState = MovementStates.NOT_MOVING;
+        locationState = LocationStates.AT_TOP;
+        destinationState = DestinationStates.TO_TOP;
         intakeState = IntakeStates.NOT_MOVING;
         //limitSwitchState = LimitSwitchStates.NO_SWITCH;
         armMotor.set(0);
@@ -89,19 +90,19 @@ public class CargoManip {
         cargoShipSwitch = !limitSwitchRocket.get();
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
 
-        switch (armStateM) {
-            case MOVING_UP:
+        switch (movementState) {
+            case MOVING_TOWARDS_TOP:
                 if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isFwdLimitSwitchClosed()) {
                     armMotor.set(0);
-                    armStateM = ArmStatesManual.NOT_MOVING;
+                    movementState = MovementStates.NOT_MOVING;
                 } else {
                     armMotor.set(speed);
                 }
                 break;
-            case MOVING_DOWN:
+            case MOVING_TOWARDS_FLOOR:
                 if (armAxis > -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isRevLimitSwitchClosed()) {
                     armMotor.set(0);
-                    armStateM = ArmStatesManual.NOT_MOVING;
+                    movementState = MovementStates.NOT_MOVING;
                 } else {
                     armMotor.set(speed);
                 }
@@ -109,10 +110,10 @@ public class CargoManip {
             case NOT_MOVING:
                 if (armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
                     armMotor.set(speed);
-                    armStateM = ArmStatesManual.MOVING_UP;
+                    movementState = MovementStates.MOVING_TOWARDS_TOP;
                 } else if (armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
                     armMotor.set(speed);
-                    armStateM = ArmStatesManual.MOVING_DOWN;
+                    movementState = MovementStates.MOVING_TOWARDS_FLOOR;
                 }
                 break;
         }
@@ -126,26 +127,18 @@ public class CargoManip {
         cargoShipSwitch = !limitSwitchRocket.get();
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
 
-        switch (armState) {
-            case FLOOR:
-                break;
-            case CARGO_SHIP:
-                break;
-            case ROCKET:
-                break;
-            case TOP:
-                break;
-            case FLOOR_TO_CARGO_SHIP:
-                break;
-            case CARGO_SHIP_TO_ROCKET:
-                break;
-            case ROCKET_TO_TOP:
-                break;
-            case CARGO_SHIP_TO_FLOOR:
-                break;
-            case ROCKET_TO_CARGO_SHIP:
-                break;
-            case TOP_TO_ROCKET:
+        switch (destinationState) {
+        }
+    }
+
+    public void trackPosition() {
+        topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
+        rocketSwitch = !limitSwitchCargoShip.get();
+        cargoShipSwitch = !limitSwitchRocket.get();
+        floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
+
+        switch (positionState) {
+            case AT_TOP:
                 break;
         }
     }

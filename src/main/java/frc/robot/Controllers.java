@@ -22,7 +22,7 @@ public class Controllers {
 	private double cargoArmOuttakeAxis;
 	
 	private boolean cargoArmTopButton;
-	private boolean cargoArmBottomButton;
+	private boolean cargoArmFloorButton;
 	private boolean cargoArmCargoShipButton;
 	private boolean cargoArmRocketButton;
 	
@@ -63,7 +63,7 @@ public class Controllers {
 		cargoArmIntakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_INTAKE_AXIS);
 		cargoArmOuttakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_OUTTAKE_AXIS);
 		cargoArmTopButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_TOP_BUTTON);
-		cargoArmBottomButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_BOTTOM_BUTTON);
+		cargoArmFloorButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_FLOOR_BUTTON);
 		cargoArmCargoShipButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_CARGO_SHIP_BUTTON);
 		cargoArmRocketButton = manipulatorStick.getRawButton(Constants.CARGO_ARM_ROCKET_BUTTON);
 		
@@ -119,8 +119,8 @@ public class Controllers {
         return cargoArmTopButton;
     }
 
-    public boolean getCargoArmBottomButton() {
-        return cargoArmBottomButton;
+    public boolean getCargoArmFloorButton() {
+        return cargoArmFloorButton;
     }
 
     public boolean getCargoArmCargoShipButton() {

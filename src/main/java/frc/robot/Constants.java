@@ -15,10 +15,10 @@ public class Constants {
 	static final int HATCH_ARM_AXIS = 1;
 	static final int CARGO_INTAKE_AXIS = 2; //
     static final int CARGO_OUTTAKE_AXIS = 3; //
-    static final int CARGO_ARM_TOP_BUTTON = 0; //
-    static final int CARGO_ARM_BOTTOM_BUTTON = 1; //
-    static final int CARGO_ARM_CARGO_SHIP_BUTTON = 3; //
-    static final int CARGO_ARM_ROCKET_BUTTON = 2; //
+    static final int CARGO_ARM_TOP_BUTTON = 4; //
+	static final int CARGO_ARM_ROCKET_BUTTON = 2; //
+	static final int CARGO_ARM_CARGO_SHIP_BUTTON = 3; //
+	static final int CARGO_ARM_FLOOR_BUTTON = 1; //
 
     static final int HATCH_ARM_MOVE_MOTOR_ID = 8;
 	static final int CARGO_ARM_MOTOR_ID = 10; //
