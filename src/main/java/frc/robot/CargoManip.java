@@ -398,7 +398,6 @@ public class CargoManip {
                 armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
                 armState = ArmStates.TO_TOP;
             }
-
             else if (cargoShipButton) {
                 if (encoderValue > Constants.CARGO_SHIP_ENCODER_VALUE_GOAL) {
                     armMotor.set(Constants.CARGO_ARM_MOTOR_SPEED);
