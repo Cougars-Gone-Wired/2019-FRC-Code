@@ -131,15 +131,13 @@ public class CargoManip {
         }
     }
 
-    public void trackPosition() {
+    public void trackLocation() {
         topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
         rocketSwitch = !limitSwitchCargoShip.get();
         cargoShipSwitch = !limitSwitchRocket.get();
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
 
-        switch (positionState) {
-            case AT_TOP:
-                break;
+        switch (locationState) {
         }
     }
 
@@ -355,14 +353,13 @@ public class CargoManip {
         // SmartDashboard.putBoolean("Cargo Ship Position", armState.equals(ArmStates.CARGO_SHIP));
         // SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.ROCKET));
         // SmartDashboard.putNumber("Arm Encoder Value", encoderValue);
-        // if (armState.equals(ArmStates.TO_TOP) || armState.equals(ArmStates.TO_BOTTOM) || armState.equals(ArmStates.TO_CARGO_SHIP) || armState.equals(ArmStates.TO_ROCKET)) {
-        //     SmartDashboard.putBoolean("Moving", true);
-        // }
-        // else {
-        //     SmartDashboard.putBoolean("Moving", false);
-        // }
-        //useless switch statement. kept it just in case
-        // From Jake: I kinda messed up the switches, don't be angry pls.
+        /*if (armState.equals(ArmStates.TO_TOP) || armState.equals(ArmStates.TO_BOTTOM) || armState.equals(ArmStates.TO_CARGO_SHIP) || armState.equals(ArmStates.TO_ROCKET)) {
+            SmartDashboard.putBoolean("Moving", true);
+        }
+        else {
+            SmartDashboard.putBoolean("Moving", false);
+        }*/
+        //This is a useless switch statement. I kept it just in case
         /*switch (limitSwitchState) {
             case TOP_LIMIT:
             if (!topLimitSwitch && !bottomLimitSwitch) {
