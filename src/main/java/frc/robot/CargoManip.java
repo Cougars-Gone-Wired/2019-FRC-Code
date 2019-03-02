@@ -104,7 +104,6 @@ public class CargoManip {
             } else if (topButton && !floorButton && !cargoShipButton && !rocketButton) {
                 destinationState = DestinationStates.TO_TOP;
             }
-            
             switch (movementState) {
                 case NOT_MOVING:
                     if (destinationState.ordinal() > locationState.ordinal()) {
@@ -116,7 +115,7 @@ public class CargoManip {
                     }
                     break;
                 case MOVING_TOWARDS_FLOOR:
-                    if (destinationState.ordinal() == locationState.ordinal()) {
+                    if (destinationState.ordinal() == locationState.ordinal() || floorSwitch) {
                         armMotor.set(0);
                         movementState = MovementStates.NOT_MOVING;
                     } else if (destinationState.ordinal() > locationState.ordinal()) {
@@ -125,7 +124,7 @@ public class CargoManip {
                     }
                     break;
                 case MOVING_TOWARDS_TOP:
-                    if (destinationState.ordinal() == locationState.ordinal()) {
+                    if (destinationState.ordinal() == locationState.ordinal() || topSwitch) {
                         armMotor.set(0);
                         movementState = MovementStates.NOT_MOVING;
                     } else if (destinationState.ordinal() < locationState.ordinal()) {
