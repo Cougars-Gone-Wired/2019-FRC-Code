@@ -115,7 +115,7 @@ public class CargoManip {
                 }
                 break;
         }
-    }*/
+    }
 
     public void armMove(double armAxis) {
         speed = armAxis * Constants.CARGO_ARM_MOVE_SPEED; // Sets speed to be used later.  It is seperate from armAxis because we need correctly use the true value in order to mvoe 
