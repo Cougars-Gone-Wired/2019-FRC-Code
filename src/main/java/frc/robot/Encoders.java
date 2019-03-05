@@ -9,12 +9,12 @@ public class Encoders {
 	
 	static double WHEEL_RADIUS = 3;
 	static double CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS;
-	static double PULSES_PER_REVOLUTION = 1000;
+	static double PULSES_PER_REVOLUTION = 400; // should be 1000, but 400 works
 	static double distancePerPulse = CIRCUMFERENCE / PULSES_PER_REVOLUTION;
 	
 	public Encoders(Drive drive) { 
 		leftSensors = drive.getLeftSensors();
-		rightSensors = drive.getRightSensors();//
+		rightSensors = drive.getRightSensors();
 	}
 	
 	

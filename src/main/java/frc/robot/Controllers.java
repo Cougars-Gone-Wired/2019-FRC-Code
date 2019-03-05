@@ -171,7 +171,7 @@ public class Controllers {
 	}
 
 	public void setDriveToggle() {
-		driveToggle.setDriveToggleValue(SmartDashboard.getBoolean("StartCargoSide", true));
+		driveToggle.setDriveToggleValue(SmartDashboard.getBoolean("StartCargoSide", false));
 	}
 
 	public boolean isLiftDeployButton() {
