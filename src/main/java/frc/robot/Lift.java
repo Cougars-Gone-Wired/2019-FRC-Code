@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drive.DriveModes;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
@@ -18,7 +19,9 @@ public class Lift {
     private WPI_TalonSRX frontLiftMotor;
     private WPI_TalonSRX backLiftMotor;
     private SensorCollection limits;
-    private Boolean readyToBackUpFromStairs;
+    private boolean readyToBackUpFromStairs;
+
+    private boolean doneBackingUp;
 
     //private Ultrasonic ultraLeft;
     //private Ultrasonic ultraRight;
@@ -47,17 +50,20 @@ public class Lift {
         //alignedDistance = false;
         //alignedAngle = false;
         //distanceAtLift = Constants.DISTANCE_AT_LIFT;
+
+        initialize();
     }
 
     public void initialize() {
         frontLiftMotor.set(0);
         backLiftMotor.set(0);
+        doneBackingUp = false;
         liftState = LiftStates.STOP;
         //liftState = LiftStates.LOCK;
+        //liftState = LiftStates.READY_TO_BACK_UP_FROM_STAIR;
     }
 
-    public void lift(Boolean liftDeployButton, Boolean liftRetractButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive, Joystick mobilityStick){
-        
+    public void lift(boolean liftDeployButton, boolean liftRetractButton, boolean liftStopButton, Toggle liftWithdrawFromStairButton, Drive drive, Joystick mobilityStick){
         switch(liftState){
             case LOCK:
                 //State: LOCK -> MOVING_IN || STOP (@ 20sec. left in match)
@@ -68,9 +74,10 @@ public class Lift {
                 break;
 
             case READY_TO_BACK_UP_FROM_STAIR:
-                if(liftWithdrawFromStairButton){
+                if(liftWithdrawFromStairButton.toggle()){
                     drive.backUpFromStairs();
                     readyToBackUpFromStairs = true;
+                    liftWithdrawFromStairButton.setOutput(false);
                     liftState = LiftStates.BACKING_UP_FROM_STAIR;
                 }
                 break;
@@ -80,6 +87,7 @@ public class Lift {
                     //Rumble controller when ready to deploy lift. (Fully backed up.)
                     mobilityStick.setRumble(RumbleType.kLeftRumble, 0.8);
                     mobilityStick.setRumble(RumbleType.kRightRumble, 0.8);
+                    doneBackingUp = true;
                     liftState = LiftStates.STOP;
                 }
 
@@ -162,6 +170,13 @@ public class Lift {
                 }
                 break;
         }
+    }
+
+    public void showDashboard() {
+        SmartDashboard.putBoolean("Ready to Back Up", readyToBackUpFromStairs);
+        SmartDashboard.putBoolean("Backing Up", doneBackingUp);
+        SmartDashboard.putBoolean("Lift In Limit", limits.isFwdLimitSwitchClosed());
+        SmartDashboard.putBoolean("Lift Out Limit", limits.isRevLimitSwitchClosed());
     }
 
     // __    ___    ___   _____

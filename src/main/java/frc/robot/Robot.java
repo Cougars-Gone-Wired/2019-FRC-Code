@@ -230,7 +230,7 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     //drive.refreshDashboard();
     dashboard.showDisabledValues();
-    setSide(SmartDashboard.getBoolean("StartCargoSide", true));
+    setSide(SmartDashboard.getBoolean("StartCargoSide", false));
     controllers.setDriveToggle();
 
   }
