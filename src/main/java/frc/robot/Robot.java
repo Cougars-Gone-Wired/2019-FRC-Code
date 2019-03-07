@@ -19,7 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public class Robot extends TimedRobot {
-  private Cameras cameras;
+  //private Cameras cameras;
+  private Cameras2 cameras2;
 
 	private Controllers controllers;
   private CargoManip cargoManip;
@@ -42,7 +43,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    cameras = new Cameras();
+    //cameras = new Cameras();
 
     controllers = new Controllers();
     cargoManip = new CargoManip();
@@ -57,6 +58,9 @@ public class Robot extends TimedRobot {
     dashboard = new Dashboard(this);
     logging = new Logging(this);  
     logging.activeInitialize();
+
+    cameras2 = new Cameras2();
+    new Thread(cameras2).start();;
   }
 
   /**
@@ -72,6 +76,11 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     //drive.refreshDashboard();
     dashboard.showDisabledValues();
+
+    if (controllers.getCameraStopButton().toggle()) {
+      cameras2.stop();
+      controllers.getCameraStopButton().setOutput(false);
+    }
   }
 
   /**

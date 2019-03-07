@@ -35,6 +35,7 @@ public class Controllers {
 	private Toggle driveToggle;
 	// private Toggle ultrasonicToggle;
 	private Toggle driveFineToggle;
+	private Toggle cameraStopButton;
 
 	//Lift
 	private boolean liftDeployButton;
@@ -48,6 +49,7 @@ public class Controllers {
 		driveToggle = new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
 		// ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
 		driveFineToggle = new Toggle(mobilityStick, Constants.DRIVE_FINE_BUTTON);
+		cameraStopButton = new Toggle(mobilityStick, Constants.CAMERA_STOP_BUTTON);
 	}
 
 	public void setControllerValues() {
@@ -172,6 +174,10 @@ public class Controllers {
 
 	public void setDriveToggle() {
 		driveToggle.setDriveToggleValue(SmartDashboard.getBoolean("StartCargoSide", false));
+	}
+
+	public Toggle getCameraStopButton() {
+		return cameraStopButton;
 	}
 
 	public boolean isLiftDeployButton() {

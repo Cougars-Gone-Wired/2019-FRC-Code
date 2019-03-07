@@ -42,6 +42,7 @@ public class Constants {
 	static final int DRIVE_TOGGLE_BUTTON = 1;
 	// static final int ULTRASONIC_TOGGLE_BUTTON = 4;
 	static final int DRIVE_FINE_BUTTON = 3;
+	static final int CAMERA_STOP_BUTTON = 8;
 
 	static final int FRONT_LEFT_MOTOR_ID = 7; //Based off Hatch Side
 	static final int MID_LEFT_MOTOR_ID = 3;
