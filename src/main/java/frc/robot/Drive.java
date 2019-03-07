@@ -236,13 +236,19 @@ public class Drive {
         //Front Left Motor
         //SmartDashboard.putNumber("FLVoltage", getFrontLeftMotorVoltage());
         //SmartDashboard.putNumber("FLCurrent", getFrontLeftMotorCurrent());
+        
         //Front Right Motor
         //SmartDashboard.putNumber("FRVoltage", getFrontRightMotorVoltage());
         //SmartDashboard.putNumber("FRCurrent", getFrontRightMotorCurrent());
 
+        //Middle Left Motor
+        //SmartDashboard.putNumber("MLVoltage", getMidLeftMotorVoltage());
         //SmartDashboard.putNumber("MLCurrent", getMidLeftMotorCurrent());
-        
+
+        //Middle Right Motor
+        //SmartDashboard.putNumber("MRVoltage", getMidRightMotorVoltage());
         //SmartDashboard.putNumber("MRCurrent", getMidRightMotorCurrent());
+
         //Back Left Motor
         // SmartDashboard.putNumber("BLVoltage", getBackLeftMotorVoltage());
         //SmartDashboard.putNumber("BLCurrent", getBackLeftMotorCurrent());
