@@ -10,7 +10,7 @@ import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.Timer;
 
 public class Cameras2 implements Runnable {
     private volatile boolean exit = false;
@@ -21,7 +21,7 @@ public class Cameras2 implements Runnable {
         final int STEP_HEIGHT = 19;
         final int STEP_OFFSET = CAMERA_HEIGHT - STEP_HEIGHT;
         final int ROBOT_LENGTH_OFFSET = 16;
-        final int DISTANCE_TO_STEP_OFFSET = 6;
+        final int DISTANCE_TO_STEP_OFFSET = 11;
         final int DISTANCE_TO_STEP = ROBOT_LENGTH_OFFSET + DISTANCE_TO_STEP_OFFSET;
         final int LINE_PIXEL_OFFSET = (FOCAL_LENGTH * STEP_OFFSET) / DISTANCE_TO_STEP;
 
@@ -44,14 +44,15 @@ public class Cameras2 implements Runnable {
 
             if (Sides.hatchSide) {
                 cvSink.setSource(hatchCamera);
-                if (Timer.getMatchTime() <= 20) {
-                    Imgproc.line(image, new Point(0, 240 + LINE_PIXEL_OFFSET), new Point(640, 240 + LINE_PIXEL_OFFSET), new Scalar(0, 255, 0), 5);
-                }
+                //if (Timer.getMatchTime() <= 20) {
+                    Imgproc.line(image, new Point(0, 120 + (LINE_PIXEL_OFFSET / 2)), new Point(320, 120 + (LINE_PIXEL_OFFSET / 2)), new Scalar(0, 0, 0), 5);
+                //}
             } else {
                 cvSink.setSource(cargoCamera);
             }
 
             Imgproc.cvtColor(image, output, Imgproc.COLOR_BGR2GRAY);
+    
             cvSource.putFrame(output);
         }
     }

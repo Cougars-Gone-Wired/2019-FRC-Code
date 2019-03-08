@@ -66,6 +66,7 @@ public class Drive {
         backLeftMotor.configOpenloopRamp(Constants.RAMP_TIME);
         
         midLeftMotor.setInverted(false); //invert on practice not comp
+        //midLeftMotor.configPeakCurrentLimit(35, 10);
         frontLeftMotor.follow(midLeftMotor);
         backLeftMotor.follow(frontLeftMotor);
 
@@ -82,6 +83,7 @@ public class Drive {
         backRightMotor.setNeutralMode(NeutralMode.Brake);
         backRightMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
+        //midRightMotor.configPeakCurrentLimit(35, 10);
         frontRightMotor.follow(midRightMotor);
         backRightMotor.follow(frontRightMotor);
 

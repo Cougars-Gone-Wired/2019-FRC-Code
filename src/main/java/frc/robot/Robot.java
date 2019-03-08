@@ -232,7 +232,7 @@ public class Robot extends TimedRobot {
     dashboard.showDisabledValues();
     setSide(SmartDashboard.getBoolean("StartCargoSide", false));
     controllers.setDriveToggle();
-
+    drive.initialSide();
   }
 
 
