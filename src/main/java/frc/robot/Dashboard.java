@@ -21,9 +21,8 @@ public class Dashboard {
         drive.showDashboard();
         hatchArm.displayValues();
         cargoManip.showDashboard();
-        lift.isReadyToBackUpFromStairs();
-        lift.isTopLimit();
-        logging.showDashboard();
+        lift.showDashboard();
+       // logging.showDashboard();
     }
 
     public void showDisabledValues() {
