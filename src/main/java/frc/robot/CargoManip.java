@@ -45,7 +45,6 @@ public class CargoManip {
     private DigitalInput limitSwitchRocket;
 
     private double manualSpeed; // To be used and is explained in the armMove() method
-    private double buttonSpeed;
 
     // A bunch of variables that make very complicated boolean logic easier to call upon in the armMove() method
     private boolean topSwitch; 
@@ -86,12 +85,9 @@ public class CargoManip {
     //move the arm using a joystick
 
     public void armMove(double armAxis, boolean topButton, boolean rocketButton, boolean cargoShipButton, boolean floorButton) {
-        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
-        buttonSpeed = Constants.CARGO_ARM_MOVE_SPEED;
-
         trackLocation();
 
-        if (Math.abs(armAxis) > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
+        if (armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
             armMoveManual(armAxis);
             destinationState = DestinationStates.INDEXED_DESTINATION_STATES[locationState.ordinal()];
         } else {
@@ -104,13 +100,14 @@ public class CargoManip {
             } else if (topButton && !floorButton && !cargoShipButton && !rocketButton) {
                 destinationState = DestinationStates.TO_TOP;
             }
+            
             switch (movementState) {
                 case NOT_MOVING:
                     if (destinationState.ordinal() > locationState.ordinal()) {
-                        armMotor.set(buttonSpeed);
+                        armMotor.set(Constants.CARGO_ARM_MOVE_SPEED);
                         movementState = MovementStates.MOVING_TOWARDS_TOP;
                     } else if (destinationState.ordinal() < locationState.ordinal()) {
-                        armMotor.set(-buttonSpeed);
+                        armMotor.set(-Constants.CARGO_ARM_MOVE_SPEED);
                         movementState = MovementStates.MOVING_TOWARDS_FLOOR;
                     }
                     break;
@@ -119,7 +116,7 @@ public class CargoManip {
                         armMotor.set(0);
                         movementState = MovementStates.NOT_MOVING;
                     } else if (destinationState.ordinal() > locationState.ordinal()) {
-                        armMotor.set(buttonSpeed);
+                        armMotor.set(Constants.CARGO_ARM_MOVE_SPEED);
                         movementState = MovementStates.MOVING_TOWARDS_TOP;
                     }
                     break;
@@ -128,12 +125,16 @@ public class CargoManip {
                         armMotor.set(0);
                         movementState = MovementStates.NOT_MOVING;
                     } else if (destinationState.ordinal() < locationState.ordinal()) {
-                        armMotor.set(-buttonSpeed);
+                        armMotor.set(-Constants.CARGO_ARM_MOVE_SPEED);
                         movementState = MovementStates.MOVING_TOWARDS_FLOOR;
                     }
                     break;
             }
         }
+
+        SmartDashboard.putString("Cargo Arm Movement State", movementState.toString());
+        SmartDashboard.putString("Cargo Arm Location State", locationState.toString());
+        SmartDashboard.putString("Cargo Arm Destination State", destinationState.toString());
     }
 
     public void trackLocation() {
@@ -207,14 +208,12 @@ public class CargoManip {
         }
     }
 
-    public void armMoveManual(double armAxis) {
-        manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
-
-        trackLocation();
+    public void armMoveManual(double manualArmAxis) {
+        manualSpeed = manualArmAxis * Constants.CARGO_ARM_MANUAL_MOVE_SPEED;
 
         switch (movementState) {
             case MOVING_TOWARDS_TOP:
-                if (armAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || topSwitch) {
+                if (manualArmAxis < Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || topSwitch) {
                     armMotor.set(0);
                     movementState = MovementStates.NOT_MOVING;
                 } else {
@@ -222,7 +221,7 @@ public class CargoManip {
                 }
                 break;
             case MOVING_TOWARDS_FLOOR:
-                if (armAxis > -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || armLimitSwitches.isRevLimitSwitchClosed()) {
+                if (manualArmAxis > -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD || floorSwitch) {
                     armMotor.set(0);
                     movementState = MovementStates.NOT_MOVING;
                 } else {
@@ -230,10 +229,10 @@ public class CargoManip {
                 }
                 break;
             case NOT_MOVING:
-                if (armAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
+                if (manualArmAxis > Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
                     armMotor.set(manualSpeed);
                     movementState = MovementStates.MOVING_TOWARDS_TOP;
-                } else if (armAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
+                } else if (manualArmAxis < -Constants.CARGO_ARM_MOVE_AXIS_THRESHHOLD) {
                     armMotor.set(manualSpeed);
                     movementState = MovementStates.MOVING_TOWARDS_FLOOR;
                 }

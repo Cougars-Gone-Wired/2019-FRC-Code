@@ -26,6 +26,7 @@ public class Constants {
 
     static final double HATCH_ARM_MOVE_SPEED = 0.5;
 	static final double CARGO_ARM_MOVE_SPEED = 0.5;
+	static final double CARGO_ARM_MANUAL_MOVE_SPEED = 0.5;
 	static final double CARGO_ARM_INTAKE_SPEED = 1.00;
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.15;
