@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drive.DriveModes;
+
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class Lift {
@@ -41,8 +43,8 @@ public class Lift {
 
         limits = new SensorCollection(backLiftMotor);
 
-        //frontLiftMotor.setInverted(true);
-        //frontLiftMotor.follow(backLiftMotor);
+        frontLiftMotor.follow(backLiftMotor);
+        frontLiftMotor.setInverted(InvertType.OpposeMaster);
         readyToBackUpFromStairs = false;
 
         //ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
@@ -148,25 +150,25 @@ public class Lift {
         switch(currentLift2State) {
             case NOT_MOVING:
                 if (downButton && !upButton) {
-                    frontLiftMotor.set(-Constants.LIFT_SPEED);
+                    //frontLiftMotor.set(-Constants.LIFT_SPEED);
                     backLiftMotor.set(Constants.LIFT_SPEED);
                     currentLift2State = Lift2States.GOING_DOWN;
                 } else if (upButton && !downButton) {
-                    frontLiftMotor.set(Constants.LIFT_SPEED);
+                    //frontLiftMotor.set(Constants.LIFT_SPEED);
                     backLiftMotor.set(-Constants.LIFT_SPEED);
                     currentLift2State = Lift2States.GOING_UP;
                 }
                 break;
             case GOING_DOWN:
                 if (!downButton || upButton || limits.isRevLimitSwitchClosed()) {
-                    frontLiftMotor.set(0);
+                    //frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     currentLift2State = Lift2States.NOT_MOVING;
                 }
                 break;
             case GOING_UP:
                 if (!upButton || downButton || limits.isRevLimitSwitchClosed()) {
-                    frontLiftMotor.set(0);
+                    //frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     currentLift2State = Lift2States.NOT_MOVING;
                 }
