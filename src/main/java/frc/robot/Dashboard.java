@@ -22,7 +22,7 @@ public class Dashboard {
         hatchArm.displayValues();
         cargoManip.showDashboard();
         lift.showDashboard();
-        logging.showDashboard();
+       // logging.showDashboard();
     }
 
     public void showDisabledValues() {

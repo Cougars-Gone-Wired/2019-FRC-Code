@@ -39,8 +39,10 @@ public class Lift {
         frontLiftMotor.configOpenloopRamp(Constants.RAMP_TIME);
         backLiftMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
-        limits = new SensorCollection(frontLiftMotor);
+        limits = new SensorCollection(backLiftMotor);
 
+        //frontLiftMotor.setInverted(true);
+        //frontLiftMotor.follow(backLiftMotor);
         readyToBackUpFromStairs = false;
 
         //ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
@@ -156,14 +158,14 @@ public class Lift {
                 }
                 break;
             case GOING_DOWN:
-                if (!downButton || upButton) {
+                if (!downButton || upButton || limits.isRevLimitSwitchClosed()) {
                     frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     currentLift2State = Lift2States.NOT_MOVING;
                 }
                 break;
             case GOING_UP:
-                if (!upButton || downButton) {
+                if (!upButton || downButton || limits.isRevLimitSwitchClosed()) {
                     frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     currentLift2State = Lift2States.NOT_MOVING;
@@ -175,8 +177,8 @@ public class Lift {
     public void showDashboard() {
         SmartDashboard.putBoolean("Ready to Back Up", readyToBackUpFromStairs);
         SmartDashboard.putBoolean("Backing Up", doneBackingUp);
-        SmartDashboard.putBoolean("Lift In Limit", limits.isFwdLimitSwitchClosed());
-        SmartDashboard.putBoolean("Lift Out Limit", limits.isRevLimitSwitchClosed());
+        SmartDashboard.putBoolean("Lift Fwd Limit", limits.isFwdLimitSwitchClosed());
+        SmartDashboard.putBoolean("Lift Rev Limit", limits.isRevLimitSwitchClosed());
     }
 
     // __    ___    ___   _____

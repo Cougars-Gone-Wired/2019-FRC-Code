@@ -25,7 +25,7 @@ public class Constants {
     static final int CARGO_INTAKE_MOTOR_ID = 11;
 
     static final double HATCH_ARM_MOVE_SPEED = 0.5;
-	static final double CARGO_ARM_MOVE_SPEED = 0.5;
+	static final double CARGO_ARM_MOVE_SPEED = 0.75;
 	static final double CARGO_ARM_INTAKE_SPEED = 1.00;
 
 	static final double HATCH_ARM_MOVE_AXIS_THRESHHOLD = 0.15;
@@ -61,10 +61,10 @@ public class Constants {
 	static final int FRONT_LIFT_MOTOR_ID = 0; //Right Lift Motor
 	static final int BACK_LIFT_MOTOR_ID = 1; //Left Lift Motor
 
-	static final double LIFT_SPEED = 0.75; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
+	static final double LIFT_SPEED = 0.6; //Make -1 to reverse direction, use values 1, -1, and in between. (Probably not 0.)
 	//static final int ULTRASONIC_HATCH_LEFT_PORT = 1; //SET PORTS!!!
 	//static final int ULTRASONIC_HATCH_RIGHT_PORT = 0; //SET PORTS!!!
-	static final double DISTANCE_AT_LIFT = 12; //Inches
+	static final double DISTANCE_AT_LIFT = 11; //Inches
 	// static final double ULTRASONIC_THRESHOLD = 11; //Inches
 
 	static final double DRIVE_SPEED = 0.95;
