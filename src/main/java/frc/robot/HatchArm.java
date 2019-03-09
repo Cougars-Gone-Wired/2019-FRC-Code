@@ -159,9 +159,9 @@ public class HatchArm {
     }
     
     public void displayValues() {
-        SmartDashboard.putBoolean("Hatch Arm Floor Position", floorSwitch);
-        SmartDashboard.putBoolean("Hatch Arm Vertical Position", verticalSwitch);
-        SmartDashboard.putBoolean("Hatch Arm Initial Position", initialSwitch);
+        //SmartDashboard.putBoolean("Hatch Arm Floor Position", floorSwitch);
+        //SmartDashboard.putBoolean("Hatch Arm Vertical Position", verticalSwitch);
+        //SmartDashboard.putBoolean("Hatch Arm Initial Position", initialSwitch);
     }
 
     public double getHatchArmMoveMotorVoltage() {

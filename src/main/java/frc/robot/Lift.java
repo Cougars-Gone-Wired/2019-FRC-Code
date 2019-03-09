@@ -43,8 +43,9 @@ public class Lift {
 
         limits = new SensorCollection(backLiftMotor);
 
+        //frontLiftMotor.setInverted(false);
         //frontLiftMotor.follow(backLiftMotor);
-       // frontLiftMotor.setInverted(InvertType.OpposeMaster);
+        //frontLiftMotor.setInverted(InvertType.OpposeMaster);
         readyToBackUpFromStairs = false;
 
         //ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
@@ -177,10 +178,12 @@ public class Lift {
     }
 
     public void showDashboard() {
-        SmartDashboard.putBoolean("Ready to Back Up", readyToBackUpFromStairs);
-        SmartDashboard.putBoolean("Backing Up", doneBackingUp);
-        SmartDashboard.putBoolean("Lift Fwd Limit", limits.isFwdLimitSwitchClosed());
+        //SmartDashboard.putBoolean("Ready to Back Up", readyToBackUpFromStairs);
+        //SmartDashboard.putBoolean("Backing Up", doneBackingUp);
+        //SmartDashboard.putBoolean("Lift Fwd Limit", limits.isFwdLimitSwitchClosed());
         SmartDashboard.putBoolean("Lift Rev Limit", limits.isRevLimitSwitchClosed());
+        SmartDashboard.putNumber("FrontLiftCurrent", frontLiftMotor.getOutputCurrent());
+        SmartDashboard.putNumber("BackLiftCurrent", backLiftMotor.getOutputCurrent());
     }
 
     // __    ___    ___   _____

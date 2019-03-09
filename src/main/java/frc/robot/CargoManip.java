@@ -247,10 +247,11 @@ public class CargoManip {
         rocketSwitch = !limitSwitchRocket.get();
         cargoShipSwitch = !limitSwitchCargoShip.get();
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
-        SmartDashboard.putBoolean("Cargo Arm Top Position", topSwitch);
-        SmartDashboard.putBoolean("Cargo Arm Floor Position", floorSwitch);
-        SmartDashboard.putBoolean("Cargo Arm Cargo Ship Position", cargoShipSwitch);
-        SmartDashboard.putBoolean("Cargo Arm Rocket Position", rocketSwitch);
+        //SmartDashboard.putBoolean("Cargo Arm Top Position", topSwitch);
+        //SmartDashboard.putBoolean("Cargo Arm Floor Position", floorSwitch);
+        //SmartDashboard.putBoolean("Cargo Arm Cargo Ship Position", cargoShipSwitch);
+        //SmartDashboard.putBoolean("Cargo Arm Rocket Position", rocketSwitch);
+        
         // SmartDashboard.putBoolean("Cargo Ship Position", armState.equals(ArmStates.CARGO_SHIP));
         // SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.AT_ROCKET));
         // SmartDashboard.putNumber("Arm Encoder Value", encoderValue);
