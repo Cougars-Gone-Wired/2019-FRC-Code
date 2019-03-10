@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
     logging.activeInitialize();
 
     cameras2 = new Cameras2();
-    new Thread(cameras2).start();;
+    //new Thread(cameras2).start();;
   }
 
   /**

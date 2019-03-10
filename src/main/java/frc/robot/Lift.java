@@ -43,7 +43,7 @@ public class Lift {
 
         limits = new SensorCollection(backLiftMotor);
 
-        //frontLiftMotor.setInverted(false);
+        frontLiftMotor.setInverted(false);
         //frontLiftMotor.follow(backLiftMotor);
         //frontLiftMotor.setInverted(InvertType.OpposeMaster);
         readyToBackUpFromStairs = false;
@@ -184,6 +184,8 @@ public class Lift {
         SmartDashboard.putBoolean("Lift Rev Limit", limits.isRevLimitSwitchClosed());
         SmartDashboard.putNumber("FrontLiftCurrent", frontLiftMotor.getOutputCurrent());
         SmartDashboard.putNumber("BackLiftCurrent", backLiftMotor.getOutputCurrent());
+        SmartDashboard.putNumber("FrontLitfVoltage", frontLiftMotor.getMotorOutputVoltage());
+        SmartDashboard.putNumber("BackLiftVoltage", backLiftMotor.getMotorOutputVoltage());
     }
 
     // __    ___    ___   _____
