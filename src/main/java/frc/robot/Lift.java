@@ -6,7 +6,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drive.DriveModes;
+
+//import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class Lift {
@@ -18,7 +21,9 @@ public class Lift {
     private WPI_TalonSRX frontLiftMotor;
     private WPI_TalonSRX backLiftMotor;
     private SensorCollection limits;
-    private Boolean readyToBackUpFromStairs;
+    private boolean readyToBackUpFromStairs;
+
+    private boolean doneBackingUp;
 
     //private Ultrasonic ultraLeft;
     //private Ultrasonic ultraRight;
@@ -36,8 +41,11 @@ public class Lift {
         frontLiftMotor.configOpenloopRamp(Constants.RAMP_TIME);
         backLiftMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
-        limits = new SensorCollection(frontLiftMotor);
+        limits = new SensorCollection(backLiftMotor);
 
+        frontLiftMotor.setInverted(false);
+        //frontLiftMotor.follow(backLiftMotor);
+        //frontLiftMotor.setInverted(InvertType.OpposeMaster);
         readyToBackUpFromStairs = false;
 
         //ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
@@ -47,17 +55,20 @@ public class Lift {
         //alignedDistance = false;
         //alignedAngle = false;
         //distanceAtLift = Constants.DISTANCE_AT_LIFT;
+
+        initialize();
     }
 
     public void initialize() {
         frontLiftMotor.set(0);
         backLiftMotor.set(0);
+        doneBackingUp = false;
         liftState = LiftStates.STOP;
         //liftState = LiftStates.LOCK;
+        //liftState = LiftStates.READY_TO_BACK_UP_FROM_STAIR;
     }
 
-    public void lift(Boolean liftDeployButton, Boolean liftRetractButton, Boolean liftStopButton, Boolean liftWithdrawFromStairButton, Drive drive, Joystick mobilityStick){
-        
+    public void lift(boolean liftDeployButton, boolean liftRetractButton, boolean liftStopButton, Toggle liftWithdrawFromStairButton, Drive drive, Joystick mobilityStick){
         switch(liftState){
             case LOCK:
                 //State: LOCK -> MOVING_IN || STOP (@ 20sec. left in match)
@@ -68,9 +79,10 @@ public class Lift {
                 break;
 
             case READY_TO_BACK_UP_FROM_STAIR:
-                if(liftWithdrawFromStairButton){
+                if(liftWithdrawFromStairButton.toggle()){
                     drive.backUpFromStairs();
                     readyToBackUpFromStairs = true;
+                    liftWithdrawFromStairButton.setOutput(false);
                     liftState = LiftStates.BACKING_UP_FROM_STAIR;
                 }
                 break;
@@ -80,6 +92,7 @@ public class Lift {
                     //Rumble controller when ready to deploy lift. (Fully backed up.)
                     mobilityStick.setRumble(RumbleType.kLeftRumble, 0.8);
                     mobilityStick.setRumble(RumbleType.kRightRumble, 0.8);
+                    doneBackingUp = true;
                     liftState = LiftStates.STOP;
                 }
 
@@ -148,20 +161,31 @@ public class Lift {
                 }
                 break;
             case GOING_DOWN:
-                if (!downButton || upButton) {
+                if (!downButton || upButton || limits.isRevLimitSwitchClosed()) {
                     frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     currentLift2State = Lift2States.NOT_MOVING;
                 }
                 break;
             case GOING_UP:
-                if (!upButton || downButton) {
+                if (!upButton || downButton || limits.isRevLimitSwitchClosed()) {
                     frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     currentLift2State = Lift2States.NOT_MOVING;
                 }
                 break;
         }
+    }
+
+    public void showDashboard() {
+        //SmartDashboard.putBoolean("Ready to Back Up", readyToBackUpFromStairs);
+        //SmartDashboard.putBoolean("Backing Up", doneBackingUp);
+        //SmartDashboard.putBoolean("Lift Fwd Limit", limits.isFwdLimitSwitchClosed());
+        SmartDashboard.putBoolean("Lift Rev Limit", limits.isRevLimitSwitchClosed());
+        SmartDashboard.putNumber("FrontLiftCurrent", frontLiftMotor.getOutputCurrent());
+        SmartDashboard.putNumber("BackLiftCurrent", backLiftMotor.getOutputCurrent());
+        SmartDashboard.putNumber("FrontLitfVoltage", frontLiftMotor.getMotorOutputVoltage());
+        SmartDashboard.putNumber("BackLiftVoltage", backLiftMotor.getMotorOutputVoltage());
     }
 
     // __    ___    ___   _____

@@ -3,7 +3,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class CargoManip {
@@ -138,8 +138,8 @@ public class CargoManip {
 
     public void trackLocation() {
         topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
-        rocketSwitch = !limitSwitchCargoShip.get();
-        cargoShipSwitch = !limitSwitchRocket.get();
+        rocketSwitch = !limitSwitchRocket.get();
+        cargoShipSwitch = !limitSwitchCargoShip.get();
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
 
         switch (locationState) {
@@ -241,16 +241,17 @@ public class CargoManip {
         }
     }
 
-    public void sensorLight() {
+    public void showDashboard() {
         // encoderValue = armLimitSwitches.getQuadraturePosition();
         topSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
-        rocketSwitch = !limitSwitchCargoShip.get();
-        cargoShipSwitch = !limitSwitchRocket.get();
+        rocketSwitch = !limitSwitchRocket.get();
+        cargoShipSwitch = !limitSwitchCargoShip.get();
         floorSwitch = armLimitSwitches.isRevLimitSwitchClosed();
-        SmartDashboard.putBoolean("Cargo Arm Top Position", topSwitch);
-        SmartDashboard.putBoolean("Cargo Arm Floor Position", floorSwitch);
-        SmartDashboard.putBoolean("Cargo Arm Cargo Ship Position", cargoShipSwitch);
-        SmartDashboard.putBoolean("Cargo Arm Rocket Position", rocketSwitch);
+        //SmartDashboard.putBoolean("Cargo Arm Top Position", topSwitch);
+        //SmartDashboard.putBoolean("Cargo Arm Floor Position", floorSwitch);
+        //SmartDashboard.putBoolean("Cargo Arm Cargo Ship Position", cargoShipSwitch);
+        //SmartDashboard.putBoolean("Cargo Arm Rocket Position", rocketSwitch);
+        
         // SmartDashboard.putBoolean("Cargo Ship Position", armState.equals(ArmStates.CARGO_SHIP));
         // SmartDashboard.putBoolean("Rocket Position", armState.equals(ArmStates.AT_ROCKET));
         // SmartDashboard.putNumber("Arm Encoder Value", encoderValue);

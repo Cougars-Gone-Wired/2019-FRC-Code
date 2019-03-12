@@ -5,7 +5,7 @@ public class Dashboard {
     private HatchArm hatchArm;
     private CargoManip cargoManip;
     private Lift lift;
-    private Logging logging;
+    //private Logging logging;
 
     public int refreshCount = 0;
 
@@ -14,16 +14,15 @@ public class Dashboard {
         hatchArm = robot.getHatchArm();
         cargoManip = robot.getCargoManip();
         lift = robot.getLift();
-        logging = robot.getLogging();
+        //logging = robot.getLogging();
     }
     
     public void showEnabledValues() {
         drive.showDashboard();
         hatchArm.displayValues();
-        cargoManip.sensorLight();
-        lift.isReadyToBackUpFromStairs();
-        lift.isTopLimit();
-        logging.showDashboard();
+        cargoManip.showDashboard();
+        lift.showDashboard();
+       // logging.showDashboard();
     }
 
     public void showDisabledValues() {

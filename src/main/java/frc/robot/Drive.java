@@ -65,7 +65,8 @@ public class Drive {
         backLeftMotor.setNeutralMode(NeutralMode.Brake);
         backLeftMotor.configOpenloopRamp(Constants.RAMP_TIME);
         
-        midLeftMotor.setInverted(true); //invert on practice not comp
+        midLeftMotor.setInverted(false); //invert on practice not comp
+        //midLeftMotor.configPeakCurrentLimit(35, 10);
         frontLeftMotor.follow(midLeftMotor);
         backLeftMotor.follow(frontLeftMotor);
 
@@ -82,6 +83,7 @@ public class Drive {
         backRightMotor.setNeutralMode(NeutralMode.Brake);
         backRightMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
+        //midRightMotor.configPeakCurrentLimit(35, 10);
         frontRightMotor.follow(midRightMotor);
         backRightMotor.follow(frontRightMotor);
 
@@ -236,13 +238,19 @@ public class Drive {
         //Front Left Motor
         //SmartDashboard.putNumber("FLVoltage", getFrontLeftMotorVoltage());
         //SmartDashboard.putNumber("FLCurrent", getFrontLeftMotorCurrent());
+        
         //Front Right Motor
         //SmartDashboard.putNumber("FRVoltage", getFrontRightMotorVoltage());
         //SmartDashboard.putNumber("FRCurrent", getFrontRightMotorCurrent());
 
+        //Middle Left Motor
+        //SmartDashboard.putNumber("MLVoltage", getMidLeftMotorVoltage());
         //SmartDashboard.putNumber("MLCurrent", getMidLeftMotorCurrent());
-        
+
+        //Middle Right Motor
+        //SmartDashboard.putNumber("MRVoltage", getMidRightMotorVoltage());
         //SmartDashboard.putNumber("MRCurrent", getMidRightMotorCurrent());
+
         //Back Left Motor
         // SmartDashboard.putNumber("BLVoltage", getBackLeftMotorVoltage());
         //SmartDashboard.putNumber("BLCurrent", getBackLeftMotorCurrent());

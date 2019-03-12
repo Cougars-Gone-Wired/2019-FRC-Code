@@ -9,11 +9,15 @@ public class Sides {
     }
     public static SideStates currentSide;
 
+    static boolean hatchSide;
+
     public static void setSide(boolean sideToggle) {
         if(sideToggle) {
             currentSide = SideStates.CARGO_SIDE;
+            hatchSide = false;
         } else {
             currentSide = SideStates.HATCH_SIDE;
+            hatchSide = true;
         }
     }
 
