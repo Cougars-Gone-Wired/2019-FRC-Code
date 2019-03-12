@@ -83,7 +83,7 @@ public class CargoManip {
         intakeMotor.set(0);
     }
 
-    //move the arm using a joystick
+    //Move the arm using a joystick.
 
     public void armMove(double armAxis, boolean topButton, boolean rocketButton, boolean cargoShipButton, boolean floorButton) {
         manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
@@ -261,7 +261,7 @@ public class CargoManip {
         else {
             SmartDashboard.putBoolean("Moving", false);
         }*/
-        //This is a useless switch statement. I kept it just in case
+        //This is a useless switch statement. I kept it just in case.
         /*switch (limitSwitchState) {
             case TOP_LIMIT:
             if (!topLimitSwitch && !bottomLimitSwitch) {
