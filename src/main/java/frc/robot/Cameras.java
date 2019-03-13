@@ -72,14 +72,14 @@ public class Cameras {
                     continue;
                 }
 
-                 // if(switchButton.toggle()) {
-                //     cvSink.setSource(cargoCamera);
-                // } else {
-                //     cvSink.setSource(hatchCamera);
-                //     if (Timer.getMatchTime() <= 20) {
-                //         Imgproc.line(image, new Point(0, 240 + LINE_PIXEL_OFFSET), new Point(640, 240 + LINE_PIXEL_OFFSET), new Scalar(0, 255, 0), 5);
-                //     }
-                // }
+                /*if(switchButton.toggle()) {
+                    cvSink.setSource(cargoCamera);
+                } else {
+                    cvSink.setSource(hatchCamera);
+                    if (Timer.getMatchTime() <= 20) {
+                        Imgproc.line(image, new Point(0, 240 + LINE_PIXEL_OFFSET), new Point(640, 240 + LINE_PIXEL_OFFSET), new Scalar(0, 255, 0), 5);
+                    }
+                }*/
 
                 if (Sides.hatchSide) {
                     cvSink.setSource(hatchCamera);
