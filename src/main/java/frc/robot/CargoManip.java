@@ -343,7 +343,7 @@ public class CargoManip {
         return armMotor.getOutputCurrent();
     }
 
-        //For moving the arm using buttons and an encoder
+    //For moving the arm using buttons and an encoder
     /*public void armMove(boolean topButton, boolean bottomButton, boolean cargoShipButton, boolean rocketButton) {
         topLimitSwitch = armLimitSwitches.isFwdLimitSwitchClosed();
         bottomLimitSwitch = armLimitSwitches.isRevLimitSwitchClosed();
