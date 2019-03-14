@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Drive.DriveModes;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
+//import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class Lift {
@@ -43,8 +43,9 @@ public class Lift {
 
         limits = new SensorCollection(backLiftMotor);
 
-        frontLiftMotor.follow(backLiftMotor);
-        frontLiftMotor.setInverted(InvertType.OpposeMaster);
+        frontLiftMotor.setInverted(false);
+        //frontLiftMotor.follow(backLiftMotor);
+        //frontLiftMotor.setInverted(InvertType.OpposeMaster);
         readyToBackUpFromStairs = false;
 
         //ultraLeft = new Ultrasonic(Constants.ULTRASONIC_HATCH_LEFT_PORT);
@@ -150,25 +151,25 @@ public class Lift {
         switch(currentLift2State) {
             case NOT_MOVING:
                 if (downButton && !upButton) {
-                    //frontLiftMotor.set(-Constants.LIFT_SPEED);
+                    frontLiftMotor.set(-Constants.LIFT_SPEED);
                     backLiftMotor.set(Constants.LIFT_SPEED);
                     currentLift2State = Lift2States.GOING_DOWN;
                 } else if (upButton && !downButton) {
-                    //frontLiftMotor.set(Constants.LIFT_SPEED);
+                    frontLiftMotor.set(Constants.LIFT_SPEED);
                     backLiftMotor.set(-Constants.LIFT_SPEED);
                     currentLift2State = Lift2States.GOING_UP;
                 }
                 break;
             case GOING_DOWN:
                 if (!downButton || upButton || limits.isRevLimitSwitchClosed()) {
-                    //frontLiftMotor.set(0);
+                    frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     currentLift2State = Lift2States.NOT_MOVING;
                 }
                 break;
             case GOING_UP:
                 if (!upButton || downButton || limits.isRevLimitSwitchClosed()) {
-                    //frontLiftMotor.set(0);
+                    frontLiftMotor.set(0);
                     backLiftMotor.set(0);
                     currentLift2State = Lift2States.NOT_MOVING;
                 }
@@ -177,10 +178,14 @@ public class Lift {
     }
 
     public void showDashboard() {
-        SmartDashboard.putBoolean("Ready to Back Up", readyToBackUpFromStairs);
-        SmartDashboard.putBoolean("Backing Up", doneBackingUp);
-        SmartDashboard.putBoolean("Lift Fwd Limit", limits.isFwdLimitSwitchClosed());
+        //SmartDashboard.putBoolean("Ready to Back Up", readyToBackUpFromStairs);
+        //SmartDashboard.putBoolean("Backing Up", doneBackingUp);
+        //SmartDashboard.putBoolean("Lift Fwd Limit", limits.isFwdLimitSwitchClosed());
         SmartDashboard.putBoolean("Lift Rev Limit", limits.isRevLimitSwitchClosed());
+        SmartDashboard.putNumber("FrontLiftCurrent", frontLiftMotor.getOutputCurrent());
+        SmartDashboard.putNumber("BackLiftCurrent", backLiftMotor.getOutputCurrent());
+        SmartDashboard.putNumber("FrontLitfVoltage", frontLiftMotor.getMotorOutputVoltage());
+        SmartDashboard.putNumber("BackLiftVoltage", backLiftMotor.getMotorOutputVoltage());
     }
 
     // __    ___    ___   _____

@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
     logging.activeInitialize();
 
     cameras2 = new Cameras2();
-    new Thread(cameras2).start();;
+    //new Thread(cameras2).start();;
   }
 
   /**
@@ -266,20 +266,20 @@ public class Robot extends TimedRobot {
     return logging;
   }
 
-  // public Ultrasonic getLeftHatchUltrasonic() {
-  //   return leftHatchUltrasonic;
-  // }
+  /*public Ultrasonic getLeftHatchUltrasonic() {
+    return leftHatchUltrasonic;
+  }*/
 
-  // public Ultrasonic getRightHatchUltrasonic() {
-  //   return rightHatchUltrasonic;
-  // }
+  /*public Ultrasonic getRightHatchUltrasonic() {
+    return rightHatchUltrasonic;
+  }*/
 
-  // public double getLeftHatchUltrasonicImperialValue() {
-  //   return leftHatchUltrasonic.getImperialUltrasonicValue();
-  // }
+  /*public double getLeftHatchUltrasonicImperialValue() {
+    return leftHatchUltrasonic.getImperialUltrasonicValue();
+  }*/
 
-  // public double getRightHatchUltrasonicImperialValue() {
-  //   return rightHatchUltrasonic.getImperialUltrasonicValue();
-  // }
+  /*public double getRightHatchUltrasonicImperialValue() {
+    return rightHatchUltrasonic.getImperialUltrasonicValue();
+  }*/
 
 }
