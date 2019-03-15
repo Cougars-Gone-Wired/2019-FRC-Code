@@ -64,10 +64,10 @@ public class HatchArm {
         switch(hatchArmManualMoveState) {
 
             case NOT_MOVING:
-                if (armAxis > Constants.HATCH_ARM_MOVE_AXIS_DEADZONE) { // Start moving towards the floor state
+                if (armAxis > Constants.HATCH_ARM_MOVE_AXIS_DEADZONE) { // Start moving towards the floor
                     hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_FLOOR;
-                } else if (armAxis < -Constants.HATCH_ARM_MOVE_AXIS_DEADZONE) { // Start moving towards the initial state
+                } else if (armAxis < -Constants.HATCH_ARM_MOVE_AXIS_DEADZONE) { // Start moving towards initial
                     hatchArmMoveMotor.set(speed);
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_INITIAL;
                 }
@@ -100,6 +100,7 @@ public class HatchArm {
         }
     }
 
+    //for using buttons to move the hatch arm
     public void hatchArmMove(boolean lowerHatchArmButton, boolean raiseHatchArmButton) { // This is the main movement method.  NOTE: It will act wierd if you don't start the hatch arm in the inside state
         floorSwitch = moveLimitSwitches.isFwdLimitSwitchClosed();
         verticalSwitch = !moveMidSwitch.get();
@@ -172,12 +173,14 @@ public class HatchArm {
         }
     }
     
+    //for display
     public void displayValues() {
         SmartDashboard.putBoolean("Hatch Arm Floor Position", floorSwitch);
         SmartDashboard.putBoolean("Hatch Arm Vertical Position", verticalSwitch);
         SmartDashboard.putBoolean("Hatch Arm Initial Position", initialSwitch);
     }
 
+    //for logging
     public double getHatchArmMoveMotorVoltage() {
         return hatchArmMoveMotor.getMotorOutputVoltage();
     }
