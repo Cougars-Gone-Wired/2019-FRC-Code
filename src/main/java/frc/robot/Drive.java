@@ -100,7 +100,6 @@ public class Drive {
         rightSensors = midRightMotor.getSensorCollection();
 
         encoders = new Encoders(this);
-        refreshCount = 0;
         initalize();
     }
 
@@ -209,17 +208,9 @@ public class Drive {
         }
     }
 
-    public void refreshDashboard() {
-        if(SmartDashboard.getBoolean("Refresh", false)) {
-            SmartDashboard.putBoolean("StartCargoSide", false);
-            SmartDashboard.putBoolean("Save Logger", false);
-        }
-
-        refreshCount++;
-        if(refreshCount >= 50) {
-            SmartDashboard.putBoolean("Refresh", false);
-            refreshCount = 0;
-        }
+    public void disabledDashboard() {
+        SmartDashboard.putBoolean("StartCargoSide", false);
+        SmartDashboard.putBoolean("Save Logger", false);
     }
 
     public void backUpFromStairs() {
