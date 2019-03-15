@@ -68,7 +68,7 @@ public class CargoManip {
         limitSwitchRocket = new DigitalInput(Constants.ROCKET_LIMIT_SWITCH_ID);
         //cargoShipLimitSwitch = true;
         //rocketLimitSwitch = true;
-        armLimitSwitches.setQuadraturePosition(0, 0);
+        // armLimitSwitches.setQuadraturePosition(0, 0);
         //encoderValue = armLimitSwitches.getQuadraturePosition();
         initialize();
     }
@@ -79,8 +79,8 @@ public class CargoManip {
         destinationState = DestinationStates.TO_TOP;
         intakeState = IntakeStates.NOT_MOVING;
         //limitSwitchState = LimitSwitchStates.NO_SWITCH;
-        armMotor.set(0);
-        intakeMotor.set(0);
+        armMotor.set(0.0);
+        intakeMotor.set(0.0);
     }
 
     //Move the arm using a joystick.
@@ -209,8 +209,6 @@ public class CargoManip {
 
     public void armMoveManual(double armAxis) {
         manualSpeed = armAxis * Constants.CARGO_ARM_MOVE_SPEED;
-
-        trackLocation();
 
         switch (movementState) {
             case MOVING_TOWARDS_TOP:
