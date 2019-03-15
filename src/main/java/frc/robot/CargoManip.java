@@ -26,7 +26,7 @@ public class CargoManip {
     }
 
     // for Gavyn's code for using buttons to move the arm
-    /*public enum LimitSwitchStates {
+    /*public enum EncoderStates {
         TOP_LIMIT, BOTTOM_LIMIT, CARGO_SHIP, AT_ROCKET, NO_SWITCH
     }*/
 
