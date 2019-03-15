@@ -10,10 +10,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public class HatchArm {
+
+    // for using a joystick to move the arm
     private enum HatchArmManualMoveStates {
         NOT_MOVING, MOVING_TOWARDS_FLOOR, MOVING_TOWARDS_INITIAL
     }
 
+    // for using a buttons to move the arm
     private enum HatchArmMoveStates {
         INSIDE, VERT, FLOOR, FLOOR_TO_VERT, INSIDE_TO_VERT, VERT_TO_FLOOR, VERT_TO_INSIDE
     }
@@ -22,8 +25,12 @@ public class HatchArm {
     HatchArmMoveStates hatchArmMoveState;
     
     private WPI_TalonSRX hatchArmMoveMotor;
+
     private SensorCollection moveLimitSwitches;
+
     private DigitalInput moveMidSwitch;
+
+    // for movement motor in hatchArmManualMove(armAxis)
     private double speed;
 
     private boolean floorSwitch;
@@ -32,25 +39,30 @@ public class HatchArm {
 
     public HatchArm() {
         hatchArmMoveMotor = new WPI_TalonSRX(Constants.HATCH_ARM_MOVE_MOTOR_ID);
+
         moveLimitSwitches = new SensorCollection(hatchArmMoveMotor);
         moveMidSwitch = new DigitalInput(Constants.HATCH_MID_SWITCH_PORT);
+
         initialize();
     }
 
     public void initialize() {
         hatchArmManualMoveState = HatchArmManualMoveStates.NOT_MOVING;
         hatchArmMoveState = HatchArmMoveStates.INSIDE;
+
         hatchArmMoveMotor.set(0.0);
     }
 
-    public void hatchArmManualMove(double armAxis) { // This is for testing and for setting the hatch arm to the inside state before match
+    // for using a joystick to move the hatch arm
+    public void hatchArmManualMove(double armAxis) {
+        
         speed = armAxis * Constants.HATCH_ARM_MOVE_SPEED;
 
         floorSwitch = moveLimitSwitches.isFwdLimitSwitchClosed();
-        verticalSwitch = !moveMidSwitch.get();
         initialSwitch = moveLimitSwitches.isRevLimitSwitchClosed();
 
         switch(hatchArmManualMoveState) {
+
             case NOT_MOVING:
                 if (armAxis > Constants.HATCH_ARM_MOVE_AXIS_DEADZONE) { // Start moving towards the floor state
                     hatchArmMoveMotor.set(speed);
@@ -60,6 +72,7 @@ public class HatchArm {
                     hatchArmManualMoveState = HatchArmManualMoveStates.MOVING_TOWARDS_INITIAL;
                 }
                 break;
+
             case MOVING_TOWARDS_FLOOR:
                 if (((-Constants.HATCH_ARM_MOVE_AXIS_DEADZONE < armAxis) && (armAxis < Constants.HATCH_ARM_MOVE_AXIS_DEADZONE)) || floorSwitch) { // Stop
                     hatchArmMoveMotor.set(0.0);
@@ -71,6 +84,7 @@ public class HatchArm {
                     hatchArmMoveMotor.set(speed);
                 }
                 break;
+
             case MOVING_TOWARDS_INITIAL:
                 if (((-Constants.HATCH_ARM_MOVE_AXIS_DEADZONE < armAxis) && (armAxis < Constants.HATCH_ARM_MOVE_AXIS_DEADZONE)) || initialSwitch) { // Stop
                     hatchArmMoveMotor.set(0.0);
@@ -82,6 +96,7 @@ public class HatchArm {
                     hatchArmMoveMotor.set(speed);
                 }
                 break;
+                
         }
     }
 
