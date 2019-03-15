@@ -33,22 +33,24 @@ public class Controllers {
 	private double driveTurnAxis;
 
 	private Toggle driveToggle;
-	// private Toggle ultrasonicToggle;
 	private Toggle driveFineToggle;
-	private Toggle cameraStopButton;
 
 	//Lift
 	private boolean liftDeployButton;
 	private boolean liftRetractButton;
 	private boolean liftStopButton;
 	private boolean liftWithdrawFromStairButton;
+	// private Toggle ultrasonicToggle;
+
+	//Vision
+	private Toggle cameraStopButton;
 	
 	public Controllers() {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
 		mobilityStick = new Joystick(Constants.MOBILITY_CONTROLLER_PORT);
 		driveToggle = new Toggle(mobilityStick, Constants.DRIVE_TOGGLE_BUTTON);
-		// ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
 		driveFineToggle = new Toggle(mobilityStick, Constants.DRIVE_FINE_BUTTON);
+		// ultrasonicToggle = new Toggle(mobilityStick, Constants.ULTRASONIC_TOGGLE_BUTTON);
 		cameraStopButton = new Toggle(mobilityStick, Constants.CAMERA_STOP_BUTTON);
 	}
 
@@ -60,7 +62,6 @@ public class Controllers {
         hatchArmAxis = manipulatorStick.getRawAxis(Constants.HATCH_ARM_AXIS);
 
 		//Cargo
-
 		cargoArmAxis = -manipulatorStick.getRawAxis(Constants.CARGO_ARM_AXIS);
 
 		cargoArmIntakeAxis = manipulatorStick.getRawAxis(Constants.CARGO_INTAKE_AXIS);
@@ -93,7 +94,8 @@ public class Controllers {
 		// ultrasonicToggle.initialize();
 	}
 
-	//Manipulator
+
+	//Hatch
 	public int getDPad() {
         return dPad;
     }
@@ -105,6 +107,7 @@ public class Controllers {
     public double getHatchArmAxis() {
         return hatchArmAxis;
     }
+
 
 		//Cargo
 	public double getCargoArmAxis() {
@@ -135,6 +138,7 @@ public class Controllers {
         return cargoArmRocketButton;
     }
 
+
 	//Mobility
 	public Joystick getMobilityStick() {
 		return mobilityStick;
@@ -156,14 +160,6 @@ public class Controllers {
 		return driveToggle;
 	}
 
-	/*public boolean getUltrasonicToggleValue() {
-		return ultrasonicToggle.toggle();
-	}*/
-
-	/*public Toggle getUltrasonicToggle() {
-		return ultrasonicToggle;
-	}*/
-
 	public boolean getDriveFineToggleValue() {
 		return driveFineToggle.toggle();
 	}
@@ -176,10 +172,8 @@ public class Controllers {
 		driveToggle.setDriveToggleValue(SmartDashboard.getBoolean("StartCargoSide", false));
 	}
 
-	public Toggle getCameraStopButton() {
-		return cameraStopButton;
-	}
 
+	//Lift
 	public boolean isLiftDeployButton() {
 		return liftDeployButton;
 	}
@@ -195,4 +189,19 @@ public class Controllers {
 	public boolean isLiftWithdrawFromStairButton() {
 		return liftWithdrawFromStairButton;
 	}
+
+	/*public boolean getUltrasonicToggleValue() {
+		return ultrasonicToggle.toggle();
+	}*/
+
+ 	/*public Toggle getUltrasonicToggle() {
+		return ultrasonicToggle;
+	}*/
+
+
+	//Vision
+	public Toggle getCameraStopButton() {
+		return cameraStopButton;
+	}
+
 }

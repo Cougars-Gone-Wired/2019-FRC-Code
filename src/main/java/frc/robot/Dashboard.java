@@ -19,10 +19,10 @@ public class Dashboard {
     
     public void showEnabledValues() {
         drive.showDashboard();
-        hatchArm.displayValues();
-        cargoManip.showDashboard();
+        // hatchArm.displayValues();
+        // cargoManip.showDashboard();
         lift.showDashboard();
-       // logging.showDashboard();
+        // logging.showDashboard();
     }
 
     public void showDisabledValues() {
