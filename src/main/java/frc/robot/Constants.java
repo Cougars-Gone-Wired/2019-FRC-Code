@@ -71,6 +71,8 @@ public class Constants {
 	//Miscellanious
 	static final double RAMP_TIME = 0.0;
 	static final double DISTANCE_AT_LIFT = 11.0; //Inches
+
+	//Commented Out
 	// static final int CARGO_SHIP_ENCODER_VALUE_GOAL = 60; //In degrees
 	// static final int ROCKET_ENCODER_VALUE_GOAL = 40; //In degrees
 	// static final double DETECTING_DRIVE_SPEED = 0.4;
