@@ -7,9 +7,9 @@ public class Encoders {
 	public SensorCollection leftSensors;
 	public SensorCollection rightSensors;
 	
-	static double WHEEL_RADIUS = 3;
-	static double CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS;
-	static double PULSES_PER_REVOLUTION = 400; // should be 1000, but 400 works
+	static double WHEEL_RADIUS = 3.0;
+	static double CIRCUMFERENCE = 2.0 * Math.PI * WHEEL_RADIUS;
+	static double PULSES_PER_REVOLUTION = 400.0; // should be 1000, but 400 works
 	static double distancePerPulse = CIRCUMFERENCE / PULSES_PER_REVOLUTION;
 	
 	public Encoders(Drive drive) { 

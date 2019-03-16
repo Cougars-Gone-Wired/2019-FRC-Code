@@ -11,8 +11,8 @@ public class Limelight {
     static final double MAX_SPEED = .7;
 
     boolean validTarget = false;
-    double driveSpeed = 0;
-    double turnSpeed = 0;
+    double driveSpeed = 0.0;
+    double turnSpeed = 0.0;
 
     NetworkTable table;
     double tv;
@@ -33,8 +33,8 @@ public class Limelight {
 
         if (tv < 1) {
             validTarget = false;
-            driveSpeed = 0;
-            turnSpeed = 0;
+            driveSpeed = 0.0;
+            turnSpeed = 0.0;
             return;
         }
 
