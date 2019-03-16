@@ -122,8 +122,8 @@ public class Drive {
         }*/
         switch(fineMode) {
             case DRIVE_FINE:
-                driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * 0.75;
-                driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * 0.75;
+                driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED * Constants.DRIVE_FINE_SPEED;
+                driveTurnAxis = driveTurnAxis * Constants.DRIVE_TURN_SPEED * Constants.DRIVE_FINE_SPEED;
             break;
             case DRIVE_NORMAL:
                 driveSpeedAxis = driveSpeedAxis * Constants.DRIVE_SPEED;
