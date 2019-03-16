@@ -4,17 +4,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Dashboard {
     private Drive drive;
-    private HatchArm hatchArm;
-    private CargoManip cargoManip;
+    //private HatchArm hatchArm;
+    //private CargoManip cargoManip;
     private Lift lift;
-    private Logging logging;
+    //private Logging logging;
 
     public int refreshCount = 0;
 
     public Dashboard(Robot robot) {
         drive = robot.getDrive();
-        hatchArm = robot.getHatchArm();
-        cargoManip = robot.getCargoManip();
+        //hatchArm = robot.getHatchArm();
+        //cargoManip = robot.getCargoManip();
         lift = robot.getLift();
         //logging = robot.getLogging();
     }

@@ -25,7 +25,7 @@ public class Limelight {
         setLight(false);
     }
 
-    public double[] limelight() {
+    public void limelight() {
         tv = table.getEntry("tv").getDouble(0);
         tx = table.getEntry("tx").getDouble(0);
         ty = table.getEntry("ty").getDouble(0);
@@ -35,7 +35,7 @@ public class Limelight {
             validTarget = false;
             driveSpeed = 0;
             turnSpeed = 0;
-            return new double[2];
+            return;
         }
 
         validTarget = true;
@@ -43,8 +43,6 @@ public class Limelight {
         turnSpeed = tx * TURN_CONSTANT;
         driveSpeed = (DESIRED_TARGET_AREA - ta) * DRIVE_CONSTANT;
         if (driveSpeed > MAX_SPEED) driveSpeed = MAX_SPEED;
-        double[] speeds = {driveSpeed, turnSpeed};
-        return speeds;
     }
 
     public void setLight(boolean turnOnLight){
@@ -53,5 +51,27 @@ public class Limelight {
         } else {
             table.getEntry("ledMode").setNumber(1);
         }
+    }
+
+    public double getDriveSpeed() {
+        return driveSpeed;
+    }
+
+    public double getTurnSpeed() {
+        return turnSpeed;
+    }
+
+    //Stealin yo tv
+    //whatcha gonna do
+    public double getTv() {
+        return tv;
+    }
+
+    public double getTx() {
+        return tx;
+    }
+
+    public double getTa() {
+        return ta;
     }
 }

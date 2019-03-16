@@ -37,6 +37,7 @@ public class Logging extends Object{
     private HatchArm hatchArm;
     private CargoManip cargoManip;
     private Lift lift;
+    private Limelight limelight;
     //private Ultrasonic leftHatchUltrasonic;
     //private Ultrasonic rightHatchUltrasonic;
     //private Ultrasonic hatchUltrasonic;    
@@ -48,6 +49,7 @@ public class Logging extends Object{
         hatchArm = robot.getHatchArm();
         cargoManip = robot.getCargoManip();
         lift = robot.getLift();
+        limelight = drive.getLimelight();
         //leftHatchUltrasonic = robot.getLeftHatchUltrasonic();
         //rightHatchUltrasonic = robot.getRightHatchUltrasonic();
         //hatchUltrasonic = robot.getHatchUltrasonic();        
@@ -173,6 +175,11 @@ public class Logging extends Object{
             logValues.append(d).append("BackLiftMotorVoltage");
             logValues.append(d).append("BackLiftMotorCurrent");
 
+            //Limelight
+            logValues.append(d).append("tv");
+            logValues.append(d).append("tx");
+            logValues.append(d).append("ta");
+
             logArray[0] = logValues.toString();
             place = 1;
         }
@@ -244,6 +251,11 @@ public class Logging extends Object{
             logValues.append(d).append(lift.getBackLiftMotorVoltage());
             logValues.append(d).append(lift.getBackLiftMotorCurrent());
             
+            //Limelight
+            logValues.append(d).append(limelight.getTv());
+            logValues.append(d).append(limelight.getTx());
+            logValues.append(d).append(limelight.getTa());
+
             if(place < logLength) {
                 logArray[place] = logValues.toString();
                 place++;
