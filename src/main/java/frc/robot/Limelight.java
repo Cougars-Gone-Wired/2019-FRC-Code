@@ -48,8 +48,10 @@ public class Limelight {
     public void setLight(boolean turnOnLight){
         if (turnOnLight) {
             table.getEntry("ledMode").setNumber(3);
+            table.getEntry("camMode").setNumber(0);
         } else {
             table.getEntry("ledMode").setNumber(1);
+            table.getEntry("camMode").setNumber(1);
         }
     }
 
