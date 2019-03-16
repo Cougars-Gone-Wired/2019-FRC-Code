@@ -54,4 +54,18 @@ public class Limelight {
             table.getEntry("ledMode").setNumber(1);
         }
     }
+
+    //Stealin yo tv
+    //whatcha gonna do
+    public double getTv() {
+        return tv;
+    }
+
+    public double getTx() {
+        return tx;
+    }
+
+    public double getTa() {
+        return ta;
+    }
 }

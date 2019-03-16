@@ -250,6 +250,10 @@ public class Drive {
         //SmartDashboard.putNumber("BRCurrent", getBackRightMotorCurrent());
     }
 
+    public Limelight getLimelight() {
+        return limelight;
+    }
+    
     //RoboRIO Battery Voltage
     public double getBatteryVoltage() {
         return RobotController.getBatteryVoltage();
