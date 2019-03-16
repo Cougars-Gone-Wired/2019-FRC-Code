@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.SensorCollection;
 
 public class Drive {
     public enum DriveModes {
-        DRIVE_STANDARD, BACKING_UP, CAMERA_MODE
+        DRIVE_STANDARD, BACKING_UP, TRACK_MODE
     }
     public enum FineModes {
         DRIVE_NORMAL, DRIVE_FINE
@@ -41,6 +41,7 @@ public class Drive {
     private Encoders encoders;
     public double refreshCount;
 
+    private Limelight limelight;
 
     /**
      *  hello
@@ -65,8 +66,7 @@ public class Drive {
         backLeftMotor.setNeutralMode(NeutralMode.Brake);
         backLeftMotor.configOpenloopRamp(Constants.RAMP_TIME);
         
-        midLeftMotor.setInverted(false); //invert on practice not comp
-        //midLeftMotor.configPeakCurrentLimit(35, 10);
+        midLeftMotor.setInverted(true); //invert on practice not comp
         frontLeftMotor.follow(midLeftMotor);
         backLeftMotor.follow(frontLeftMotor);
 
@@ -83,7 +83,6 @@ public class Drive {
         backRightMotor.setNeutralMode(NeutralMode.Brake);
         backRightMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
-        //midRightMotor.configPeakCurrentLimit(35, 10);
         frontRightMotor.follow(midRightMotor);
         backRightMotor.follow(frontRightMotor);
 
@@ -100,18 +99,14 @@ public class Drive {
         rightSensors = midRightMotor.getSensorCollection();
 
         encoders = new Encoders(this);
+        limelight = new Limelight();
         initalize();
     }
 
     public void initalize() {
 
-        // frontLeftMotor.set(0);
         midLeftMotor.set(0);
-        // backLeftMotor.set(0);
-
-        //frontRightMotor.set(0);
         midRightMotor.set(0);
-        // backRightMotor.set(0);
 
         leftSensors.setQuadraturePosition(0, 0);
         rightSensors.setQuadraturePosition(0, 0);
@@ -162,8 +157,11 @@ public class Drive {
                 }
             break;
 
-            case CAMERA_MODE:
-
+            case TRACK_MODE:
+                double[] speeds = limelight.limelight();
+                SmartDashboard.putNumber("Drive Speed", speeds[0]);
+                SmartDashboard.putNumber("Turn Speed", speeds[0]);
+                robotDrive.arcadeDrive(speeds[0], speeds[1]);
             break;
         }
     }
@@ -184,11 +182,13 @@ public class Drive {
         }
     }
 
-    public void setCamera(boolean camera) {
-        if(camera) {
+    public void setTrack(boolean shouldTrack) {
+        if(shouldTrack) {
+            limelight.setLight(true);
             lastSide = driveMode;
-            driveMode = DriveModes.CAMERA_MODE;
-        } else if (!camera && driveMode == DriveModes.CAMERA_MODE) {
+            driveMode = DriveModes.TRACK_MODE;
+        } else if (!shouldTrack && driveMode == DriveModes.TRACK_MODE) {
+            limelight.setLight(false);
             driveMode = lastSide;
         }
     }

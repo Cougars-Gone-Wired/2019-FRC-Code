@@ -44,6 +44,7 @@ public class Controllers {
 
 	//Vision
 	private Toggle cameraStopButton;
+	private boolean trackButton;
 	
 	public Controllers() {
 		manipulatorStick = new Joystick(Constants.MANIPULATOR_CONTROLLER_PORT);
@@ -75,6 +76,8 @@ public class Controllers {
 		//Mobility
 		driveSpeedAxis = mobilityStick.getRawAxis(Constants.DRIVE_SPEED_AXIS);
 		driveTurnAxis = mobilityStick.getRawAxis(Constants.DRIVE_TURN_AXIS);
+		
+		trackButton = mobilityStick.getRawButton(Constants.TRACK_BUTTON);
 
 		//Lift
 		//liftDeployButton = liftToggleDeployer.toggle();
@@ -202,6 +205,10 @@ public class Controllers {
 	//Vision
 	public Toggle getCameraStopButton() {
 		return cameraStopButton;
+	}
+
+	public boolean isTrackButton() {
+		return trackButton;
 	}
 
 }

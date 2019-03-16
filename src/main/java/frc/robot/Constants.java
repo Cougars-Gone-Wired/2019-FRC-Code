@@ -86,6 +86,7 @@ public class Constants {
 
 	//Vison
 	static final int CAMERA_STOP_BUTTON = 8;
+	static final int TRACK_BUTTON = 2;
 
 	
 	//Misc.
