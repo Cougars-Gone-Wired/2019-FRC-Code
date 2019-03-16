@@ -6,7 +6,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class Limelight {
     
     static final double TURN_CONSTANT = .03;
-    static final double DRIVE_CONSTANT = .26;
+    static final double DRIVE_CONSTANT = .05;
     static final double DESIRED_TARGET_AREA = 11.5; //camera 32 inches away
     static final double MAX_SPEED = .7;
 
