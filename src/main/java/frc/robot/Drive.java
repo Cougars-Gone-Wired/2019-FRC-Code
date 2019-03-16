@@ -158,10 +158,8 @@ public class Drive {
             break;
 
             case TRACK_MODE:
-                double[] speeds = limelight.limelight();
-                SmartDashboard.putNumber("Drive Speed", speeds[0]);
-                SmartDashboard.putNumber("Turn Speed", speeds[1]);
-                robotDrive.arcadeDrive(speeds[0], speeds[1]);
+                limelight.limelight();
+                robotDrive.arcadeDrive(limelight.getDriveSpeed(), limelight.getTurnSpeed());
             break;
         }
     }
@@ -216,7 +214,13 @@ public class Drive {
         driveMode = DriveModes.BACKING_UP;
     }
 
-    public void showDashboard() {
+    public void showLimeLightSpeeds() {
+        SmartDashboard.putNumber("Drive Speed", limelight.getDriveSpeed());
+        SmartDashboard.putNumber("Turn Speed", limelight.getTurnSpeed());
+    }
+
+    public void showDriveModes() {
+        //Drive Modes
         SmartDashboard.putString("Side Facing", driveState.toString());
         SmartDashboard.putString("Drive Mode", driveMode.toString());
         SmartDashboard.putString("Fine Mode", fineMode.toString());

@@ -20,7 +20,8 @@ public class Dashboard {
     }
     
     public void showEnabledValues() {
-        drive.showDashboard();
+        drive.showDriveModes();
+        drive.showLimeLightSpeeds();
         // hatchArm.displayValues();
         // cargoManip.showDashboard();
         lift.showDashboard();
