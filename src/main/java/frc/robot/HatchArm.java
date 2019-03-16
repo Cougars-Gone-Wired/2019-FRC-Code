@@ -32,9 +32,7 @@ public class HatchArm {
     // for movement motor in hatchArmManualMove(armAxis)
     private double speed;
 
-    private boolean floorSwitch;
-    private boolean verticalSwitch;
-    private boolean initialSwitch;
+    private boolean floorSwitch, verticalSwitch, initialSwitch;
 
     public HatchArm() {
         hatchArmMoveMotor = new WPI_TalonSRX(Constants.HATCH_ARM_MOVE_MOTOR_ID);

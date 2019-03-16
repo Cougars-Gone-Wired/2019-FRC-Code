@@ -41,22 +41,17 @@ public class CargoManip {
     // private LimitSwitchStates limitSwitchState;
     private IntakeStates intakeState;
     
-    private WPI_TalonSRX armMotor;
-    private WPI_TalonSRX intakeMotor;
+    private WPI_TalonSRX armMotor, intakeMotor;
 
     private SensorCollection armLimitSwitches;
 
-    private DigitalInput limitSwitchCargoShip;
-    private DigitalInput limitSwitchRocket;
+    private DigitalInput limitSwitchCargoShip, limitSwitchRocket;
 
     // for the movement motor in the manualArmMove(manualArmAxis) method
     private double manualSpeed; 
 
     // for the trackLocation() method (and other methods for the moment)
-    private boolean topSwitch; 
-    private boolean rocketSwitch;
-    private boolean cargoShipSwitch;
-    private boolean floorSwitch;
+    private boolean topSwitch, rocketSwitch, cargoShipSwitch, floorSwitch;
 
     // private int encoderValue;
 
