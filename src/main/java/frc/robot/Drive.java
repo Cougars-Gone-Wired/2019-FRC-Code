@@ -160,7 +160,7 @@ public class Drive {
             case TRACK_MODE:
                 double[] speeds = limelight.limelight();
                 SmartDashboard.putNumber("Drive Speed", speeds[0]);
-                SmartDashboard.putNumber("Turn Speed", speeds[0]);
+                SmartDashboard.putNumber("Turn Speed", speeds[1]);
                 robotDrive.arcadeDrive(speeds[0], speeds[1]);
             break;
         }
@@ -221,7 +221,7 @@ public class Drive {
         SmartDashboard.putString("Drive Mode", driveMode.toString());
         SmartDashboard.putString("Fine Mode", fineMode.toString());
 
-        SmartDashboard.putNumber("RoboRIO Voltage", getBatteryVoltage());
+        //SmartDashboard.putNumber("RoboRIO Voltage", getBatteryVoltage());
         //SmartDashboard.putNumber("Left Encoder", -leftSensors.getQuadraturePosition());
         //SmartDashboard.putNumber("Right Encoder", rightSensors.getQuadraturePosition());
 
@@ -253,7 +253,7 @@ public class Drive {
     public Limelight getLimelight() {
         return limelight;
     }
-    
+
     //RoboRIO Battery Voltage
     public double getBatteryVoltage() {
         return RobotController.getBatteryVoltage();
