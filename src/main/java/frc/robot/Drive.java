@@ -210,7 +210,6 @@ public class Drive {
 
     public void disabledDashboard() {
         SmartDashboard.putBoolean("StartCargoSide", false);
-        SmartDashboard.putBoolean("Save Logger", false);
     }
 
     public void backUpFromStairs() {

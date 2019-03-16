@@ -7,7 +7,7 @@ public class Dashboard {
     private HatchArm hatchArm;
     private CargoManip cargoManip;
     private Lift lift;
-    //private Logging logging;
+    private Logging logging;
 
     public int refreshCount = 0;
 
@@ -24,7 +24,7 @@ public class Dashboard {
         // hatchArm.displayValues();
         // cargoManip.showDashboard();
         lift.showDashboard();
-        // logging.showDashboard();
+        //logging.showDashboard();
     }
 
     public void showDisabledValues() {
@@ -34,6 +34,7 @@ public class Dashboard {
     public void refreshDashboard() {
         if(SmartDashboard.getBoolean("Refresh", false)) {
            drive.disabledDashboard();
+           SmartDashboard.putBoolean("Save Logger", false);
            //logging.showDashboard();
         }
 

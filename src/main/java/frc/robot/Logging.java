@@ -83,7 +83,7 @@ public class Logging extends Object{
     }
 
     public void showDashboard() {
-        SmartDashboard.putBoolean("SaveLogger", false);
+        SmartDashboard.putBoolean("Save Logger", false);
     }
 
     public void makeFile() throws IOException {
