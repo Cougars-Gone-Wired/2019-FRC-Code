@@ -16,13 +16,17 @@ public class Lift {
     public enum LiftStates {
         LOCK, READY_TO_BACK_UP_FROM_STAIR, BACKING_UP_FROM_STAIR, STOP, MOVING_IN, MOVING_OUT
     }
+    public enum Lift2States {
+        NOT_MOVING, GOING_DOWN, GOING_UP
+    }
     
     LiftStates liftState;
+    Lift2States currentLift2State = Lift2States.NOT_MOVING;
     private WPI_TalonSRX frontLiftMotor;
     private WPI_TalonSRX backLiftMotor;
     private SensorCollection limits;
-    private boolean readyToBackUpFromStairs;
 
+    private boolean readyToBackUpFromStairs;
     private boolean doneBackingUp;
 
     //private Ultrasonic ultraLeft;
@@ -140,12 +144,6 @@ public class Lift {
                 break;
         }
     }
-
-    
-    public enum Lift2States {
-        NOT_MOVING, GOING_DOWN, GOING_UP
-    }
-    Lift2States currentLift2State = Lift2States.NOT_MOVING;
 
     public void lift2(boolean downButton, boolean upButton) {
         switch(currentLift2State) {

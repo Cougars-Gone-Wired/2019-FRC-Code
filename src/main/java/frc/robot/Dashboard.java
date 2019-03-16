@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class Dashboard {
     private Drive drive;
     private HatchArm hatchArm;
@@ -19,13 +21,26 @@ public class Dashboard {
     
     public void showEnabledValues() {
         drive.showDashboard();
-        hatchArm.displayValues();
-        cargoManip.showDashboard();
+        // hatchArm.displayValues();
+        // cargoManip.showDashboard();
         lift.showDashboard();
-       // logging.showDashboard();
+        // logging.showDashboard();
     }
 
     public void showDisabledValues() {
-        drive.refreshDashboard();
+        refreshDashboard();
+    }
+
+    public void refreshDashboard() {
+        if(SmartDashboard.getBoolean("Refresh", false)) {
+           drive.disabledDashboard();
+           //logging.showDashboard();
+        }
+
+        refreshCount++;
+        if(refreshCount >= 50) {
+            SmartDashboard.putBoolean("Refresh", false);
+            refreshCount = 0;
+        }
     }
 }
