@@ -16,14 +16,14 @@ public class Cameras implements Runnable {
     private volatile boolean exit = false;
 
     public void run() {
-        final int FOCAL_LENGTH = 678;
-        final int CAMERA_HEIGHT = 26;
-        final int STEP_HEIGHT = 19;
-        final int STEP_OFFSET = CAMERA_HEIGHT - STEP_HEIGHT;
-        final int ROBOT_LENGTH_OFFSET = 16;
-        final int DISTANCE_TO_STEP_OFFSET = 11;
-        final int DISTANCE_TO_STEP = ROBOT_LENGTH_OFFSET + DISTANCE_TO_STEP_OFFSET;
-        final int LINE_PIXEL_OFFSET = (FOCAL_LENGTH * STEP_OFFSET) / DISTANCE_TO_STEP;
+        final double FOCAL_LENGTH = 678;
+        final double CAMERA_HEIGHT = 23.5;
+        final double STEP_HEIGHT = 19;
+        final double STEP_OFFSET = CAMERA_HEIGHT - STEP_HEIGHT;
+        final double ROBOT_LENGTH_OFFSET = 16;
+        final double DISTANCE_TO_STEP_OFFSET = 11;
+        final double DISTANCE_TO_STEP = ROBOT_LENGTH_OFFSET + DISTANCE_TO_STEP_OFFSET;
+        final double LINE_PIXEL_OFFSET = (FOCAL_LENGTH * STEP_OFFSET) / DISTANCE_TO_STEP;
 
         UsbCamera hatchCamera = new UsbCamera("USB Camera 0", 0);
         hatchCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
