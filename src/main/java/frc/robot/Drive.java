@@ -159,7 +159,8 @@ public class Drive {
 
             case TRACK_MODE:
                 limelight.limelight();
-                robotDrive.arcadeDrive(limelight.getDriveSpeed(), limelight.getTurnSpeed());
+                robotDrive.arcadeDrive(-limelight.getDriveSpeed(), limelight.getTurnSpeed());
+                //robotDrive.arcadeDrive(driveSpeedAxis, limelight.getTurnSpeed());
             break;
         }
     }
@@ -187,7 +188,7 @@ public class Drive {
             driveMode = DriveModes.TRACK_MODE;
         } else if (!shouldTrack && driveMode == DriveModes.TRACK_MODE) {
             limelight.setLight(false);
-            driveMode = lastSide;
+            driveMode = DriveModes.DRIVE_STANDARD;
         }
     }
     /*public void setMode(boolean switchMode) {

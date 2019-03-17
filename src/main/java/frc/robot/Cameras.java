@@ -45,6 +45,7 @@ public class Cameras implements Runnable {
             if (Sides.hatchSide) {
                 cvSink.setSource(hatchCamera);
                 Imgproc.line(image, new Point(0, 120 + (LINE_PIXEL_OFFSET / 2)), new Point(320, 120 + (LINE_PIXEL_OFFSET / 2)), new Scalar(0, 0, 0), 5);
+               
             } else {
                 cvSink.setSource(cargoCamera);
             }

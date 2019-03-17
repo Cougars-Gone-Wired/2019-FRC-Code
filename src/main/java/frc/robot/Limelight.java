@@ -5,9 +5,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight {
     
-    static final double TURN_CONSTANT = .03;
-    static final double DRIVE_CONSTANT = .05;
-    static final double DESIRED_TARGET_AREA = 11.5; //camera 32 inches away
+    static final double TURN_CONSTANT = .068;
+    static final double DRIVE_CONSTANT = .1;
+    static final double DESIRED_TARGET_AREA = 8; //camera 32 inches away
     static final double MAX_SPEED = .7;
 
     boolean validTarget = false;
@@ -37,10 +37,13 @@ public class Limelight {
             turnSpeed = 0.0;
             return;
         }
-
         validTarget = true;
 
-        turnSpeed = tx * TURN_CONSTANT;
+        if (tx > 0) {
+            tx += 5;
+        }  
+
+        turnSpeed = -tx * TURN_CONSTANT;
         driveSpeed = (DESIRED_TARGET_AREA - ta) * DRIVE_CONSTANT;
         if (driveSpeed > MAX_SPEED) driveSpeed = MAX_SPEED;
     }
