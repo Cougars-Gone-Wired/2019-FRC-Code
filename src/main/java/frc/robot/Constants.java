@@ -58,8 +58,8 @@ public class Constants {
 	static final double DRIVE_FINE_SPEED = 0.75;
 	static final double LIFT_SPEED = 0.75; //Make negative to reverse direction, use any value from 1.0 to -1.0. (Probably not 0.0.)
     static final double HATCH_ARM_MOVE_SPEED = 0.5;
-	static final double CARGO_ARM_MOVE_SPEED = 0.85;
-	static final double CARGO_ARM_MANUAL_MOVE_SPEED = 0.75;
+	static final double CARGO_ARM_MOVE_SPEED = 0.95;
+	static final double CARGO_ARM_MANUAL_MOVE_SPEED = 0.85;
 	static final double CARGO_ARM_INTAKE_SPEED = .7;
 	static final double CARGO_ARM_OUTTAKE_SPEED = 1.0;
 	//Deadzones

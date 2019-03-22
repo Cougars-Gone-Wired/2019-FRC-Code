@@ -2,12 +2,13 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight {
     
-    static final double TURN_CONSTANT = .068;
+    static final double TURN_CONSTANT = .054;//.068
     static final double DRIVE_CONSTANT = .1;
-    static final double DESIRED_TARGET_AREA = 8; //camera 32 inches away
+    static final double DESIRED_TARGET_AREA = 8.2; //camera 32 inches away
     static final double MAX_SPEED = .7;
 
     boolean validTarget = false;
@@ -40,10 +41,15 @@ public class Limelight {
         validTarget = true;
 
         if (tx > 0) {
-            tx += 5;
+            //tx += 5;
         }  
 
-        turnSpeed = -tx * TURN_CONSTANT;
+        SmartDashboard.putBoolean("IN", false);
+
+        if (ta > 1.2) {
+            SmartDashboard.putBoolean("IN", true);
+            turnSpeed = (-tx + .75) * TURN_CONSTANT;
+        }
         driveSpeed = (DESIRED_TARGET_AREA - ta) * DRIVE_CONSTANT;
         if (driveSpeed > MAX_SPEED) driveSpeed = MAX_SPEED;
     }
