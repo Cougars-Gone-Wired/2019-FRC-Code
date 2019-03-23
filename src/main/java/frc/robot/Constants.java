@@ -11,6 +11,7 @@ public class Constants {
 	static final int HATCH_MID_SWITCH_PORT = 4;
 	static final int ROCKET_LIMIT_SWITCH_ID = 5;
 	static final int CARGO_SHIP_LIMIT_SWITCH_ID = 6;
+	static final int LIFT_SWITCH_PORT = 0;
 
 	//Axes(plural of axis, not axe)
 	//Manipulator
@@ -59,7 +60,7 @@ public class Constants {
 	static final double LIFT_SPEED = 0.75; //Make negative to reverse direction, use any value from 1.0 to -1.0. (Probably not 0.0.)
     static final double HATCH_ARM_MOVE_SPEED = 0.5;
 	static final double CARGO_ARM_MOVE_SPEED = 0.95;
-	static final double CARGO_ARM_MANUAL_MOVE_SPEED = 0.85;
+	static final double CARGO_ARM_MANUAL_MOVE_SPEED = 0.975;
 	static final double CARGO_ARM_INTAKE_SPEED = .7;
 	static final double CARGO_ARM_OUTTAKE_SPEED = 1.0;
 	//Deadzones

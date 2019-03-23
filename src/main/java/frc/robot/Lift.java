@@ -3,6 +3,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -25,6 +26,7 @@ public class Lift {
     private WPI_TalonSRX frontLiftMotor;
     private WPI_TalonSRX backLiftMotor;
     private SensorCollection limits;
+    private DigitalInput limit;
 
     private boolean readyToBackUpFromStairs;
     private boolean doneBackingUp;
@@ -46,6 +48,7 @@ public class Lift {
         backLiftMotor.configOpenloopRamp(Constants.RAMP_TIME);
 
         limits = new SensorCollection(backLiftMotor);
+        limit = new DigitalInput(Constants.LIFT_SWITCH_PORT);
 
         frontLiftMotor.setInverted(false);
         //frontLiftMotor.follow(backLiftMotor);
@@ -179,11 +182,12 @@ public class Lift {
         //SmartDashboard.putBoolean("Ready to Back Up", readyToBackUpFromStairs);
         //SmartDashboard.putBoolean("Backing Up", doneBackingUp);
         //SmartDashboard.putBoolean("Lift Fwd Limit", limits.isFwdLimitSwitchClosed());
-        SmartDashboard.putBoolean("Lift Rev Limit", limits.isRevLimitSwitchClosed());
-        SmartDashboard.putNumber("FrontLiftCurrent", frontLiftMotor.getOutputCurrent());
-        SmartDashboard.putNumber("BackLiftCurrent", backLiftMotor.getOutputCurrent());
-        SmartDashboard.putNumber("FrontLitfVoltage", frontLiftMotor.getMotorOutputVoltage());
-        SmartDashboard.putNumber("BackLiftVoltage", backLiftMotor.getMotorOutputVoltage());
+        // SmartDashboard.putBoolean("Lift Rev Limit", limits.isRevLimitSwitchClosed());
+        // SmartDashboard.putNumber("FrontLiftCurrent", frontLiftMotor.getOutputCurrent());
+        // SmartDashboard.putNumber("BackLiftCurrent", backLiftMotor.getOutputCurrent());
+        // SmartDashboard.putNumber("FrontLitfVoltage", frontLiftMotor.getMotorOutputVoltage());
+        // SmartDashboard.putNumber("BackLiftVoltage", backLiftMotor.getMotorOutputVoltage());
+        SmartDashboard.putBoolean("At Limit", limit.get());
     }
 
     // __    ___    ___   _____

@@ -110,6 +110,8 @@ public class Drive {
 
         leftSensors.setQuadraturePosition(0, 0);
         rightSensors.setQuadraturePosition(0, 0);
+
+        driveMode = DriveModes.DRIVE_STANDARD;
     }
 
     public void robotDrive(double driveSpeedAxis, double driveTurnAxis) {
