@@ -12,7 +12,7 @@ public class HatchArm {
         INSIDE, VERT, FLOOR, FLOOR_TO_VERT, FLOOR_TO_VERT_TO_INSIDE, INSIDE_TO_VERT, INSIDE_TO_VERT_TO_FLOOR, VERT_TO_FLOOR, VERT_TO_INSIDE
     }
     private enum HatchArmGrabStates {
-        IN, OUT, TO_OUT, TO_IN
+        IN, OUT, TO_OUT, TO_IN, TO_OUT_INTER, TO_IN_INTER
     }
     
     HatchArmMoveStates hatchArmMoveState;
@@ -45,13 +45,13 @@ public class HatchArm {
             case IN:
                 if (!hatchArmGrabToggle) {
                     hatchArmGrabMotor.set(Constants.HATCH_ARM_GRAB_SPEED);
-                    hatchArmGrabState = HatchArmGrabStates.TO_OUT;
+                    hatchArmGrabState = HatchArmGrabStates.TO_OUT_INTER;
                 }
                 break;
             case OUT:
                 if (hatchArmGrabToggle) {
                     hatchArmGrabMotor.set(Constants.HATCH_ARM_GRAB_SPEED);
-                    hatchArmGrabState = HatchArmGrabStates.TO_IN;
+                    hatchArmGrabState = HatchArmGrabStates.TO_IN_INTER;
                 }
                 break;
             case TO_IN:
@@ -64,12 +64,22 @@ public class HatchArm {
                 }
                 break;
             case TO_OUT:
-                if (grabLimitSwitches.isRevLimitSwitchClosed()) {
+                if (grabLimitSwitches.isFwdLimitSwitchClosed()) {
                     hatchArmGrabMotor.set(0);
                     hatchArmGrabState = HatchArmGrabStates.OUT;
                 } else if (hatchArmGrabToggle) {
                     hatchArmGrabMotor.set(-hatchArmGrabMotor.get());
                     hatchArmGrabState = HatchArmGrabStates.TO_IN;
+                }
+                break;
+            case TO_IN_INTER:
+                if (!grabLimitSwitches.isFwdLimitSwitchClosed()) {
+                    hatchArmGrabState = HatchArmGrabStates.TO_IN;
+                }
+                break;
+            case TO_OUT_INTER:
+                if (!grabLimitSwitches.isFwdLimitSwitchClosed()) {
+                    hatchArmGrabState = HatchArmGrabStates.TO_OUT;
                 }
                 break;
         }

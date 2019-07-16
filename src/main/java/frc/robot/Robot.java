@@ -181,6 +181,14 @@ public class Robot extends TimedRobot {
   public Drive getDrive() {
     return drive;
   }
+
+  public Ultrasonic getLeftHatchUltrasonic() {
+    return leftHatchUltrasonic;
+  }
+
+  public Ultrasonic getRightHatchUltrasonic() {
+    return rightHatchUltrasonic;
+  }
 }
 
 

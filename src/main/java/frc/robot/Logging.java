@@ -32,10 +32,14 @@ public class Logging extends Object{
     private StringBuilder logValues = new StringBuilder();
 
     private Drive drive;
+    private Ultrasonic leftHatchUltrasonic;
+    private Ultrasonic rightHatchUltrasonic;
     //private Ultrasonic hatchUltrasonic;    
 
     Logging(Robot robot) {
         drive = robot.getDrive();
+        leftHatchUltrasonic = robot.getLeftHatchUltrasonic();
+        rightHatchUltrasonic = robot.getRightHatchUltrasonic();
         //hatchUltrasonic = robot.getHatchUltrasonic();        
     }
 
@@ -113,6 +117,8 @@ public class Logging extends Object{
             logValues.append(d).append("BackRightMotorCurrent");
 
             //Ultrasonic 
+            logValues.append(d).append("LeftHatchUltrasonic");
+            logValues.append(d).append("RightHatchUltrasonic");
             //logValues.append(d).append("HatchUltrasonicDistance");
 
             logArray[0] = logValues.toString();
@@ -150,6 +156,8 @@ public class Logging extends Object{
             logValues.append(d).append(drive.getBackLeftMotorCurrent());
 
             //Ultrasonic
+            logValues.append(d).append(leftHatchUltrasonic.getImperialUltrasonicValue());
+            logValues.append(d).append(rightHatchUltrasonic.getImperialUltrasonicValue());
             //logValues.append(d).append(hatchUltrasonic.getImperialUltrasonicValue());
 
             logArray[place] = logValues.toString();
