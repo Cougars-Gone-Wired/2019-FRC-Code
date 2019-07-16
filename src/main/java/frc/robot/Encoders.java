@@ -14,7 +14,7 @@ public class Encoders {
 	
 	public Encoders(Drive drive) { 
 		leftSensors = drive.getLeftSensors();
-		rightSensors = drive.getRightSensors();
+		rightSensors = drive.getRightSensors();//
 	}
 	
 	
